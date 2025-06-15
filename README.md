@@ -1,6 +1,10 @@
-# Threads Profile Scraper
+# Threads Scraper
 
-A Python-based web scraper that retrieves posts and post data from Threads.net profiles.
+This project scrapes posts from Threads profiles using Selenium and BeautifulSoup.
+
+## Main Script
+
+The main script is now `threads_scraper_updated.py`. All scraping and parsing logic is contained in this file.
 
 ## Features
 
@@ -29,17 +33,19 @@ pip install -r requirements.txt
 
 ## Usage
 
-Run the script:
-```bash
-python threads_scraper.py
-```
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Run the scraper:
+   ```bash
+   python threads_scraper_updated.py
+   ```
+   You will be prompted for a Threads username (without the @).
 
-When prompted, enter the Threads username (without the @ symbol) that you want to scrape.
-
-The script will:
-1. Fetch all posts from the specified profile
-2. Display the posts in the console
-3. Save the posts to a JSON file named `{username}_posts.json`
+3. Output:
+   - Posts are saved to `<username>_posts.txt`.
+   - Logs are written to `threads_scraper.log` and `threads_scraper.debug.log`.
 
 ## Output Format
 
@@ -56,6 +62,8 @@ The script generates a JSON file with the following structure for each post:
 
 ## Notes
 
+- The project is now based around `threads_scraper_updated.py`. The old `threads_scraper.py` is deprecated and can be deleted.
+- Make sure you have Chrome installed for Selenium to work.
 - The script uses rotating user agents to avoid being blocked
 - Rate limiting is implemented to be respectful to Threads' servers
 - Make sure you comply with Threads' terms of service and robots.txt when using this scraper
