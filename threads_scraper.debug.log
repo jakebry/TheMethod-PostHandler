@@ -1,0 +1,568 @@
+2025-06-08 05:36:26,681 - DEBUG - Using username: rnszan
+2025-06-08 05:36:32,742 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:37:09,556 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-08 05:37:09,700 - DEBUG - Using username: rnszan
+2025-06-08 05:37:15,186 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:37:52,195 - ERROR - Main content area not found
+2025-06-08 05:38:26,494 - DEBUG - Using username: rnszan
+2025-06-08 05:38:32,493 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:39:34,327 - DEBUG - Using username: rnszan
+2025-06-08 05:39:40,297 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:40:59,693 - DEBUG - Using username: rnszan
+2025-06-08 05:41:05,974 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:41:35,449 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-08 05:41:35,586 - DEBUG - Using username: rnszan
+2025-06-08 05:41:41,090 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:42:18,619 - DEBUG - Main content selector div[role='main'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010993c728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x0000000109933e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x0000000109404400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010945622b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x0000000109456441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x00000001094a6cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010947c50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x00000001094a4073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010947c2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x0000000109448507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x0000000109449171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x00000001098fa4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001098fe45f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001098d58e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001098fedcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001098c40a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x0000000109921688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x0000000109921850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x0000000109933a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:42:28,954 - DEBUG - Main content selector main failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010993c728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x0000000109933e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x0000000109404400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010945622b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x0000000109456441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x00000001094a6cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010947c50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x00000001094a4073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010947c2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x0000000109448507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x0000000109449171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x00000001098fa4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001098fe45f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001098d58e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001098fedcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001098c40a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x0000000109921688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x0000000109921850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x0000000109933a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:42:39,239 - DEBUG - Main content selector div[class*='main'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010993c728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x0000000109933e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x0000000109404400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010945622b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x0000000109456441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x00000001094a6cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010947c50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x00000001094a4073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010947c2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x0000000109448507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x0000000109449171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x00000001098fa4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001098fe45f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001098d58e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001098fedcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001098c40a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x0000000109921688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x0000000109921850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x0000000109933a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:42:49,533 - DEBUG - Main content selector div[class*='content'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010993c728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x0000000109933e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x0000000109404400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010945622b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x0000000109456441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x00000001094a6cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010947c50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x00000001094a4073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010947c2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x0000000109448507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x0000000109449171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x00000001098fa4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001098fe45f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001098d58e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001098fedcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001098c40a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x0000000109921688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x0000000109921850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x0000000109933a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:42:59,835 - DEBUG - Main content selector div[class*='feed'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010993c728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x0000000109933e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x0000000109404400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010945622b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x0000000109456441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x00000001094a6cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010947c50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x00000001094a4073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010947c2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x0000000109448507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x0000000109449171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x00000001098fa4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001098fe45f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001098d58e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001098fedcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001098c40a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x0000000109921688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x0000000109921850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x0000000109933a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:42:59,837 - ERROR - Main content area not found
+2025-06-08 05:43:00,237 - DEBUG - Page structure:
+2025-06-08 05:43:00,357 - DEBUG - Found 1418 div elements
+2025-06-08 05:43:00,375 - DEBUG - div 0 - Class: , Role: None
+2025-06-08 05:43:00,383 - DEBUG - div 1 - Class: , Role: None
+2025-06-08 05:43:00,392 - DEBUG - div 2 - Class: , Role: None
+2025-06-08 05:43:00,400 - DEBUG - div 3 - Class: , Role: None
+2025-06-08 05:43:00,408 - DEBUG - div 4 - Class: x1t83zlg xxkxylk x10e4vud x17s3imw x4hg4is x14qbims x1s85apg xuquc1b xds687c x17qophe xixxii4 x13vifvy x1ufz0iv x1al4vs7 xhtitgo, Role: None
+2025-06-08 05:43:00,417 - DEBUG - Found 0 main elements
+2025-06-08 05:43:00,427 - DEBUG - Found 0 article elements
+2025-06-08 05:44:17,724 - DEBUG - Using username: rnszan
+2025-06-08 05:44:23,993 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:44:50,502 - DEBUG - Current URL: https://www.threads.com/login/?next=https%3A%2F%2Fwww.threads.com%2F%40j.p_morgan_tradiing%2F
+2025-06-08 05:44:50,551 - DEBUG - Using username: rnszan
+2025-06-08 05:44:56,000 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-08 05:45:31,819 - DEBUG - Main content selector div[role='main'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x00000001099df728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x00000001099d6e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x00000001094a7400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x00000001094f922b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x00000001094f9441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x0000000109549cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010951f50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x0000000109547073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010951f2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x00000001094eb507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x00000001094ec171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010999d4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001099a145f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001099788e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001099a1dcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001099670a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x00000001099c4688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x00000001099c4850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x00000001099d6a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:45:42,069 - DEBUG - Main content selector main failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x00000001099df728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x00000001099d6e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x00000001094a7400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x00000001094f922b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x00000001094f9441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x0000000109549cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010951f50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x0000000109547073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010951f2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x00000001094eb507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x00000001094ec171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010999d4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001099a145f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001099788e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001099a1dcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001099670a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x00000001099c4688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x00000001099c4850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x00000001099d6a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:45:52,313 - DEBUG - Main content selector div[class*='main'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x00000001099df728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x00000001099d6e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x00000001094a7400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x00000001094f922b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x00000001094f9441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x0000000109549cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010951f50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x0000000109547073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010951f2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x00000001094eb507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x00000001094ec171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010999d4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001099a145f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001099788e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001099a1dcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001099670a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x00000001099c4688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x00000001099c4850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x00000001099d6a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-08 05:46:02,552 - DEBUG - Main content selector div[class*='content'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x00000001099df728 undetected_chromedriver + 5891880
+1   undetected_chromedriver             0x00000001099d6e7a undetected_chromedriver + 5856890
+2   undetected_chromedriver             0x00000001094a7400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x00000001094f922b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x00000001094f9441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x0000000109549cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010951f50d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x0000000109547073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010951f2b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x00000001094eb507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x00000001094ec171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010999d4d0 undetected_chromedriver + 5620944
+12  undetected_chromedriver             0x00000001099a145f undetected_chromedriver + 5637215
+13  undetected_chromedriver             0x00000001099788e2 undetected_chromedriver + 5470434
+14  undetected_chromedriver             0x00000001099a1dcf undetected_chromedriver + 5639631
+15  undetected_chromedriver             0x00000001099670a4 undetected_chromedriver + 5398692
+16  undetected_chromedriver             0x00000001099c4688 undetected_chromedriver + 5781128
+17  undetected_chromedriver             0x00000001099c4850 undetected_chromedriver + 5781584
+18  undetected_chromedriver             0x00000001099d6a41 undetected_chromedriver + 5855809
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:27:19,613 - DEBUG - Using username: rnszan
+2025-06-14 22:27:26,639 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:27:59,643 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:27:59,786 - DEBUG - Using username: rnszan
+2025-06-14 22:28:05,295 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:28:41,791 - DEBUG - Main content selector div[role='main'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a35e22b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x000000010a35e441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x000000010a3aecd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010a38450d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:28:51,992 - DEBUG - Main content selector main failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a35e22b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x000000010a35e441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x000000010a3aecd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010a38450d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:29:02,196 - DEBUG - Main content selector div[class*='main'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a35e22b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x000000010a35e441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x000000010a3aecd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010a38450d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:29:12,387 - DEBUG - Main content selector div[class*='content'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a35e22b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x000000010a35e441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x000000010a3aecd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010a38450d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:29:22,578 - DEBUG - Main content selector div[class*='feed'] failed: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a35e22b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x000000010a35e441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x000000010a3aecd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010a38450d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:29:22,579 - ERROR - Main content area not found
+2025-06-14 22:29:22,889 - DEBUG - Page structure:
+2025-06-14 22:29:23,047 - DEBUG - Found 1491 div elements
+2025-06-14 22:29:23,067 - DEBUG - div 0 - Class: , Role: None
+2025-06-14 22:29:23,078 - DEBUG - div 1 - Class: , Role: None
+2025-06-14 22:29:23,088 - DEBUG - div 2 - Class: , Role: None
+2025-06-14 22:29:23,100 - DEBUG - div 3 - Class: , Role: None
+2025-06-14 22:29:23,114 - DEBUG - div 4 - Class: x1t83zlg xxkxylk x10e4vud x17s3imw x4hg4is x14qbims x1s85apg xuquc1b xtijo5x x1o0tod xixxii4 x13vifvy x1ufz0iv x1al4vs7 xhtitgo, Role: None
+2025-06-14 22:29:23,126 - DEBUG - Found 0 main elements
+2025-06-14 22:29:23,137 - DEBUG - Found 0 article elements
+2025-06-14 22:29:23,277 - DEBUG - Page source preview: <html class="_9dls _aoqh __fb-dark-mode" lang="en" dir="ltr"><head><link data-badged-icon="https://static.cdninstagram.com/rsrc.php/yS/r/zc8Mmf9OTuj.ico" data-default-icon="https://static.cdninstagram.com/rsrc.php/ye/r/lEu8iVizmNW.ico" rel="icon" sizes="192x192" href="https://static.cdninstagram.com/rsrc.php/ye/r/lEu8iVizmNW.ico"><meta name="bingbot" content="noarchive"><meta id="viewport" name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1, maximum-scale=2, shrink-to-fit=no"><link rel="apple-touch-icon" sizes="57x57" href="https://static.cdninstagram.com/rsrc.php/v4/yX/r/7RzDLDb3SrS.png"><link rel="apple-touch-icon" sizes="72x72" href="https://static.cdninstagram.com/rsrc.php/v4/yZ/r/0vDT82ONynH.png"><link rel="apple-touch-icon" sizes="120x120" href="https://static.cdninstagram.com/rsrc.php/v4/yj/r/YjScFsIiWyK.png"><link rel="apple-touch-icon" sizes="144x144" href="https://static.cdninstagram.com/rsrc.php/v4/y2/r/XpQaewVNzmS.png"><link rel="apple-touch-icon" sizes="152x152" href="https://static.cdninstagram.com/rsrc.php/v4/yH/r/XN_JrkTMl79.png"><link rel="apple-touch-icon" sizes="180x180" href="https://static.cdninstagram.com/rsrc.php/v4/y_/r/Pcnemah90K8.png"><link rel="apple-touch-icon" sizes="256x256" href="https://static.cdninstagram.com/rsrc.php/v4/yV/r/giQBh6jDlMa.png"><meta property="al:android:app_name" content="Threads"><meta property="al:android:package" content="com.instagram.barcelona"><meta property="al:android:url" content="https://www.threads.com/@j.p_morgan_trading"><meta property="al:ios:app_name" content="Threads"><meta property="al:ios:app_store_id" content="6446901002"><meta property="al:ios:url" content="barcelona://user?username=j.p_morgan_trading"><meta name="apple-itunes-app" content="app-id=6446901002, app-argument=barcelona://user?username=j.p_morgan_trading"><link rel="me" href="https://t.me/TESLACRYPTOCLUB"><meta property="og:site_name" content="Threads"><meta name="apple-itunes-app" content="app-id=6446901002
+2025-06-14 22:29:41,203 - ERROR - Error during fallback main content search: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=137.0.7151.104); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a31317e undetected_chromedriver + 446846
+4   undetected_chromedriver             0x000000010a315e87 undetected_chromedriver + 458375
+5   undetected_chromedriver             0x000000010a3ad0a6 undetected_chromedriver + 1077414
+6   undetected_chromedriver             0x000000010a3844e2 undetected_chromedriver + 910562
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+Traceback (most recent call last):
+  File "/Users/jakebryan/Documents/Projects/Threads Scraper/threads_scraper.py", line 288, in get_most_recent_post
+    if el.is_displayed():
+       ~~~~~~~~~~~~~~~^^
+  File "/Users/jakebryan/Documents/Projects/Threads Scraper/.venv/lib/python3.13/site-packages/selenium/webdriver/remote/webelement.py", line 252, in is_displayed
+    return self.parent.execute_script(f"/* isDisplayed */return ({isDisplayed_js}).apply(null, arguments);", self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jakebryan/Documents/Projects/Threads Scraper/.venv/lib/python3.13/site-packages/selenium/webdriver/remote/webdriver.py", line 407, in execute_script
+    return self.execute(command, {"script": script, "args": converted_args})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jakebryan/Documents/Projects/Threads Scraper/.venv/lib/python3.13/site-packages/selenium/webdriver/remote/webdriver.py", line 347, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/jakebryan/Documents/Projects/Threads Scraper/.venv/lib/python3.13/site-packages/selenium/webdriver/remote/errorhandler.py", line 229, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=137.0.7151.104); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8447a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a83befa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a30c400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a31317e undetected_chromedriver + 446846
+4   undetected_chromedriver             0x000000010a315e87 undetected_chromedriver + 458375
+5   undetected_chromedriver             0x000000010a3ad0a6 undetected_chromedriver + 1077414
+6   undetected_chromedriver             0x000000010a3844e2 undetected_chromedriver + 910562
+7   undetected_chromedriver             0x000000010a3ac073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3842b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a350507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a351171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a802550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a8064df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7dd962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a806e4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7cc124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a829708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a8298d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a83bac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+
+2025-06-14 22:33:29,190 - DEBUG - Using username: rnszan
+2025-06-14 22:33:36,420 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:33:47,862 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:34:04,531 - ERROR - Timeout waiting for page content
+2025-06-14 22:36:05,646 - DEBUG - Using username: rnszan
+2025-06-14 22:36:12,908 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:36:23,952 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:36:51,865 - ERROR - Timeout waiting for page content
+2025-06-14 22:37:18,209 - DEBUG - Using username: rnszan
+2025-06-14 22:37:25,140 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:37:41,105 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:37:52,748 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:37:52,753 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:38:22,986 - ERROR - Timeout waiting for page content
+2025-06-14 22:38:23,236 - DEBUG - Timeout screenshot saved to timeout_j.p_morgan_trading_1749965902.png
+2025-06-14 22:38:23,351 - DEBUG - Timeout page source saved to timeout_source_j.p_morgan_trading_1749965902.html
+2025-06-14 22:43:53,511 - DEBUG - Using username: rnszan
+2025-06-14 22:44:00,740 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:44:09,544 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:44:19,136 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:44:19,140 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:44:19,461 - DEBUG - Screenshot saved to screenshot_j.p_morgan_trading.png
+2025-06-14 22:44:39,922 - DEBUG - Could not find post container: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010a8287a8 undetected_chromedriver + 5892008
+1   undetected_chromedriver             0x000000010a81fefa undetected_chromedriver + 5857018
+2   undetected_chromedriver             0x000000010a2f0400 undetected_chromedriver + 418816
+3   undetected_chromedriver             0x000000010a34222b undetected_chromedriver + 754219
+4   undetected_chromedriver             0x000000010a342441 undetected_chromedriver + 754753
+5   undetected_chromedriver             0x000000010a392cd4 undetected_chromedriver + 1084628
+6   undetected_chromedriver             0x000000010a36850d undetected_chromedriver + 910605
+7   undetected_chromedriver             0x000000010a390073 undetected_chromedriver + 1073267
+8   undetected_chromedriver             0x000000010a3682b3 undetected_chromedriver + 910003
+9   undetected_chromedriver             0x000000010a334507 undetected_chromedriver + 697607
+10  undetected_chromedriver             0x000000010a335171 undetected_chromedriver + 700785
+11  undetected_chromedriver             0x000000010a7e6550 undetected_chromedriver + 5621072
+12  undetected_chromedriver             0x000000010a7ea4df undetected_chromedriver + 5637343
+13  undetected_chromedriver             0x000000010a7c1962 undetected_chromedriver + 5470562
+14  undetected_chromedriver             0x000000010a7eae4f undetected_chromedriver + 5639759
+15  undetected_chromedriver             0x000000010a7b0124 undetected_chromedriver + 5398820
+16  undetected_chromedriver             0x000000010a80d708 undetected_chromedriver + 5781256
+17  undetected_chromedriver             0x000000010a80d8d0 undetected_chromedriver + 5781712
+18  undetected_chromedriver             0x000000010a81fac1 undetected_chromedriver + 5855937
+19  libsystem_pthread.dylib             0x00007ff81550ddf1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff815509857 thread_start + 15
+
+2025-06-14 22:44:40,048 - DEBUG - Page source saved to debug_source_j.p_morgan_trading.html
+2025-06-14 22:46:23,992 - DEBUG - Using username: rnszan
+2025-06-14 22:46:31,210 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:46:40,039 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:46:49,590 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:46:49,594 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:46:49,633 - DEBUG - Found 143 post containers.
+2025-06-14 22:46:49,749 - DEBUG - Most recent post text: threads.net
+2025-06-14 22:47:58,719 - DEBUG - Using username: rnszan
+2025-06-14 22:48:05,723 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:48:15,781 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:48:25,474 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:48:25,478 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:48:25,518 - DEBUG - Found 144 post containers.
+2025-06-14 22:48:25,553 - DEBUG - Post Container 1: 
+2025-06-14 22:48:25,578 - DEBUG - Post Container 2: 
+2025-06-14 22:48:25,602 - DEBUG - Post Container 3: 
+2025-06-14 22:48:25,682 - DEBUG - Post Container 4: 
+2025-06-14 22:48:25,705 - DEBUG - Post Container 5: 
+2025-06-14 22:48:25,728 - DEBUG - Post Container 6: 
+2025-06-14 22:48:25,752 - DEBUG - Post Container 7: threads.net
+2025-06-14 22:48:25,775 - DEBUG - Post Container 8: 
+2025-06-14 22:48:25,801 - DEBUG - Post Container 9: 
+2025-06-14 22:48:25,830 - DEBUG - Post Container 10: Follow
+2025-06-14 22:48:25,930 - DEBUG - Most recent post text: threads.net
+2025-06-14 22:50:21,471 - DEBUG - Using username: rnszan
+2025-06-14 22:50:28,388 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:50:37,855 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:50:47,504 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:50:47,510 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:50:47,549 - DEBUG - Found 144 post containers.
+2025-06-14 22:50:47,588 - DEBUG - Post Container 1: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=
+2025-06-14 22:50:47,615 - DEBUG - Post Container 2: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=
+2025-06-14 22:50:47,642 - DEBUG - Post Container 3: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=
+2025-06-14 22:50:47,670 - DEBUG - Post Container 4: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=
+2025-06-14 22:50:47,694 - DEBUG - Post Container 5: tag=div, class=x1i10hfl xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x1q0g3np x87ps6o x1lku1pv x1a2a7pz x6s0dn4 x78zum5 x1dnml7z xl56j7k x3oybdh x13dflua x11xpdln x1fxk84t xvruv2t, text=
+2025-06-14 22:50:47,722 - DEBUG - Post Container 6: tag=div, class=x1i10hfl xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x87ps6o x1lku1pv x1a2a7pz x6s0dn4 x1c9tyrk xeusxvb x1pahc9y x1ertn4p x78zum5 xl56j7k xsdox4t x1useyqa, text=
+2025-06-14 22:50:47,746 - DEBUG - Post Container 7: tag=div, class=x1i10hfl x1ejq31n x18oe1m7 x1sy0etr xstzfhl x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz x90nhty x120xd9q x1k4ovr2 xdfaw6k xefzod x12rw4y6 x1rg5ohu x1ncwhqj x1jlp1m6 x1yrsyyn x10b6aqq xmzvs34 xf159sx x13dflua x12w9bfk x11xpdln xz4gly6 x87ps6o xk4oym4, text=threads.net
+2025-06-14 22:50:47,810 - DEBUG - Post Container 8: tag=div, class=x1i10hfl xjbqb8w x1ejq31n x18oe1m7 x1sy0etr xstzfhl x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xe8uvvx xdj266r x14z9mp xat24cr x1lziwak xexx8yu xyri2b x18d9i69 x1c1uobl x16tdsg8 x1hl2dhg xggy1nq x1a2a7pz x1c9tyrk xeusxvb x1pahc9y x1ertn4p x78zum5 x1n2onr6 xx6bhzk x12w9bfk x11xpdln xvruv2t, text=
+2025-06-14 22:50:47,851 - DEBUG - Post Container 9: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz x15dp1bm x1pg3x37 xqi6p0a x102ru31, text=
+2025-06-14 22:50:47,877 - DEBUG - Post Container 10: tag=div, class=x1i10hfl x1ypdohk xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu x18d9i69 x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x1lku1pv x1a2a7pz x6s0dn4 x16qb05n xi7iut8 x1dm3dyd x1pv694p x9f619 x3nfvp2 x1s688f x90ne7k xl56j7k x193iq5w xf7dkkf xv54qhq x1g2r6go x12w9bfk x11xpdln xz4gly6 x87ps6o xuxw1ft x19kf12q x111bo7f x1vmvj1k x1yvpm8f x3tjt7u x147ezun x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 xteu7em x1l7klhg x1iyjqo2 xs83m0k, text=Follow
+2025-06-14 22:50:47,905 - DEBUG - Post Container 11: tag=div, class=x1i10hfl xjbqb8w x1ypdohk xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu x18d9i69 x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1q0g3np x1lku1pv x1a2a7pz x6s0dn4 x16qb05n xi7iut8 x1dm3dyd x1pv694p x9f619 x3nfvp2 x1s688f x90ne7k xl56j7k x193iq5w xf7dkkf xv54qhq x1g2r6go x12w9bfk x11xpdln xz4gly6 x87ps6o xuxw1ft x19kf12q x6bh95i x1gzj6u4 x1hvtcl2 x1e1ff7m x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 xp07o12 x1l7klhg x1iyjqo2 xs83m0k, text=Mention
+2025-06-14 22:50:47,932 - DEBUG - Post Container 12: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz x15dp1bm x1pg3x37 xqi6p0a x102ru31, text=
+2025-06-14 22:50:47,960 - DEBUG - Post Container 13: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz x165d6jo, text=4
+2025-06-14 22:50:47,987 - DEBUG - Post Container 14: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=2
+2025-06-14 22:50:48,019 - DEBUG - Post Container 15: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=
+2025-06-14 22:50:48,045 - DEBUG - Post Container 16: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu x18d9i69 x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz x135b78x x11lfxj5, text=
+2025-06-14 22:50:48,070 - DEBUG - Post Container 17: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz x15dp1bm x1pg3x37 xqi6p0a x102ru31, text=
+2025-06-14 22:50:48,095 - DEBUG - Post Container 18: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz x165d6jo, text=3
+2025-06-14 22:50:48,121 - DEBUG - Post Container 19: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=1
+2025-06-14 22:50:48,146 - DEBUG - Post Container 20: tag=div, class=x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xc5r6h4 xqeqjp1 x1phubyo x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x972fbf x10w94by x1qhh985 x14e42zd x9f619 x1ypdohk xdl72j9 x2lah0s xe8uvvx xdj266r x14z9mp xat24cr x1lziwak x2lwn1j xeuugli xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 x16tdsg8 x1hl2dhg xggy1nq x1ja2u2z x1t137rt x1fmog5m xu25z0z x140muxe xo1y3bh x3nfvp2 x1q0g3np x87ps6o x1lku1pv x1a2a7pz, text=
+2025-06-14 22:50:48,241 - DEBUG - Most recent post text: threads.net
+2025-06-14 22:52:08,384 - DEBUG - Using username: rnszan
+2025-06-14 22:52:15,319 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:52:23,115 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:52:33,223 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:52:33,226 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:52:33,339 - DEBUG - Found 144 post containers.
+2025-06-14 22:52:35,903 - DEBUG - Most recent post text: threads.net
+2025-06-14 22:53:20,461 - DEBUG - Using username: rnszan
+2025-06-14 22:53:27,384 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 22:53:35,031 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 22:53:44,862 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 22:53:44,866 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 22:53:44,984 - DEBUG - Full rendered HTML saved to rendered_html_j.p_morgan_trading.html
+2025-06-14 22:53:45,022 - DEBUG - Found 144 post containers.
+2025-06-14 22:53:47,500 - DEBUG - Most recent post text: threads.net
+2025-06-14 23:02:43,506 - DEBUG - Using username: rnszan
+2025-06-14 23:02:50,521 - DEBUG - Initial URL: https://www.threads.com/login
+2025-06-14 23:02:58,144 - DEBUG - Navigating to profile: j.p_morgan_trading
+2025-06-14 23:03:07,653 - DEBUG - Current URL: https://www.threads.com/@j.p_morgan_trading
+2025-06-14 23:03:07,660 - DEBUG - Page title: @j.p_morgan_trading • Threads, Say more
+2025-06-14 23:03:07,780 - DEBUG - Full rendered HTML saved to rendered_html_j.p_morgan_trading.html
+2025-06-14 23:03:07,956 - DEBUG - Found 144 post containers.
