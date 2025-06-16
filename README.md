@@ -1,73 +1,135 @@
 # Threads Scraper
 
-This project scrapes posts from Threads profiles using Selenium and BeautifulSoup.
-
-## Main Script
-
-The main script is now `threads_scraper_updated.py`. All scraping and parsing logic is contained in this file.
+A Python-based scraper for extracting posts and media from Threads.net profiles. This tool uses Selenium and BeautifulSoup to navigate and parse Threads content, saving posts and images to both text and Excel formats.
 
 ## Features
 
-- Fetches all posts from a given Threads username
-- Extracts post text, timestamp, likes, replies, and reposts
-- Saves data in JSON format
-- Uses rotating user agents to avoid blocking
-- Handles errors gracefully
+- 🔐 Secure login using Instagram credentials
+- 📝 Extracts comprehensive post data:
+  - Post content
+  - Timestamps
+  - Like counts
+  - Comment counts
+  - Images (with automatic download)
+- 💾 Multiple output formats:
+  - Text file with detailed post information
+  - Excel file with embedded images
+- 🛡️ Anti-detection measures:
+  - Undetected ChromeDriver
+  - Random delays between actions
+  - Smart scrolling behavior
+- 🔄 Duplicate post detection
+- 📸 Automatic image downloading and management
+- 📊 Excel export with embedded images
 
 ## Requirements
 
 - Python 3.7+
+- Chrome browser installed
 - Required packages (install using `pip install -r requirements.txt`):
-  - requests
+  - undetected-chromedriver
+  - selenium
   - beautifulsoup4
   - python-dotenv
-  - fake-useragent
+  - openpyxl
+  - requests
 
 ## Installation
 
-1. Clone this repository
-2. Install the required packages:
-```bash
-pip install -r requirements.txt
-```
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/threads-scraper.git
+   cd threads-scraper
+   ```
 
-## Usage
+2. Create a virtual environment (recommended):
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
 
-1. Install dependencies:
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+
+4. Create a `.env` file in the project root with your Instagram credentials:
+   ```
+   THREADS_USERNAME=your_instagram_username
+   THREADS_PASSWORD=your_instagram_password
+   ```
+
+## Usage
+
+1. Ensure your `.env` file is properly configured with your Instagram credentials.
+
 2. Run the scraper:
    ```bash
    python threads_scraper_updated.py
    ```
-   You will be prompted for a Threads username (without the @).
 
-3. Output:
-   - Posts are saved to `<username>_posts.txt`.
-   - Logs are written to `threads_scraper.log` and `threads_scraper.debug.log`.
+3. The script will:
+   - Log in to Threads using your Instagram credentials
+   - Navigate to the specified profile
+   - Scroll through and collect posts
+   - Download images
+   - Save data to both text and Excel formats
 
-## Output Format
+## Output Files
 
-The script generates a JSON file with the following structure for each post:
-```json
-{
-  "text": "Post content",
-  "timestamp": "2024-03-21T12:34:56Z",
-  "likes": 123,
-  "replies": 45,
-  "reposts": 67
-}
+The script generates two main output files for each profile:
+
+1. `<username>_posts.txt`:
+   - Contains detailed post information
+   - Includes timestamps, likes, comments, and image URLs
+   - Human-readable format
+
+2. `<username>_posts.xlsx`:
+   - Excel spreadsheet with all post data
+   - Embedded images in cells
+   - Organized columns for easy viewing
+
+## Project Structure
+
+```
+threads-scraper/
+├── threads_scraper_updated.py  # Main scraper script
+├── requirements.txt            # Python dependencies
+├── .env                       # Environment variables (not in repo)
+├── images/                    # Downloaded images directory
+└── README.md                  # This file
 ```
 
-## Notes
+## Error Handling
 
-- The project is now based around `threads_scraper_updated.py`. The old `threads_scraper.py` is deprecated and can be deleted.
-- Make sure you have Chrome installed for Selenium to work.
-- The script uses rotating user agents to avoid being blocked
-- Rate limiting is implemented to be respectful to Threads' servers
-- Make sure you comply with Threads' terms of service and robots.txt when using this scraper
+The scraper includes robust error handling for:
+- Login failures
+- Network issues
+- Missing elements
+- Rate limiting
+- Image download failures
+
+## Limitations
+
+- Requires Instagram login credentials
+- May be affected by Threads' anti-scraping measures
+- Performance depends on network speed and server response times
+- Image downloading may be rate-limited
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Disclaimer
 
-This tool is for educational purposes only. Make sure to respect Threads' terms of service and robots.txt when using this scraper. The developers are not responsible for any misuse of this tool. 
+This tool is for educational purposes only. Users are responsible for:
+- Complying with Threads' terms of service
+- Respecting rate limits and robots.txt
+- Using the tool responsibly and ethically
+- Not violating any privacy or data protection laws
+
+The developers are not responsible for any misuse of this tool or any consequences resulting from its use.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 
