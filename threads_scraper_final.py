@@ -93,11 +93,17 @@ def extract_posts(soup, avatar_url=None):
                     else:
                         timestamp = "unknown"
 
-                    images = [
-                        img["url"]
-                        for img in post.get("image_versions2", {}).get("candidates", [])
-                        if "url" in img and (avatar_url is None or img["url"] != avatar_url)
-                    ]
+                    images = []
+                    unique_bases = set()
+                    for img in post.get("image_versions2", {}).get("candidates", []):
+                        url = img.get("url")
+                        if not url or (avatar_url is not None and url == avatar_url):
+                            continue
+                        base = url.split("?")[0]
+                        if base in unique_bases:
+                            continue
+                        unique_bases.add(base)
+                        images.append(url)
 
                     parsed.append({
                         "content": caption.strip(),
