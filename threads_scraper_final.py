@@ -48,6 +48,21 @@ def clean_text(text):
     text = re.sub(r"(Like|Comment|Repost|Share)[^\n]*", "", text)
     return text.strip()
 
+
+def find_thread_items(obj):
+    """Recursively yield lists stored under keys named 'thread_items'."""
+    items = []
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if key == "thread_items" and isinstance(value, list):
+                items.extend(value)
+            else:
+                items.extend(find_thread_items(value))
+    elif isinstance(obj, list):
+        for val in obj:
+            items.extend(find_thread_items(val))
+    return items
+
 def extract_posts(soup, avatar_url=None):
     logging.info("📦 Parsing from props → pageProps → feed → threads")
     posts = []
@@ -64,14 +79,14 @@ def extract_posts(soup, avatar_url=None):
                     .get("threads", [])
             )
 
-            for thread in threads:
-                for item in thread.get("thread_items", []):
+            def parse_items(items):
+                parsed = []
+                for item in items:
                     post = item.get("post", {})
                     caption = post.get("caption", {}).get("text", "")
                     if not caption.strip():
                         continue
 
-                    # Convert UNIX timestamp to ISO format
                     timestamp_unix = post.get("taken_at")
                     if timestamp_unix:
                         timestamp = datetime.utcfromtimestamp(timestamp_unix).isoformat() + "Z"
@@ -81,14 +96,22 @@ def extract_posts(soup, avatar_url=None):
                     images = [
                         img["url"]
                         for img in post.get("image_versions2", {}).get("candidates", [])
-                        if "url" in img
+                        if "url" in img and (avatar_url is None or img["url"] != avatar_url)
                     ]
 
-                    posts.append({
+                    parsed.append({
                         "content": caption.strip(),
                         "timestamp": timestamp,
                         "images": images or None
                     })
+                return parsed
+
+            for thread in threads:
+                posts.extend(parse_items(thread.get("thread_items", [])))
+
+            if not posts:
+                alt_items = find_thread_items(data)
+                posts.extend(parse_items(alt_items))
 
         except Exception as e:
             logging.warning(f"⚠️ Failed to parse a script block: {e}")
