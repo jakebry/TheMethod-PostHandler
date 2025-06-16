@@ -101,10 +101,9 @@ def save_as_text(posts, path):
             f.write("-" * 40 + "\n")
 
 def save_as_json(posts, path):
+    """Save posts to a single pretty-printed JSON array."""
     with open(path, "w", encoding="utf-8") as f:
-        for post in posts:
-            json.dump(post, f)
-            f.write("\n")
+        json.dump(posts, f, ensure_ascii=False, indent=2)
 
 def dump_script_tags(soup):
     scripts = soup.find_all("script", {"type": "application/json"})
