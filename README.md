@@ -1,37 +1,24 @@
 # Threads Scraper
 
-A Python-based scraper for extracting posts and media from Threads.net profiles. This tool uses Selenium and BeautifulSoup to navigate and parse Threads content, saving posts and images to both text and Excel formats.
+A minimal scraper for collecting posts from public Threads.net profiles. It uses
+Selenium and BeautifulSoup to parse JSON data embedded in the page and saves
+the results to simple text and JSON files.
 
 ## Features
 
-- 🔐 Secure login using Instagram credentials
-- 📝 Extracts comprehensive post data:
-  - Post content
-  - Timestamps
-  - Like counts
-  - Comment counts
-  - Images (with automatic download)
-- 💾 Multiple output formats:
-  - Text file with detailed post information
-  - Excel file with embedded images
-- 🛡️ Anti-detection measures:
-  - Undetected ChromeDriver
-  - Random delays between actions
-  - Smart scrolling behavior
-- 🔄 Duplicate post detection
-- 📸 Automatic image downloading and management
-- 📊 Excel export with embedded images
+- Extracts post text, timestamps and image URLs
+- Runs headless using Selenium and Chrome
+- Saves results in `<username>_threads.txt` and `<username>_threads.json`
+- Dumps raw page HTML and JSON blocks for debugging
 
 ## Requirements
 
 - Python 3.7+
 - Chrome browser installed
 - Required packages (install using `pip install -r requirements.txt`):
-  - undetected-chromedriver
   - selenium
   - beautifulsoup4
-  - python-dotenv
-  - openpyxl
+  - undetected-chromedriver
   - requests
 
 ## Installation
@@ -53,68 +40,45 @@ A Python-based scraper for extracting posts and media from Threads.net profiles.
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the project root with your Instagram credentials:
-   ```
-   THREADS_USERNAME=your_instagram_username
-   THREADS_PASSWORD=your_instagram_password
-   ```
-
 ## Usage
 
-1. Ensure your `.env` file is properly configured with your Instagram credentials.
+1. Adjust the `TARGET_USER` constant in `threads_scraper_final.py` to the profile you want to scrape.
 
 2. Run the scraper:
    ```bash
-   python threads_scraper_updated.py
+   python threads_scraper_final.py
    ```
 
-3. The script will:
-   - Log in to Threads using your Instagram credentials
-   - Navigate to the specified profile
-   - Scroll through and collect posts
-   - Download images
-   - Save data to both text and Excel formats
+3. The script will load the profile, scroll to the bottom of the page and extract posts into text and JSON files.
 
 ## Output Files
 
-The script generates two main output files for each profile:
+The scraper creates two files for each profile:
 
-1. `<username>_posts.txt`:
-   - Contains detailed post information
-   - Includes timestamps, likes, comments, and image URLs
-   - Human-readable format
-
-2. `<username>_posts.xlsx`:
-   - Excel spreadsheet with all post data
-   - Embedded images in cells
-   - Organized columns for easy viewing
+1. `<username>_threads.txt`
+2. `<username>_threads.json`
 
 ## Project Structure
 
 ```
 threads-scraper/
-├── threads_scraper_updated.py  # Main scraper script
-├── requirements.txt            # Python dependencies
-├── .env                       # Environment variables (not in repo)
-├── images/                    # Downloaded images directory
+├── threads_scraper_final.py   # Main scraper script
+├── threads_scraper_debug.py   # Helper for inspecting page data
+├── requirements.txt           # Python dependencies
 └── README.md                  # This file
 ```
 
 ## Error Handling
 
-The scraper includes robust error handling for:
-- Login failures
+The scraper includes basic error handling for:
 - Network issues
 - Missing elements
 - Rate limiting
-- Image download failures
 
 ## Limitations
 
-- Requires Instagram login credentials
 - May be affected by Threads' anti-scraping measures
 - Performance depends on network speed and server response times
-- Image downloading may be rate-limited
 
 ## Contributing
 
