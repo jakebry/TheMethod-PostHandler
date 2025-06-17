@@ -70,7 +70,7 @@
       const [posts, setPosts] = React.useState([]);
 
       React.useEffect(() => {
-        fetch('sample_posts.json')
+        fetch('/api/posts')
           .then(res => res.json())
           .then(setPosts)
           .catch(err => console.error('Failed to load posts:', err));

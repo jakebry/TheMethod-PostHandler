@@ -2,6 +2,7 @@ import time
 import re
 import json
 import logging
+import os
 from datetime import datetime
 from collections import Counter
 from bs4 import BeautifulSoup
@@ -161,6 +162,14 @@ def dump_script_tags(soup):
             logging.warning(f"⚠️ Could not save script_{i}.json: {e}")
 
 def main():
+    # Remove previous output files so old posts don't linger
+    for path in (TXT_OUTPUT, JSON_OUTPUT):
+        try:
+            if os.path.exists(path):
+                os.remove(path)
+        except Exception as e:
+            logging.warning(f"Could not delete {path}: {e}")
+
     driver = init_driver()
     try:
         logging.info(f"Opening {THREADS_URL}")

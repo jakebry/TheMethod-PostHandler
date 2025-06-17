@@ -58,6 +58,25 @@ The scraper creates two files for each profile:
 1. `<username>_threads.txt`
 2. `<username>_threads.json`
 
+## Web Viewer
+
+You can view the scraped posts in a small web interface powered by Node and React.
+
+1. Install Node dependencies:
+   ```bash
+   npm install
+   ```
+2. Run the scraper to generate `<username>_threads.json`:
+   ```bash
+   python threads_scraper_final.py
+   ```
+3. Start the server:
+   ```bash
+   npm start
+   ```
+4. Open `http://localhost:3000` in your browser to see the posts listed.
+
+
 ## Project Structure
 
 ```
