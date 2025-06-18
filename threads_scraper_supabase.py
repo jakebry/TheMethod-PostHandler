@@ -89,12 +89,12 @@ class ThreadsScraper:
                 }
                 posts_to_insert.append(post_data)
             
-            # Insert posts in batches of 100
+            # Insert posts in batches of 100 using upsert to handle duplicates
             batch_size = 100
             for i in range(0, len(posts_to_insert), batch_size):
                 batch = posts_to_insert[i:i + batch_size]
-                result = self.supabase.table('posts').insert(batch).execute()
-                logging.info(f"Inserted batch of {len(batch)} posts to Supabase")
+                result = self.supabase.table('posts').upsert(batch, on_conflict='content,posted_at').execute()
+                logging.info(f"Upserted batch of {len(batch)} posts to Supabase")
             
             logging.info(f"Successfully saved {len(posts)} posts to Supabase")
             
