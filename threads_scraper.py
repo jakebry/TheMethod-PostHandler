@@ -7,6 +7,8 @@ from collections import Counter
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import os
+import glob
 
 # CONFIG
 TARGET_USER = "j.p_morgan_trading"
@@ -160,6 +162,34 @@ def dump_script_tags(soup):
         except Exception as e:
             logging.warning(f"⚠️ Could not save script_{i}.json: {e}")
 
+def cleanup_temp_files():
+    """Remove temporary script_*.json files after main JSON is updated."""
+    try:
+        # Get all script_*.json files
+        temp_files = glob.glob('script_*.json')
+        # Get all debug HTML files
+        debug_files = glob.glob('debug_*.html')
+        
+        # Remove temporary JSON files
+        for file in temp_files:
+            try:
+                os.remove(file)
+                print(f"Removed temporary file: {file}")
+            except Exception as e:
+                print(f"Error removing {file}: {e}")
+        
+        # Remove debug HTML files
+        for file in debug_files:
+            try:
+                os.remove(file)
+                print(f"Removed debug file: {file}")
+            except Exception as e:
+                print(f"Error removing {file}: {e}")
+                
+        print("Cleanup completed successfully")
+    except Exception as e:
+        print(f"Error during cleanup: {e}")
+
 def main():
     driver = init_driver()
     try:
@@ -189,8 +219,14 @@ def main():
         save_as_json(posts, JSON_OUTPUT)
 
         logging.info(f"✅ Saved posts to: {TXT_OUTPUT} and {JSON_OUTPUT}")
-    finally:
-        driver.quit()
+
+        # After saving the main JSON file, clean up temporary files
+        cleanup_temp_files()
+
+    except Exception as e:
+        print(f"Error in main: {e}")
+        # Still try to clean up even if there was an error
+        cleanup_temp_files()
 
 if __name__ == "__main__":
     main()

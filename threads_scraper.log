@@ -1,0 +1,166 @@
+2025-06-17 23:12:10,119 - ERROR - Error in main: Missing required environment variables. Please check your .env file.
+2025-06-17 23:15:50,513 - ERROR - Error in main: Missing required environment variables. Please check your .env file.
+2025-06-17 23:18:11,707 - ERROR - Error in main: Missing required environment variables. Please check your .env file.
+2025-06-17 23:19:52,211 - ERROR - Error in main: 'ThreadsScraper' object has no attribute '_setup_driver'
+2025-06-17 23:20:20,109 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-17 23:20:48,604 - ERROR - Error logging in to Threads: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010976f358 undetected_chromedriver + 6136664
+1   undetected_chromedriver             0x0000000109766aba undetected_chromedriver + 6101690
+2   undetected_chromedriver             0x00000001091fb380 undetected_chromedriver + 418688
+3   undetected_chromedriver             0x000000010924cf34 undetected_chromedriver + 753460
+4   undetected_chromedriver             0x000000010924d151 undetected_chromedriver + 754001
+5   undetected_chromedriver             0x000000010929d9d4 undetected_chromedriver + 1083860
+6   undetected_chromedriver             0x000000010927321d undetected_chromedriver + 909853
+7   undetected_chromedriver             0x000000010929ad82 undetected_chromedriver + 1072514
+8   undetected_chromedriver             0x0000000109272fc3 undetected_chromedriver + 909251
+9   undetected_chromedriver             0x000000010923f217 undetected_chromedriver + 696855
+10  undetected_chromedriver             0x000000010923fe81 undetected_chromedriver + 700033
+11  undetected_chromedriver             0x000000010972d220 undetected_chromedriver + 5866016
+12  undetected_chromedriver             0x000000010973118f undetected_chromedriver + 5882255
+13  undetected_chromedriver             0x00000001097085c2 undetected_chromedriver + 5715394
+14  undetected_chromedriver             0x0000000109731aef undetected_chromedriver + 5884655
+15  undetected_chromedriver             0x00000001096f6d84 undetected_chromedriver + 5643652
+16  undetected_chromedriver             0x00000001097542b8 undetected_chromedriver + 6025912
+17  undetected_chromedriver             0x0000000109754480 undetected_chromedriver + 6026368
+18  undetected_chromedriver             0x0000000109766681 undetected_chromedriver + 6100609
+19  libsystem_pthread.dylib             0x00007ff8116c6df1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff8116c2857 thread_start + 15
+
+2025-06-17 23:20:48,605 - ERROR - Error in main: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010976f358 undetected_chromedriver + 6136664
+1   undetected_chromedriver             0x0000000109766aba undetected_chromedriver + 6101690
+2   undetected_chromedriver             0x00000001091fb380 undetected_chromedriver + 418688
+3   undetected_chromedriver             0x000000010924cf34 undetected_chromedriver + 753460
+4   undetected_chromedriver             0x000000010924d151 undetected_chromedriver + 754001
+5   undetected_chromedriver             0x000000010929d9d4 undetected_chromedriver + 1083860
+6   undetected_chromedriver             0x000000010927321d undetected_chromedriver + 909853
+7   undetected_chromedriver             0x000000010929ad82 undetected_chromedriver + 1072514
+8   undetected_chromedriver             0x0000000109272fc3 undetected_chromedriver + 909251
+9   undetected_chromedriver             0x000000010923f217 undetected_chromedriver + 696855
+10  undetected_chromedriver             0x000000010923fe81 undetected_chromedriver + 700033
+11  undetected_chromedriver             0x000000010972d220 undetected_chromedriver + 5866016
+12  undetected_chromedriver             0x000000010973118f undetected_chromedriver + 5882255
+13  undetected_chromedriver             0x00000001097085c2 undetected_chromedriver + 5715394
+14  undetected_chromedriver             0x0000000109731aef undetected_chromedriver + 5884655
+15  undetected_chromedriver             0x00000001096f6d84 undetected_chromedriver + 5643652
+16  undetected_chromedriver             0x00000001097542b8 undetected_chromedriver + 6025912
+17  undetected_chromedriver             0x0000000109754480 undetected_chromedriver + 6026368
+18  undetected_chromedriver             0x0000000109766681 undetected_chromedriver + 6100609
+19  libsystem_pthread.dylib             0x00007ff8116c6df1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff8116c2857 thread_start + 15
+
+2025-06-17 23:21:05,740 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-17 23:21:23,243 - ERROR - Error logging in to Threads: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010121f358 undetected_chromedriver + 6136664
+1   undetected_chromedriver             0x0000000101216aba undetected_chromedriver + 6101690
+2   undetected_chromedriver             0x0000000100cab380 undetected_chromedriver + 418688
+3   undetected_chromedriver             0x0000000100cfcf34 undetected_chromedriver + 753460
+4   undetected_chromedriver             0x0000000100cfd151 undetected_chromedriver + 754001
+5   undetected_chromedriver             0x0000000100d4d9d4 undetected_chromedriver + 1083860
+6   undetected_chromedriver             0x0000000100d2321d undetected_chromedriver + 909853
+7   undetected_chromedriver             0x0000000100d4ad82 undetected_chromedriver + 1072514
+8   undetected_chromedriver             0x0000000100d22fc3 undetected_chromedriver + 909251
+9   undetected_chromedriver             0x0000000100cef217 undetected_chromedriver + 696855
+10  undetected_chromedriver             0x0000000100cefe81 undetected_chromedriver + 700033
+11  undetected_chromedriver             0x00000001011dd220 undetected_chromedriver + 5866016
+12  undetected_chromedriver             0x00000001011e118f undetected_chromedriver + 5882255
+13  undetected_chromedriver             0x00000001011b85c2 undetected_chromedriver + 5715394
+14  undetected_chromedriver             0x00000001011e1aef undetected_chromedriver + 5884655
+15  undetected_chromedriver             0x00000001011a6d84 undetected_chromedriver + 5643652
+16  undetected_chromedriver             0x00000001012042b8 undetected_chromedriver + 6025912
+17  undetected_chromedriver             0x0000000101204480 undetected_chromedriver + 6026368
+18  undetected_chromedriver             0x0000000101216681 undetected_chromedriver + 6100609
+19  libsystem_pthread.dylib             0x00007ff8116c6df1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff8116c2857 thread_start + 15
+
+2025-06-17 23:21:23,244 - ERROR - Error in main: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x000000010121f358 undetected_chromedriver + 6136664
+1   undetected_chromedriver             0x0000000101216aba undetected_chromedriver + 6101690
+2   undetected_chromedriver             0x0000000100cab380 undetected_chromedriver + 418688
+3   undetected_chromedriver             0x0000000100cfcf34 undetected_chromedriver + 753460
+4   undetected_chromedriver             0x0000000100cfd151 undetected_chromedriver + 754001
+5   undetected_chromedriver             0x0000000100d4d9d4 undetected_chromedriver + 1083860
+6   undetected_chromedriver             0x0000000100d2321d undetected_chromedriver + 909853
+7   undetected_chromedriver             0x0000000100d4ad82 undetected_chromedriver + 1072514
+8   undetected_chromedriver             0x0000000100d22fc3 undetected_chromedriver + 909251
+9   undetected_chromedriver             0x0000000100cef217 undetected_chromedriver + 696855
+10  undetected_chromedriver             0x0000000100cefe81 undetected_chromedriver + 700033
+11  undetected_chromedriver             0x00000001011dd220 undetected_chromedriver + 5866016
+12  undetected_chromedriver             0x00000001011e118f undetected_chromedriver + 5882255
+13  undetected_chromedriver             0x00000001011b85c2 undetected_chromedriver + 5715394
+14  undetected_chromedriver             0x00000001011e1aef undetected_chromedriver + 5884655
+15  undetected_chromedriver             0x00000001011a6d84 undetected_chromedriver + 5643652
+16  undetected_chromedriver             0x00000001012042b8 undetected_chromedriver + 6025912
+17  undetected_chromedriver             0x0000000101204480 undetected_chromedriver + 6026368
+18  undetected_chromedriver             0x0000000101216681 undetected_chromedriver + 6100609
+19  libsystem_pthread.dylib             0x00007ff8116c6df1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff8116c2857 thread_start + 15
+
+2025-06-17 23:21:39,417 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-17 23:21:56,990 - ERROR - Error logging in to Threads: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x0000000104086358 undetected_chromedriver + 6136664
+1   undetected_chromedriver             0x000000010407daba undetected_chromedriver + 6101690
+2   undetected_chromedriver             0x0000000103b12380 undetected_chromedriver + 418688
+3   undetected_chromedriver             0x0000000103b63f34 undetected_chromedriver + 753460
+4   undetected_chromedriver             0x0000000103b64151 undetected_chromedriver + 754001
+5   undetected_chromedriver             0x0000000103bb49d4 undetected_chromedriver + 1083860
+6   undetected_chromedriver             0x0000000103b8a21d undetected_chromedriver + 909853
+7   undetected_chromedriver             0x0000000103bb1d82 undetected_chromedriver + 1072514
+8   undetected_chromedriver             0x0000000103b89fc3 undetected_chromedriver + 909251
+9   undetected_chromedriver             0x0000000103b56217 undetected_chromedriver + 696855
+10  undetected_chromedriver             0x0000000103b56e81 undetected_chromedriver + 700033
+11  undetected_chromedriver             0x0000000104044220 undetected_chromedriver + 5866016
+12  undetected_chromedriver             0x000000010404818f undetected_chromedriver + 5882255
+13  undetected_chromedriver             0x000000010401f5c2 undetected_chromedriver + 5715394
+14  undetected_chromedriver             0x0000000104048aef undetected_chromedriver + 5884655
+15  undetected_chromedriver             0x000000010400dd84 undetected_chromedriver + 5643652
+16  undetected_chromedriver             0x000000010406b2b8 undetected_chromedriver + 6025912
+17  undetected_chromedriver             0x000000010406b480 undetected_chromedriver + 6026368
+18  undetected_chromedriver             0x000000010407d681 undetected_chromedriver + 6100609
+19  libsystem_pthread.dylib             0x00007ff8116c6df1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff8116c2857 thread_start + 15
+
+2025-06-17 23:21:56,991 - ERROR - Error in main: Message: 
+Stacktrace:
+0   undetected_chromedriver             0x0000000104086358 undetected_chromedriver + 6136664
+1   undetected_chromedriver             0x000000010407daba undetected_chromedriver + 6101690
+2   undetected_chromedriver             0x0000000103b12380 undetected_chromedriver + 418688
+3   undetected_chromedriver             0x0000000103b63f34 undetected_chromedriver + 753460
+4   undetected_chromedriver             0x0000000103b64151 undetected_chromedriver + 754001
+5   undetected_chromedriver             0x0000000103bb49d4 undetected_chromedriver + 1083860
+6   undetected_chromedriver             0x0000000103b8a21d undetected_chromedriver + 909853
+7   undetected_chromedriver             0x0000000103bb1d82 undetected_chromedriver + 1072514
+8   undetected_chromedriver             0x0000000103b89fc3 undetected_chromedriver + 909251
+9   undetected_chromedriver             0x0000000103b56217 undetected_chromedriver + 696855
+10  undetected_chromedriver             0x0000000103b56e81 undetected_chromedriver + 700033
+11  undetected_chromedriver             0x0000000104044220 undetected_chromedriver + 5866016
+12  undetected_chromedriver             0x000000010404818f undetected_chromedriver + 5882255
+13  undetected_chromedriver             0x000000010401f5c2 undetected_chromedriver + 5715394
+14  undetected_chromedriver             0x0000000104048aef undetected_chromedriver + 5884655
+15  undetected_chromedriver             0x000000010400dd84 undetected_chromedriver + 5643652
+16  undetected_chromedriver             0x000000010406b2b8 undetected_chromedriver + 6025912
+17  undetected_chromedriver             0x000000010406b480 undetected_chromedriver + 6026368
+18  undetected_chromedriver             0x000000010407d681 undetected_chromedriver + 6100609
+19  libsystem_pthread.dylib             0x00007ff8116c6df1 _pthread_start + 99
+20  libsystem_pthread.dylib             0x00007ff8116c2857 thread_start + 15
+
+2025-06-17 23:22:37,584 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-17 23:22:39,075 - ERROR - Error in main: 'ThreadsScraper' object has no attribute 'get_profile_image_url'
+2025-06-17 23:23:54,959 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-17 23:24:08,304 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:14,431 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:20,565 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:26,684 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:32,811 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:38,948 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:45,076 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:51,210 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:24:57,343 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:25:03,472 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:25:09,594 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-17 23:25:15,718 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
