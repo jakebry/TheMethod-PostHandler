@@ -58,6 +58,18 @@ The scraper creates two files for each profile:
 1. `<username>_threads.txt`
 2. `<username>_threads.json`
 
+## Running Tests
+
+The project includes a small test suite using [pytest](https://pytest.org).
+After installing the requirements you can run the tests with:
+
+```bash
+pytest -q
+```
+
+This will execute the unit tests located in the `tests/` directory and report
+any failures.
+
 ## Project Structure
 
 ```
