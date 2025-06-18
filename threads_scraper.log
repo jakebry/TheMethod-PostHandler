@@ -164,3 +164,360 @@ Stacktrace:
 2025-06-17 23:25:03,472 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
 2025-06-17 23:25:09,594 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
 2025-06-17 23:25:15,718 - ERROR - Error during scrolling: 'ThreadsScraper' object has no attribute '_parse_post_from_html'
+2025-06-18 00:09:25,730 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-18 00:09:39,270 - INFO - 📦 Parsing from props → pageProps → feed → threads
+2025-06-18 00:09:39,390 - INFO - ✅ Extracted 27 posts from final confirmed schema.
+2025-06-18 00:09:44,575 - INFO - 📦 Parsing from props → pageProps → feed → threads
+2025-06-18 00:09:44,685 - INFO - ✅ Extracted 27 posts from final confirmed schema.
+2025-06-18 00:09:44,691 - INFO - No new content found after 3 attempts. Stopping scroll.
+2025-06-18 00:09:44,691 - INFO - Created/verified images directory
+2025-06-18 00:09:44,691 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:44,691 - INFO - Processing image 1/1
+2025-06-18 00:09:44,691 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504495491_17853614370462671_300057003891276851_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=7y2NcJzpz_sQ7kNvwEeM8IX&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NjMzMjk3Mjc4OTAyNTgzNw%3D%3D.3-ccb7-5&oh=00_AfPJO6Qh1V8MIz4Ztw3lCs4Rhguc_RKSMlKmEp93mUPb8w&oe=68584C23&_nc_sid=10d13b
+2025-06-18 00:09:44,691 - INFO - Downloading image to: images/j.p_morgan_trading_915c6408_0.jpg
+2025-06-18 00:09:44,836 - INFO - Response status code: 200
+2025-06-18 00:09:44,837 - INFO - Successfully saved image to images/j.p_morgan_trading_915c6408_0.jpg
+2025-06-18 00:09:44,841 - INFO - Created/verified images directory
+2025-06-18 00:09:44,841 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:44,841 - INFO - Processing image 1/1
+2025-06-18 00:09:44,841 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/508648077_17853573792462671_1879124610196427973_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=24lkCPogtnQQ7kNvwGvdc2r&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NjEyNTEzMjAxNjExNjE1OQ%3D%3D.3-ccb7-5&oh=00_AfNsc8hbEmASzo17MqeBkSwDSYgkkjjLRuzsMUvXMiDN-w&oe=68582285&_nc_sid=10d13b
+2025-06-18 00:09:44,842 - INFO - Downloading image to: images/j.p_morgan_trading_4e624499_0.jpg
+2025-06-18 00:09:44,933 - INFO - Response status code: 200
+2025-06-18 00:09:44,934 - INFO - Successfully saved image to images/j.p_morgan_trading_4e624499_0.jpg
+2025-06-18 00:09:44,937 - INFO - No images to download for post: SL: 0.789
+TP1: 0.84
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:09:44,937 - INFO - Created/verified images directory
+2025-06-18 00:09:44,937 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:44,937 - INFO - Processing image 1/1
+2025-06-18 00:09:44,937 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505495101_17853335298462671_7836537450731543007_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1NTYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=OZnAcptjJqwQ7kNvwEetugQ&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDc0Mjk5Mjc1ODA1MTEyNg%3D%3D.3-ccb7-5&oh=00_AfM4gXJurZAEyBjXGjKv4fBFmcMIhDQ3ag9JxZ0VabfbzQ&oe=6858239D&_nc_sid=10d13b
+2025-06-18 00:09:44,938 - INFO - Downloading image to: images/j.p_morgan_trading_4c3b185b_0.jpg
+2025-06-18 00:09:45,028 - INFO - Response status code: 200
+2025-06-18 00:09:45,029 - INFO - Successfully saved image to images/j.p_morgan_trading_4c3b185b_0.jpg
+2025-06-18 00:09:45,033 - INFO - Created/verified images directory
+2025-06-18 00:09:45,033 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,033 - INFO - Processing image 1/1
+2025-06-18 00:09:45,034 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/506359958_17853337248462671_7843301541283377372_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODAuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=R1nXBotZRZ4Q7kNvwHZwfJ4&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDc1NDk3NDExNDYwNTMwOQ%3D%3D.3-ccb7-5&oh=00_AfOwugrR-S8yT7WSqXYONG9ob6T39VdzVhBfjEPyvxv6jw&oe=68582E1A&_nc_sid=10d13b
+2025-06-18 00:09:45,034 - INFO - Downloading image to: images/j.p_morgan_trading_3642566e_0.jpg
+2025-06-18 00:09:45,124 - INFO - Response status code: 200
+2025-06-18 00:09:45,125 - INFO - Successfully saved image to images/j.p_morgan_trading_3642566e_0.jpg
+2025-06-18 00:09:45,129 - INFO - Created/verified images directory
+2025-06-18 00:09:45,129 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,129 - INFO - Processing image 1/1
+2025-06-18 00:09:45,129 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505805021_17853323679462671_5814002513522490778_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODcuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=jDU9KQQWyVIQ7kNvwGBvgr8&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDY3NDUxODg0MTIxNDgzNw%3D%3D.3-ccb7-5&oh=00_AfPhD4Ry_ASWiUs5Lj2n4FYWCjlljWaFw7dS8WPUTTQwvg&oe=685841EB&_nc_sid=10d13b
+2025-06-18 00:09:45,129 - INFO - Downloading image to: images/j.p_morgan_trading_a25e3dfc_0.jpg
+2025-06-18 00:09:45,258 - INFO - Response status code: 200
+2025-06-18 00:09:45,259 - INFO - Successfully saved image to images/j.p_morgan_trading_a25e3dfc_0.jpg
+2025-06-18 00:09:45,263 - INFO - Created/verified images directory
+2025-06-18 00:09:45,263 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,264 - INFO - Processing image 1/1
+2025-06-18 00:09:45,264 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504293871_17853315867462671_880027552804820687_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODEuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=DnR06knUZj4Q7kNvwGUr1O9&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDYyNDcxMzQ3NjQwODQyOQ%3D%3D.3-ccb7-5&oh=00_AfOhxJw8cMfAE0pySwcwLg1nOl1rMy0eahoH81KOSCEuTw&oe=6858337E&_nc_sid=10d13b
+2025-06-18 00:09:45,264 - INFO - Downloading image to: images/j.p_morgan_trading_30b094b7_0.jpg
+2025-06-18 00:09:45,355 - INFO - Response status code: 200
+2025-06-18 00:09:45,356 - INFO - Successfully saved image to images/j.p_morgan_trading_30b094b7_0.jpg
+2025-06-18 00:09:45,359 - INFO - Created/verified images directory
+2025-06-18 00:09:45,359 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,359 - INFO - Processing image 1/1
+2025-06-18 00:09:45,359 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505438643_17853318120462671_1922067633903401499_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1Nzguc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=iqPeXENFV9oQ7kNvwGi4qZv&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDYzODIwMjA5OTE5NjM0MA%3D%3D.3-ccb7-5&oh=00_AfOBZ37f3_U1Dv5ShElQ1k9SfG3waZxVebc857tZfuOmAA&oe=685828E8&_nc_sid=10d13b
+2025-06-18 00:09:45,360 - INFO - Downloading image to: images/j.p_morgan_trading_8479bc3d_0.jpg
+2025-06-18 00:09:45,444 - INFO - Response status code: 200
+2025-06-18 00:09:45,445 - INFO - Successfully saved image to images/j.p_morgan_trading_8479bc3d_0.jpg
+2025-06-18 00:09:45,447 - INFO - Created/verified images directory
+2025-06-18 00:09:45,447 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,447 - INFO - Processing image 1/1
+2025-06-18 00:09:45,447 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503905911_17853245973462671_740936963901287530_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTAuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=7T3Xkzr-EngQ7kNvwFd9vXZ&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDE3NDE5ODIxNzEyNzY2Ng%3D%3D.3-ccb7-5&oh=00_AfNKZIP7XkiVngylV-nXWyuNpWJ-7gg9tmkId0xR0xmGxw&oe=68582C85&_nc_sid=10d13b
+2025-06-18 00:09:45,447 - INFO - Downloading image to: images/j.p_morgan_trading_1ac536ca_0.jpg
+2025-06-18 00:09:45,529 - INFO - Response status code: 200
+2025-06-18 00:09:45,531 - INFO - Successfully saved image to images/j.p_morgan_trading_1ac536ca_0.jpg
+2025-06-18 00:09:45,535 - INFO - No images to download for post: SL: 0.224
+TP1: 0.276
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:09:45,535 - INFO - Created/verified images directory
+2025-06-18 00:09:45,535 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,536 - INFO - Processing image 1/1
+2025-06-18 00:09:45,536 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504437988_17852903778462671_2769414605196814462_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODMuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=TSXUJHDebZEQ7kNvwF103Lo&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjE5NzYzODU5Nzc1MDYzOQ%3D%3D.3-ccb7-5&oh=00_AfMNw9s0NoPtJNzUpxHKoq-tZMMukp6x4xIr3WFfDy2OOg&oe=68581E8E&_nc_sid=10d13b
+2025-06-18 00:09:45,536 - INFO - Downloading image to: images/j.p_morgan_trading_d100c516_0.jpg
+2025-06-18 00:09:45,626 - INFO - Response status code: 200
+2025-06-18 00:09:45,627 - INFO - Successfully saved image to images/j.p_morgan_trading_d100c516_0.jpg
+2025-06-18 00:09:45,630 - INFO - Created/verified images directory
+2025-06-18 00:09:45,630 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,630 - INFO - Processing image 1/1
+2025-06-18 00:09:45,630 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504475222_17852905818462671_4908662525713344743_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODUuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=vWTTlxeaNk0Q7kNvwEcXAUa&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjIxMjUyMzM5NDA1NjM4NA%3D%3D.3-ccb7-5&oh=00_AfPthC9F0aUXDW-a-L22RSOrJ6bN8OJLiTeJadWZApyIzQ&oe=68583E77&_nc_sid=10d13b
+2025-06-18 00:09:45,630 - INFO - Downloading image to: images/j.p_morgan_trading_560b4f70_0.jpg
+2025-06-18 00:09:45,716 - INFO - Response status code: 200
+2025-06-18 00:09:45,717 - INFO - Successfully saved image to images/j.p_morgan_trading_560b4f70_0.jpg
+2025-06-18 00:09:45,720 - INFO - Created/verified images directory
+2025-06-18 00:09:45,720 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,720 - INFO - Processing image 1/1
+2025-06-18 00:09:45,720 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504281744_17852898324462671_2696265272572882271_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=0qWJCJuo8zkQ7kNvwHOxg_p&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjE1NjE1Njg4MTY5OTM0Ng%3D%3D.3-ccb7-5&oh=00_AfPV1aEezJuiIrCD0Z-tcY6AnPf9oc8XUu9aLInSmwvCaA&oe=68584794&_nc_sid=10d13b
+2025-06-18 00:09:45,720 - INFO - Downloading image to: images/j.p_morgan_trading_28881c4d_0.jpg
+2025-06-18 00:09:45,858 - INFO - Response status code: 200
+2025-06-18 00:09:45,859 - INFO - Successfully saved image to images/j.p_morgan_trading_28881c4d_0.jpg
+2025-06-18 00:09:45,863 - INFO - Created/verified images directory
+2025-06-18 00:09:45,863 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:45,863 - INFO - Processing image 1/1
+2025-06-18 00:09:45,863 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503649654_17852902725462671_2030539823002029746_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1Njkuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=H2A28IBrm5AQ7kNvwEd_5Ho&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjE4NTc5Njk3ODU2NTIxOQ%3D%3D.3-ccb7-5&oh=00_AfOO95o-4ClpJ_sbeukdBgFvrw4VUEJcB1l0fkXv0G7RZQ&oe=68584737&_nc_sid=10d13b
+2025-06-18 00:09:45,863 - INFO - Downloading image to: images/j.p_morgan_trading_128d3a78_0.jpg
+2025-06-18 00:09:46,006 - INFO - Response status code: 200
+2025-06-18 00:09:46,007 - INFO - Successfully saved image to images/j.p_morgan_trading_128d3a78_0.jpg
+2025-06-18 00:09:46,011 - INFO - Created/verified images directory
+2025-06-18 00:09:46,011 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,011 - INFO - Processing image 1/1
+2025-06-18 00:09:46,012 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505143239_17852784474462671_6284874734217983207_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=XlT0Lg0pvtYQ7kNvwGxqTig&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTUwMzQwNjIwNzU3NDMzOA%3D%3D.3-ccb7-5&oh=00_AfPFbDeCflJLCzgN_ZbW73MtAFTj14ACt6_59ETbHkxLlw&oe=68582207&_nc_sid=10d13b
+2025-06-18 00:09:46,012 - INFO - Downloading image to: images/j.p_morgan_trading_49315095_0.jpg
+2025-06-18 00:09:46,294 - INFO - Response status code: 200
+2025-06-18 00:09:46,295 - INFO - Successfully saved image to images/j.p_morgan_trading_49315095_0.jpg
+2025-06-18 00:09:46,297 - INFO - Created/verified images directory
+2025-06-18 00:09:46,297 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,297 - INFO - Processing image 1/1
+2025-06-18 00:09:46,297 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504076959_17852786760462671_8392315876943840084_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1Nzkuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=Ipw5dWfid_AQ7kNvwFHtcre&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTUyMzM4MDAwMzMzNTI4Nw%3D%3D.3-ccb7-5&oh=00_AfMtPhWVN8HTNIoTos2u0qtEqn0e2JGlGDihKjk5EgYZpQ&oe=685821E5&_nc_sid=10d13b
+2025-06-18 00:09:46,297 - INFO - Downloading image to: images/j.p_morgan_trading_54cf458e_0.jpg
+2025-06-18 00:09:46,405 - INFO - Response status code: 200
+2025-06-18 00:09:46,406 - INFO - Successfully saved image to images/j.p_morgan_trading_54cf458e_0.jpg
+2025-06-18 00:09:46,409 - INFO - Created/verified images directory
+2025-06-18 00:09:46,409 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,409 - INFO - Processing image 1/1
+2025-06-18 00:09:46,409 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504582770_17852776290462671_2043785603503750183_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=DHVuHX0dPl8Q7kNvwEUU_qZ&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTQzMTg1ODU3MTQ4ODk2NQ%3D%3D.3-ccb7-5&oh=00_AfMIs5bjehsKgDDW4sHqTW1dlyvwVZF2KL_fvoKkQskRGA&oe=685821FD&_nc_sid=10d13b
+2025-06-18 00:09:46,409 - INFO - Downloading image to: images/j.p_morgan_trading_36d7dfdd_0.jpg
+2025-06-18 00:09:46,496 - INFO - Response status code: 200
+2025-06-18 00:09:46,497 - INFO - Successfully saved image to images/j.p_morgan_trading_36d7dfdd_0.jpg
+2025-06-18 00:09:46,501 - INFO - Created/verified images directory
+2025-06-18 00:09:46,501 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,501 - INFO - Processing image 1/1
+2025-06-18 00:09:46,501 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504325291_17852756934462671_6752118939963452341_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1NzYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=NKpUj9aI9jcQ7kNvwEm2s8r&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTMwNTg2NjQ3NjYzNzcxNg%3D%3D.3-ccb7-5&oh=00_AfOU9H1yi7K_fKjFVnP_2rkapRiHhybPj0ndHrqwyZKuBA&oe=685828A1&_nc_sid=10d13b
+2025-06-18 00:09:46,502 - INFO - Downloading image to: images/j.p_morgan_trading_85c2ee9b_0.jpg
+2025-06-18 00:09:46,590 - INFO - Response status code: 200
+2025-06-18 00:09:46,591 - INFO - Successfully saved image to images/j.p_morgan_trading_85c2ee9b_0.jpg
+2025-06-18 00:09:46,594 - INFO - Created/verified images directory
+2025-06-18 00:09:46,594 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,594 - INFO - Processing image 1/1
+2025-06-18 00:09:46,595 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504541540_17852759145462671_8862314351733474883_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODMuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=diUEo4gi2HgQ7kNvwHeeY8e&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTMxNjc5NDcxOTg4MTU2Ng%3D%3D.3-ccb7-5&oh=00_AfN1MpbfBMRyOi3Dt-jiG7JvE8nycgxe-rbUGLo3pTbNrg&oe=68582750&_nc_sid=10d13b
+2025-06-18 00:09:46,595 - INFO - Downloading image to: images/j.p_morgan_trading_37d6ea35_0.jpg
+2025-06-18 00:09:46,676 - INFO - Response status code: 200
+2025-06-18 00:09:46,676 - INFO - Successfully saved image to images/j.p_morgan_trading_37d6ea35_0.jpg
+2025-06-18 00:09:46,678 - INFO - Created/verified images directory
+2025-06-18 00:09:46,678 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,678 - INFO - Processing image 1/1
+2025-06-18 00:09:46,678 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503996400_17852733279462671_359036761230419784_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODcuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=dwec5Sb5CnQQ7kNvwHrP0Ie&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTE5NzUxNTE4OTE2NDA1NA%3D%3D.3-ccb7-5&oh=00_AfON9WqvaPwrtNNXbiWuka8FMhKoPVFPVJ1_kLZiSEpFgA&oe=68582773&_nc_sid=10d13b
+2025-06-18 00:09:46,678 - INFO - Downloading image to: images/j.p_morgan_trading_b4061331_0.jpg
+2025-06-18 00:09:46,763 - INFO - Response status code: 200
+2025-06-18 00:09:46,764 - INFO - Successfully saved image to images/j.p_morgan_trading_b4061331_0.jpg
+2025-06-18 00:09:46,767 - INFO - No images to download for post: SL: 0.647
+TP1: 0.690
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:09:46,767 - INFO - Created/verified images directory
+2025-06-18 00:09:46,768 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,768 - INFO - Processing image 1/1
+2025-06-18 00:09:46,768 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504212189_17852319345462671_1070146195362994695_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1NzUuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=K8MGCVuAyVAQ7kNvwG1BeDo&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0ODkyNDk1NzU3Mjg3MzAwMg%3D%3D.3-ccb7-5&oh=00_AfPUIqrwxmbMTgWQw9aDhEKJyc2pY2iti42p25baFsiPAQ&oe=6858296F&_nc_sid=10d13b
+2025-06-18 00:09:46,768 - INFO - Downloading image to: images/j.p_morgan_trading_1404942e_0.jpg
+2025-06-18 00:09:46,893 - INFO - Response status code: 200
+2025-06-18 00:09:46,894 - INFO - Successfully saved image to images/j.p_morgan_trading_1404942e_0.jpg
+2025-06-18 00:09:46,895 - INFO - No images to download for post: SL: 1.332
+TP1: 1.490
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:09:46,895 - INFO - Created/verified images directory
+2025-06-18 00:09:46,896 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,896 - INFO - Processing image 1/1
+2025-06-18 00:09:46,896 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503532944_17851967637462671_6933034627371418022_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=uaSO53r14QwQ7kNvwEA_qZo&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0Njg2MzMxNTI4MDM0MjYwOA%3D%3D.3-ccb7-5&oh=00_AfPjvGTzg0NGH4huD3DQoUMI3nXMsrkBW3_Y6nTEVim_tA&oe=68582F25&_nc_sid=10d13b
+2025-06-18 00:09:46,896 - INFO - Downloading image to: images/j.p_morgan_trading_c2f27e2b_0.jpg
+2025-06-18 00:09:46,987 - INFO - Response status code: 200
+2025-06-18 00:09:46,988 - INFO - Successfully saved image to images/j.p_morgan_trading_c2f27e2b_0.jpg
+2025-06-18 00:09:46,992 - INFO - Created/verified images directory
+2025-06-18 00:09:46,992 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:46,992 - INFO - Processing image 1/1
+2025-06-18 00:09:46,992 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503708773_17851969773462671_5851439292592350688_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODMuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=4bf_7Tova0sQ7kNvwH3GtuW&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0Njg3MjIzNjE5NjAwMzkzMQ%3D%3D.3-ccb7-5&oh=00_AfM04GGxi1N9-N856uoD8UWxyBjvHjHeabCj27ZoqakPMw&oe=6858204C&_nc_sid=10d13b
+2025-06-18 00:09:46,992 - INFO - Downloading image to: images/j.p_morgan_trading_786322bb_0.jpg
+2025-06-18 00:09:47,089 - INFO - Response status code: 200
+2025-06-18 00:09:47,090 - INFO - Successfully saved image to images/j.p_morgan_trading_786322bb_0.jpg
+2025-06-18 00:09:47,093 - INFO - Created/verified images directory
+2025-06-18 00:09:47,093 - INFO - Attempting to download 1 images for post
+2025-06-18 00:09:47,093 - INFO - Processing image 1/1
+2025-06-18 00:09:47,093 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503913473_17851961922462671_8271788495278009870_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QHeNWRpk6V-Wrp-md9SndGhQ8sv5tbKfy83BWMsVrj4_DGY_0o7AfAHiYqFHpPbDwyilT9wt71smaSWhXxeEPH1&_nc_ohc=cHQ8xgDh-esQ7kNvwHlGTvY&_nc_gid=TrEjU88OvCL7lr2L7-l14A&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0NjgzNTU2Njk4MTYwNjgxNw%3D%3D.3-ccb7-5&oh=00_AfPlQSLKrL-I6OpTf9WkZc9LImiGRM_PNmL97gy8iT_ZfQ&oe=68584DAA&_nc_sid=10d13b
+2025-06-18 00:09:47,093 - INFO - Downloading image to: images/j.p_morgan_trading_960ab0c8_0.jpg
+2025-06-18 00:09:47,177 - INFO - Response status code: 200
+2025-06-18 00:09:47,179 - INFO - Successfully saved image to images/j.p_morgan_trading_960ab0c8_0.jpg
+2025-06-18 00:09:47,183 - INFO - No images to download for post: SL: 1.780
+TP1: 1.953
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:09:48,578 - INFO - HTTP Request: POST https://arjguarcpfgcxzfzotvk.supabase.co/rest/v1/posts?columns=%22posted_at%22%2C%22image_urls%22%2C%22author%22%2C%22content%22 "HTTP/2 401 Unauthorized"
+2025-06-18 00:09:48,584 - ERROR - Error saving to Supabase: {'message': 'new row violates row-level security policy for table "posts"', 'code': '42501', 'hint': None, 'details': None}
+2025-06-18 00:09:48,585 - ERROR - Error in main: {'message': 'new row violates row-level security policy for table "posts"', 'code': '42501', 'hint': None, 'details': None}
+2025-06-18 00:14:27,506 - INFO - patching driver executable /Users/jakebryan/Library/Application Support/undetected_chromedriver/undetected_chromedriver
+2025-06-18 00:14:41,092 - INFO - 📦 Parsing from props → pageProps → feed → threads
+2025-06-18 00:14:41,203 - INFO - ✅ Extracted 27 posts from final confirmed schema.
+2025-06-18 00:14:46,740 - INFO - 📦 Parsing from props → pageProps → feed → threads
+2025-06-18 00:14:46,855 - INFO - ✅ Extracted 27 posts from final confirmed schema.
+2025-06-18 00:14:46,861 - INFO - No new content found after 3 attempts. Stopping scroll.
+2025-06-18 00:14:46,861 - INFO - Created/verified images directory
+2025-06-18 00:14:46,861 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:46,861 - INFO - Processing image 1/1
+2025-06-18 00:14:46,861 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504495491_17853614370462671_300057003891276851_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=7y2NcJzpz_sQ7kNvwEeM8IX&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NjMzMjk3Mjc4OTAyNTgzNw%3D%3D.3-ccb7-5&oh=00_AfO7BwebneSG6g2pEqwVKDLrG7mqfk0oh7u13vRH4vv6bQ&oe=68584C23&_nc_sid=10d13b
+2025-06-18 00:14:46,861 - INFO - Downloading image to: images/j.p_morgan_trading_772b9865_0.jpg
+2025-06-18 00:14:46,957 - INFO - Response status code: 200
+2025-06-18 00:14:46,958 - INFO - Successfully saved image to images/j.p_morgan_trading_772b9865_0.jpg
+2025-06-18 00:14:46,962 - INFO - Created/verified images directory
+2025-06-18 00:14:46,962 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:46,962 - INFO - Processing image 1/1
+2025-06-18 00:14:46,963 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/508648077_17853573792462671_1879124610196427973_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=24lkCPogtnQQ7kNvwGvdc2r&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NjEyNTEzMjAxNjExNjE1OQ%3D%3D.3-ccb7-5&oh=00_AfM01hon0A3n1jfmDOlM2tCm6UOnI8cVryp44hvP7MaoXw&oe=68582285&_nc_sid=10d13b
+2025-06-18 00:14:46,964 - INFO - Downloading image to: images/j.p_morgan_trading_03c02af9_0.jpg
+2025-06-18 00:14:47,059 - INFO - Response status code: 200
+2025-06-18 00:14:47,061 - INFO - Successfully saved image to images/j.p_morgan_trading_03c02af9_0.jpg
+2025-06-18 00:14:47,064 - INFO - No images to download for post: SL: 0.789
+TP1: 0.84
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:14:47,065 - INFO - Created/verified images directory
+2025-06-18 00:14:47,065 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,065 - INFO - Processing image 1/1
+2025-06-18 00:14:47,065 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505495101_17853335298462671_7836537450731543007_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1NTYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=OZnAcptjJqwQ7kNvwEetugQ&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDc0Mjk5Mjc1ODA1MTEyNg%3D%3D.3-ccb7-5&oh=00_AfOhvDqY5RQge5SnmTqP4RkVbHSvobKLN2q0xzJGILyM_w&oe=6858239D&_nc_sid=10d13b
+2025-06-18 00:14:47,065 - INFO - Downloading image to: images/j.p_morgan_trading_5c9cb474_0.jpg
+2025-06-18 00:14:47,153 - INFO - Response status code: 200
+2025-06-18 00:14:47,154 - INFO - Successfully saved image to images/j.p_morgan_trading_5c9cb474_0.jpg
+2025-06-18 00:14:47,156 - INFO - Created/verified images directory
+2025-06-18 00:14:47,156 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,156 - INFO - Processing image 1/1
+2025-06-18 00:14:47,156 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/506359958_17853337248462671_7843301541283377372_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODAuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=R1nXBotZRZ4Q7kNvwHZwfJ4&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDc1NDk3NDExNDYwNTMwOQ%3D%3D.3-ccb7-5&oh=00_AfN9-nu2ZQs9rF2a0SNNspQBayZ4_rQjjAoyD2icILxPhw&oe=68582E1A&_nc_sid=10d13b
+2025-06-18 00:14:47,156 - INFO - Downloading image to: images/j.p_morgan_trading_c27b63ed_0.jpg
+2025-06-18 00:14:47,237 - INFO - Response status code: 200
+2025-06-18 00:14:47,238 - INFO - Successfully saved image to images/j.p_morgan_trading_c27b63ed_0.jpg
+2025-06-18 00:14:47,242 - INFO - Created/verified images directory
+2025-06-18 00:14:47,242 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,242 - INFO - Processing image 1/1
+2025-06-18 00:14:47,242 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505805021_17853323679462671_5814002513522490778_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODcuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=jDU9KQQWyVIQ7kNvwGBvgr8&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDY3NDUxODg0MTIxNDgzNw%3D%3D.3-ccb7-5&oh=00_AfO4BMKEtb_nfZ-_ISvApdBNuBXABOsEbQxAdyUsFbX3Tg&oe=685841EB&_nc_sid=10d13b
+2025-06-18 00:14:47,242 - INFO - Downloading image to: images/j.p_morgan_trading_eace4598_0.jpg
+2025-06-18 00:14:47,321 - INFO - Response status code: 200
+2025-06-18 00:14:47,322 - INFO - Successfully saved image to images/j.p_morgan_trading_eace4598_0.jpg
+2025-06-18 00:14:47,324 - INFO - Created/verified images directory
+2025-06-18 00:14:47,324 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,324 - INFO - Processing image 1/1
+2025-06-18 00:14:47,324 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504293871_17853315867462671_880027552804820687_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODEuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=DnR06knUZj4Q7kNvwGUr1O9&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDYyNDcxMzQ3NjQwODQyOQ%3D%3D.3-ccb7-5&oh=00_AfOADXO3lClYxi8WiuloSNxTkQIvosjzeLfIsNP4_vcdhQ&oe=6858337E&_nc_sid=10d13b
+2025-06-18 00:14:47,324 - INFO - Downloading image to: images/j.p_morgan_trading_94716592_0.jpg
+2025-06-18 00:14:47,406 - INFO - Response status code: 200
+2025-06-18 00:14:47,407 - INFO - Successfully saved image to images/j.p_morgan_trading_94716592_0.jpg
+2025-06-18 00:14:47,409 - INFO - Created/verified images directory
+2025-06-18 00:14:47,409 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,409 - INFO - Processing image 1/1
+2025-06-18 00:14:47,409 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505438643_17853318120462671_1922067633903401499_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1Nzguc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=iqPeXENFV9oQ7kNvwGi4qZv&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDYzODIwMjA5OTE5NjM0MA%3D%3D.3-ccb7-5&oh=00_AfMcO-BK8TuwBmS-0jitpQY2VjbrLO6sqVI26D0C5Fd8nQ&oe=685828E8&_nc_sid=10d13b
+2025-06-18 00:14:47,409 - INFO - Downloading image to: images/j.p_morgan_trading_e2406d5c_0.jpg
+2025-06-18 00:14:47,554 - INFO - Response status code: 200
+2025-06-18 00:14:47,556 - INFO - Successfully saved image to images/j.p_morgan_trading_e2406d5c_0.jpg
+2025-06-18 00:14:47,559 - INFO - Created/verified images directory
+2025-06-18 00:14:47,559 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,560 - INFO - Processing image 1/1
+2025-06-18 00:14:47,560 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503905911_17853245973462671_740936963901287530_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTAuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=7T3Xkzr-EngQ7kNvwFd9vXZ&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1NDE3NDE5ODIxNzEyNzY2Ng%3D%3D.3-ccb7-5&oh=00_AfPJ24piAs4N7IPXqpbKEnZRFBp-ywFIxa-otq_0BmvKgA&oe=68582C85&_nc_sid=10d13b
+2025-06-18 00:14:47,560 - INFO - Downloading image to: images/j.p_morgan_trading_a84ab2dc_0.jpg
+2025-06-18 00:14:47,655 - INFO - Response status code: 200
+2025-06-18 00:14:47,656 - INFO - Successfully saved image to images/j.p_morgan_trading_a84ab2dc_0.jpg
+2025-06-18 00:14:47,659 - INFO - No images to download for post: SL: 0.224
+TP1: 0.276
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:14:47,659 - INFO - Created/verified images directory
+2025-06-18 00:14:47,659 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,659 - INFO - Processing image 1/1
+2025-06-18 00:14:47,659 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504437988_17852903778462671_2769414605196814462_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODMuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=TSXUJHDebZEQ7kNvwF103Lo&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjE5NzYzODU5Nzc1MDYzOQ%3D%3D.3-ccb7-5&oh=00_AfOODUMlYS0F_xegiaXlGpYXxD55yaIK-fvlCqulPdKgbg&oe=68581E8E&_nc_sid=10d13b
+2025-06-18 00:14:47,660 - INFO - Downloading image to: images/j.p_morgan_trading_369b497a_0.jpg
+2025-06-18 00:14:47,744 - INFO - Response status code: 200
+2025-06-18 00:14:47,745 - INFO - Successfully saved image to images/j.p_morgan_trading_369b497a_0.jpg
+2025-06-18 00:14:47,749 - INFO - Created/verified images directory
+2025-06-18 00:14:47,749 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,749 - INFO - Processing image 1/1
+2025-06-18 00:14:47,749 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504475222_17852905818462671_4908662525713344743_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODUuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=vWTTlxeaNk0Q7kNvwEcXAUa&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjIxMjUyMzM5NDA1NjM4NA%3D%3D.3-ccb7-5&oh=00_AfPsabA4illSKEW7qvByjfnxRp0alkU8ojLIMFMYf9BIug&oe=68583E77&_nc_sid=10d13b
+2025-06-18 00:14:47,749 - INFO - Downloading image to: images/j.p_morgan_trading_3483ebe0_0.jpg
+2025-06-18 00:14:47,833 - INFO - Response status code: 200
+2025-06-18 00:14:47,834 - INFO - Successfully saved image to images/j.p_morgan_trading_3483ebe0_0.jpg
+2025-06-18 00:14:47,837 - INFO - Created/verified images directory
+2025-06-18 00:14:47,837 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,837 - INFO - Processing image 1/1
+2025-06-18 00:14:47,837 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504281744_17852898324462671_2696265272572882271_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=0qWJCJuo8zkQ7kNvwHOxg_p&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjE1NjE1Njg4MTY5OTM0Ng%3D%3D.3-ccb7-5&oh=00_AfM8YlRU6adwfsSCI-UsZ2tnGsKsRrWGK5Nd6CRJ3ibSaA&oe=68584794&_nc_sid=10d13b
+2025-06-18 00:14:47,837 - INFO - Downloading image to: images/j.p_morgan_trading_691c4716_0.jpg
+2025-06-18 00:14:47,925 - INFO - Response status code: 200
+2025-06-18 00:14:47,926 - INFO - Successfully saved image to images/j.p_morgan_trading_691c4716_0.jpg
+2025-06-18 00:14:47,929 - INFO - Created/verified images directory
+2025-06-18 00:14:47,929 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:47,929 - INFO - Processing image 1/1
+2025-06-18 00:14:47,929 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503649654_17852902725462671_2030539823002029746_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1Njkuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=H2A28IBrm5AQ7kNvwEd_5Ho&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MjE4NTc5Njk3ODU2NTIxOQ%3D%3D.3-ccb7-5&oh=00_AfMcNQNARzGPWixQM-i46EX8FY39trk06o13No73H8BWgw&oe=68584737&_nc_sid=10d13b
+2025-06-18 00:14:47,929 - INFO - Downloading image to: images/j.p_morgan_trading_5d24a5be_0.jpg
+2025-06-18 00:14:48,016 - INFO - Response status code: 200
+2025-06-18 00:14:48,017 - INFO - Successfully saved image to images/j.p_morgan_trading_5d24a5be_0.jpg
+2025-06-18 00:14:48,021 - INFO - Created/verified images directory
+2025-06-18 00:14:48,021 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,021 - INFO - Processing image 1/1
+2025-06-18 00:14:48,021 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/505143239_17852784474462671_6284874734217983207_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1OTIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=XlT0Lg0pvtYQ7kNvwGxqTig&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTUwMzQwNjIwNzU3NDMzOA%3D%3D.3-ccb7-5&oh=00_AfPIdo46Ng8B9x1PGdg8pyasMdY4AotQslAY296W9QvH-w&oe=68582207&_nc_sid=10d13b
+2025-06-18 00:14:48,021 - INFO - Downloading image to: images/j.p_morgan_trading_7590c6bc_0.jpg
+2025-06-18 00:14:48,115 - INFO - Response status code: 200
+2025-06-18 00:14:48,117 - INFO - Successfully saved image to images/j.p_morgan_trading_7590c6bc_0.jpg
+2025-06-18 00:14:48,121 - INFO - Created/verified images directory
+2025-06-18 00:14:48,121 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,121 - INFO - Processing image 1/1
+2025-06-18 00:14:48,121 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504076959_17852786760462671_8392315876943840084_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1Nzkuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=Ipw5dWfid_AQ7kNvwFHtcre&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTUyMzM4MDAwMzMzNTI4Nw%3D%3D.3-ccb7-5&oh=00_AfO-7OMd-rpUm5WWEKMJQb5e7-zTz--F6k0EcwsEqBsKdQ&oe=685821E5&_nc_sid=10d13b
+2025-06-18 00:14:48,122 - INFO - Downloading image to: images/j.p_morgan_trading_25733d5a_0.jpg
+2025-06-18 00:14:48,213 - INFO - Response status code: 200
+2025-06-18 00:14:48,213 - INFO - Successfully saved image to images/j.p_morgan_trading_25733d5a_0.jpg
+2025-06-18 00:14:48,216 - INFO - Created/verified images directory
+2025-06-18 00:14:48,216 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,216 - INFO - Processing image 1/1
+2025-06-18 00:14:48,216 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504582770_17852776290462671_2043785603503750183_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=DHVuHX0dPl8Q7kNvwEUU_qZ&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTQzMTg1ODU3MTQ4ODk2NQ%3D%3D.3-ccb7-5&oh=00_AfN1uCak3i1bD8auNXjtTO4YxEkN3BCjq8Yu7tCNUsECmQ&oe=685821FD&_nc_sid=10d13b
+2025-06-18 00:14:48,216 - INFO - Downloading image to: images/j.p_morgan_trading_40b8f2e5_0.jpg
+2025-06-18 00:14:48,296 - INFO - Response status code: 200
+2025-06-18 00:14:48,297 - INFO - Successfully saved image to images/j.p_morgan_trading_40b8f2e5_0.jpg
+2025-06-18 00:14:48,299 - INFO - Created/verified images directory
+2025-06-18 00:14:48,299 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,299 - INFO - Processing image 1/1
+2025-06-18 00:14:48,299 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504325291_17852756934462671_6752118939963452341_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1NzYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=NKpUj9aI9jcQ7kNvwEm2s8r&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTMwNTg2NjQ3NjYzNzcxNg%3D%3D.3-ccb7-5&oh=00_AfOBXzQJ0mh4c1a2WTPbPgwJCLw8ykE63TFoVItCLHLnAA&oe=685828A1&_nc_sid=10d13b
+2025-06-18 00:14:48,299 - INFO - Downloading image to: images/j.p_morgan_trading_2eb4cae6_0.jpg
+2025-06-18 00:14:48,377 - INFO - Response status code: 200
+2025-06-18 00:14:48,378 - INFO - Successfully saved image to images/j.p_morgan_trading_2eb4cae6_0.jpg
+2025-06-18 00:14:48,380 - INFO - Created/verified images directory
+2025-06-18 00:14:48,380 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,380 - INFO - Processing image 1/1
+2025-06-18 00:14:48,380 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504541540_17852759145462671_8862314351733474883_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODMuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=diUEo4gi2HgQ7kNvwHeeY8e&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTMxNjc5NDcxOTg4MTU2Ng%3D%3D.3-ccb7-5&oh=00_AfNWW7SfoA-KXLRX3nwMQ_ltvqRCG6Xs16EiTHs3TLRLLw&oe=68582750&_nc_sid=10d13b
+2025-06-18 00:14:48,380 - INFO - Downloading image to: images/j.p_morgan_trading_3ec77fa4_0.jpg
+2025-06-18 00:14:48,464 - INFO - Response status code: 200
+2025-06-18 00:14:48,465 - INFO - Successfully saved image to images/j.p_morgan_trading_3ec77fa4_0.jpg
+2025-06-18 00:14:48,468 - INFO - Created/verified images directory
+2025-06-18 00:14:48,468 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,469 - INFO - Processing image 1/1
+2025-06-18 00:14:48,469 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503996400_17852733279462671_359036761230419784_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODcuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=dwec5Sb5CnQQ7kNvwHrP0Ie&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY1MTE5NzUxNTE4OTE2NDA1NA%3D%3D.3-ccb7-5&oh=00_AfMHkX3HpLxMegOCKt60PUlehLJzsvycNUldBEIHaXtSmw&oe=68582773&_nc_sid=10d13b
+2025-06-18 00:14:48,469 - INFO - Downloading image to: images/j.p_morgan_trading_0600ef56_0.jpg
+2025-06-18 00:14:48,552 - INFO - Response status code: 200
+2025-06-18 00:14:48,553 - INFO - Successfully saved image to images/j.p_morgan_trading_0600ef56_0.jpg
+2025-06-18 00:14:48,556 - INFO - No images to download for post: SL: 0.647
+TP1: 0.690
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:14:48,556 - INFO - Created/verified images directory
+2025-06-18 00:14:48,556 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,557 - INFO - Processing image 1/1
+2025-06-18 00:14:48,557 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/504212189_17852319345462671_1070146195362994695_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1NzUuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=K8MGCVuAyVAQ7kNvwG1BeDo&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0ODkyNDk1NzU3Mjg3MzAwMg%3D%3D.3-ccb7-5&oh=00_AfOKQr1SYNJ22Xvr-ZMfZkTPijYjPeqOdnsP0ux7t-oECw&oe=6858296F&_nc_sid=10d13b
+2025-06-18 00:14:48,557 - INFO - Downloading image to: images/j.p_morgan_trading_11da79f1_0.jpg
+2025-06-18 00:14:48,639 - INFO - Response status code: 200
+2025-06-18 00:14:48,640 - INFO - Successfully saved image to images/j.p_morgan_trading_11da79f1_0.jpg
+2025-06-18 00:14:48,644 - INFO - No images to download for post: SL: 1.332
+TP1: 1.490
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:14:48,644 - INFO - Created/verified images directory
+2025-06-18 00:14:48,644 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,644 - INFO - Processing image 1/1
+2025-06-18 00:14:48,645 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503532944_17851967637462671_6933034627371418022_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODYuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=uaSO53r14QwQ7kNvwEA_qZo&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0Njg2MzMxNTI4MDM0MjYwOA%3D%3D.3-ccb7-5&oh=00_AfOTNFE6Ce6KBlY6VBzhHQ78H0QbIh7PDBDoTkykju5u5g&oe=68582F25&_nc_sid=10d13b
+2025-06-18 00:14:48,645 - INFO - Downloading image to: images/j.p_morgan_trading_817f7be9_0.jpg
+2025-06-18 00:14:48,737 - INFO - Response status code: 200
+2025-06-18 00:14:48,737 - INFO - Successfully saved image to images/j.p_morgan_trading_817f7be9_0.jpg
+2025-06-18 00:14:48,739 - INFO - Created/verified images directory
+2025-06-18 00:14:48,739 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,739 - INFO - Processing image 1/1
+2025-06-18 00:14:48,740 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503708773_17851969773462671_5851439292592350688_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODMuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=4bf_7Tova0sQ7kNvwH3GtuW&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0Njg3MjIzNjE5NjAwMzkzMQ%3D%3D.3-ccb7-5&oh=00_AfPgXWRxUazqEKaMY3ZAp2nBIkRlSqqdVOFGH909ji8Gvg&oe=6858204C&_nc_sid=10d13b
+2025-06-18 00:14:48,740 - INFO - Downloading image to: images/j.p_morgan_trading_f79a8529_0.jpg
+2025-06-18 00:14:48,967 - INFO - Response status code: 200
+2025-06-18 00:14:48,968 - INFO - Successfully saved image to images/j.p_morgan_trading_f79a8529_0.jpg
+2025-06-18 00:14:48,972 - INFO - Created/verified images directory
+2025-06-18 00:14:48,972 - INFO - Attempting to download 1 images for post
+2025-06-18 00:14:48,972 - INFO - Processing image 1/1
+2025-06-18 00:14:48,972 - INFO - Image URL: https://instagram.fyvr2-1.fna.fbcdn.net/v/t51.2885-15/503913473_17851961922462671_8271788495278009870_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InRocmVhZHMuRkVFRC5pbWFnZV91cmxnZW4uMTI5MHg1ODIuc2RyLmY3NTc2MS5kZWZhdWx0X2ltYWdlIn0&_nc_ht=instagram.fyvr2-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QG8g8RucrtJ1TvF9RR9uq26BOMFLMV6hlmgeygipF9mT8DVTw7pwA-Z7GpUz7hXFt_FqJIuEomiNLLbIqbXQHeV&_nc_ohc=cHQ8xgDh-esQ7kNvwHlGTvY&_nc_gid=yahRG68I-KJ_NOpCbGoKuQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzY0NjgzNTU2Njk4MTYwNjgxNw%3D%3D.3-ccb7-5&oh=00_AfPPPDly6mOE5MRlPhBfWWuOu_mIwTTHslmehcChpolQCA&oe=68584DAA&_nc_sid=10d13b
+2025-06-18 00:14:48,972 - INFO - Downloading image to: images/j.p_morgan_trading_8ee84afd_0.jpg
+2025-06-18 00:14:49,157 - INFO - Response status code: 200
+2025-06-18 00:14:49,158 - INFO - Successfully saved image to images/j.p_morgan_trading_8ee84afd_0.jpg
+2025-06-18 00:14:49,161 - INFO - No images to download for post: SL: 1.780
+TP1: 1.953
+Lv: 5-10x Use 5% capital...
+2025-06-18 00:14:49,568 - INFO - HTTP Request: POST https://arjguarcpfgcxzfzotvk.supabase.co/rest/v1/posts?columns=%22posted_at%22%2C%22author%22%2C%22content%22%2C%22image_urls%22 "HTTP/2 201 Created"
+2025-06-18 00:14:49,575 - INFO - Inserted batch of 27 posts to Supabase
+2025-06-18 00:14:49,576 - INFO - Successfully saved 27 posts to Supabase
+2025-06-18 00:14:49,577 - INFO - Successfully scraped 27 posts from @j.p_morgan_trading

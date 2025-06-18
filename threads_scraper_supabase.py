@@ -16,7 +16,7 @@ from selenium.common.exceptions import (
     WebDriverException,
     StaleElementReferenceException
 )
-from datetime import datetime
+from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 import hashlib
 import requests
@@ -145,6 +145,87 @@ class ThreadsScraper:
                 continue
         
         return image_paths
+
+    def _parse_post_from_html(self, html: str) -> List[Dict[str, Any]]:
+        """Parse posts from HTML content."""
+        logging.info("📦 Parsing from props → pageProps → feed → threads")
+        posts = []
+        
+        soup = BeautifulSoup(html, "html.parser")
+        scripts = soup.find_all("script", {"type": "application/json"})
+        
+        for script in scripts:
+            try:
+                data = json.loads(script.string or script.text)
+                
+                threads = (
+                    data.get("props", {})
+                        .get("pageProps", {})
+                        .get("feed", {})
+                        .get("threads", [])
+                )
+                
+                def parse_items(items):
+                    parsed = []
+                    for item in items:
+                        post = item.get("post", {})
+                        caption = post.get("caption", {}).get("text", "")
+                        if not caption.strip():
+                            continue
+                        
+                        timestamp_unix = post.get("taken_at")
+                        if timestamp_unix:
+                            timestamp = datetime.fromtimestamp(timestamp_unix, timezone.utc).isoformat().replace('+00:00', 'Z')
+                        else:
+                            timestamp = "unknown"
+                        
+                        images = []
+                        unique_bases = set()
+                        for img in post.get("image_versions2", {}).get("candidates", []):
+                            url = img.get("url")
+                            if not url:
+                                continue
+                            base = url.split("?")[0]
+                            if base in unique_bases:
+                                continue
+                            unique_bases.add(base)
+                            images.append(url)
+                        
+                        parsed.append({
+                            "content": caption.strip(),
+                            "timestamp": timestamp,
+                            "images": images or []
+                        })
+                    return parsed
+                
+                for thread in threads:
+                    posts.extend(parse_items(thread.get("thread_items", [])))
+                
+                if not posts:
+                    # Try alternative parsing method
+                    alt_items = self._find_thread_items(data)
+                    posts.extend(parse_items(alt_items))
+                    
+            except Exception as e:
+                logging.warning(f"⚠️ Failed to parse a script block: {e}")
+                continue
+        
+        logging.info(f"✅ Extracted {len(posts)} posts from final confirmed schema.")
+        return posts
+    
+    def _find_thread_items(self, obj):
+        """Recursively yield lists stored under keys named 'thread_items'."""
+        items = []
+        if isinstance(obj, dict):
+            for key, value in obj.items():
+                if key == "thread_items" and isinstance(value, list):
+                    items.extend(value)
+                else:
+                    items.extend(self._find_thread_items(value))
+        elif isinstance(obj, list):
+            for val in obj:
+                items.extend(self._find_thread_items(val))
+        return items
 
     def get_all_posts(self, username: str, max_scrolls: int = 50) -> Optional[List[Dict[str, Any]]]:
         self.driver.get(f"https://www.threads.net/@{username}")
