@@ -1,0 +1,130 @@
+/* Glitchy Title Styles */
+.glitchy-title-container {
+  position: relative;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+  width: 200px;
+  height: 40px;
+}
+
+.glitchy-title-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.glitchy-title-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #f97316 30%, #ffffff 70%, #1e3a8a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+  filter: drop-shadow(0 0 8px rgba(249, 115, 22, 0.4));
+}
+
+.glitchy-title-text.glitching {
+  animation: glitch-pulse 0.1s linear;
+}
+
+.glitchy-title-cursor {
+  color: #f97316;
+  animation: cursor-blink 0.8s infinite;
+}
+
+.glitchy-title-cursor.visible {
+  opacity: 1;
+}
+
+.glitchy-title-cursor.hidden {
+  opacity: 0;
+}
+
+/* Glitch overlay effects */
+.glitch-overlay-red {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(239, 68, 68, 0.6);
+  white-space: nowrap;
+  transform: translate(-1px, -0.5px);
+  filter: blur(0.3px);
+}
+
+.glitch-overlay-blue {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(59, 130, 246, 0.6);
+  white-space: nowrap;
+  transform: translate(1px, 0.5px);
+  filter: blur(0.3px);
+}
+
+/* Matrix background effect */
+.matrix-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.matrix-char {
+  position: absolute;
+  color: #f97316;
+  font-size: 0.75rem;
+  animation: matrix-float 2s infinite linear;
+}
+
+/* Animations */
+@keyframes glitch-pulse {
+  0% { transform: translate(0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(-1px, -1px); }
+  60% { transform: translate(1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes matrix-float {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .glitchy-title-container {
+    width: 180px;
+    height: 36px;
+  }
+  
+  .glitchy-title-text,
+  .glitch-overlay-red,
+  .glitch-overlay-blue {
+    font-size: 1.25rem;
+  }
+}
