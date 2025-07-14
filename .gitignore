@@ -11,3 +11,5 @@ venv/
 .DS_Store
 # HTML debug output
 new_source_code.html
+# VSCode workspace file
+Threads Scraper.code-workspace
