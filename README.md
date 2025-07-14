@@ -1,99 +1,59 @@
 # Threads Scraper
 
-A minimal scraper for collecting posts from public Threads.net profiles. It uses
-Selenium and BeautifulSoup to parse JSON data embedded in the page and saves
-the results to simple text and JSON files.
+A robust, industry-standard Python project for scraping public posts from Threads user profiles (e.g., `j.p_morgan_trading`) without logging in. The scraper is designed to adapt to changes in Threads' HTML structure, version its scraping methods, and keep a history of which method works for which date range.
 
 ## Features
+- Scrapes Threads user posts (content, date/time, user, image link, likes, comments) without login
+- Saves posts to `data/posts.json` (newest first, no duplicates)
+- Tracks scraping method versions in `data/threads_rotation_history.json`
+- Detects and logs when Threads changes their HTML structure
+- Modular, extensible, and fully unit-tested
 
-- Extracts post text, timestamps and image URLs
-- Runs headless using Selenium and Chrome
-- Saves results in `<username>_threads.txt` and `<username>_threads.json`
-- Dumps raw page HTML and JSON blocks for debugging
+## Project Structure
+```
+Threads Scraper/
+  ├── src/
+  │   ├── main.py                # Entry point
+  │   ├── methods/               # Scraping methods (e.g., method_1.py)
+  │   ├── utils.py               # Utilities (JSON, deduplication, etc.)
+  │   ├── config.py              # Configurations
+  │   └── method_tracker.py      # Tracks method working periods
+  ├── tests/                     # Unit tests
+  ├── data/
+  │   ├── posts.json             # Scraped posts
+  │   └── threads_rotation_history.json # Scraper method history
+  ├── new_source_code.html       # For saving new/unknown HTML
+  ├── requirements.txt           # Dependencies
+  └── README.md
+```
 
-## Requirements
-
-- Python 3.7+
-- Chrome browser installed
-- Required packages (install using `pip install -r requirements.txt`):
-  - selenium
-  - beautifulsoup4
-  - undetected-chromedriver
-  - requests
-
-## Installation
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/yourusername/threads-scraper.git
-   cd threads-scraper
-   ```
-
-2. Create a virtual environment (recommended):
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-
-3. Install dependencies:
+## Usage
+1. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-
-## Usage
-
-1. Adjust the `TARGET_USER` constant in `threads_scraper_final.py` to the profile you want to scrape.
-
 2. Run the scraper:
    ```bash
-   python threads_scraper_final.py
+   python src/main.py
    ```
+3. Inspect `data/posts.json` for results.
 
-3. The script will load the profile, scroll to the bottom of the page and extract posts into text and JSON files.
+## How Method Tracking Works
+- The current scraping logic is in `src/methods/method_1.py` ("Method 1: Span hierarchy").
+- The system automatically logs when a method starts or stops working in `data/threads_rotation_history.json`.
+- If scraping fails (no posts parsed or an error), the method is marked as stopped.
 
-## Output Files
+## Adding New Scraping Methods
+- Add a new file in `src/methods/` (e.g., `method_2.py`).
+- Update `src/main.py` to import and use the new method.
+- The method tracker will automatically log the new method's working period.
 
-The scraper creates two files for each profile:
-
-1. `<username>_threads.txt`
-2. `<username>_threads.json`
-
-## Project Structure
-
-```
-threads-scraper/
-├── threads_scraper_final.py   # Main scraper script
-├── threads_scraper_debug.py   # Helper for inspecting page data
-├── requirements.txt           # Python dependencies
-└── README.md                  # This file
+## Testing
+Run all tests with:
+```bash
+pytest tests/
 ```
 
-## Error Handling
+---
 
-The scraper includes basic error handling for:
-- Network issues
-- Missing elements
-- Rate limiting
-
-## Limitations
-
-- May be affected by Threads' anti-scraping measures
-- Performance depends on network speed and server response times
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Disclaimer
-
-This tool is for educational purposes only. Users are responsible for:
-- Complying with Threads' terms of service
-- Respecting rate limits and robots.txt
-- Using the tool responsibly and ethically
-- Not violating any privacy or data protection laws
-
-The developers are not responsible for any misuse of this tool or any consequences resulting from its use.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
+**Note:** If scraping fails, the HTML will be saved to `new_source_code.html` for inspection and method update.

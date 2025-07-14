@@ -1,0 +1,119 @@
+from src.config import USER_URL, NEW_SOURCE_CODE_PATH
+from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
+import re
+
+def download_html_playwright(url: str) -> str:
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        page.goto(url, timeout=60000)
+        page.wait_for_load_state('networkidle')
+        html = page.content()
+        browser.close()
+        return html
+
+def extract_profile_username(soup):
+    import re
+    # Try to find <a> with href="/@username" near the top of the page
+    for a in soup.find_all("a", href=True):
+        if re.match(r"^/@[A-Za-z0-9_.]+$", a["href"]):
+            span = a.find("span")
+            if span:
+                return span.get_text(strip=True)
+            return a.get_text(strip=True)
+    return None
+
+def extract_posts(html: str):
+    soup = BeautifulSoup(html, "html.parser")
+    profile_username = extract_profile_username(soup)
+    print(f"[DEBUG] Profile username: {profile_username}")
+    posts = []
+    # Stricter regex: /@username/post/<id> (no trailing /media)
+    post_link_re = re.compile(r"/@[\w.]+/post/[A-Za-z0-9_-]+$")
+    post_links = soup.find_all("a", href=post_link_re)
+    print(f"[DEBUG] Found {len(post_links)} post permalinks.")
+    date_re = re.compile(r"\d{2}/\d{2}/\d{2}")
+    for link in post_links:
+        post = {}
+        # Datetime: <time> tag inside the link
+        time_tag = link.find("time", datetime=True)
+        post["datetime"] = time_tag["datetime"] if time_tag else None
+        # Walk up 10 parent levels to find a likely ancestor container
+        ancestor = link
+        for _ in range(10):
+            if ancestor.parent:
+                ancestor = ancestor.parent
+            else:
+                break
+        print(f"[DEBUG] Ancestor tag for permalink: <{ancestor.name}>")
+        # Username: first <a href="/@username"> in ancestor's subtree
+        username = None
+        user_a = ancestor.find("a", href=re.compile(r"/@[\w.]+$"))
+        if user_a:
+            username_span = user_a.find("span")
+            if username_span:
+                username = username_span.get_text(strip=True)
+        # Fallback to profile username if not found
+        if not username:
+            username = profile_username
+        print(f"[DEBUG] Username found: {username}")
+        post["user"] = username
+        # Content: for each <span> in ancestor, not inside <a> or <time>, use span.get_text(strip=True)
+        content = None
+        max_len = 0
+        def valid_text(text):
+            if not text:
+                return False
+            if text == username:
+                return False
+            if date_re.fullmatch(text):
+                return False
+            return True
+        for span in ancestor.find_all("span"):
+            # Skip if inside <a> or <time>
+            parent = span.parent
+            skip = False
+            while parent and parent != ancestor:
+                if parent.name in ("a", "time"):
+                    skip = True
+                    break
+                parent = parent.parent
+            if skip:
+                continue
+            text = span.get_text(strip=True)
+            if valid_text(text) and len(text) > max_len:
+                content = text
+                max_len = len(text)
+        print(f"[DEBUG] Content found: {content}")
+        post["content"] = content
+        # Image: use extract_post_image helper
+        image_url = extract_post_image(ancestor)
+        post["image"] = image_url
+        # Only keep posts with both username and content
+        if post["user"] and post["content"]:
+            posts.append(post)
+        else:
+            print(f"[DEBUG] Skipped post: user={post['user']} content={post['content']}")
+    print(f"[DEBUG] Extracted {len(posts)} posts.")
+    return posts
+
+def scrape_threads():
+    html = download_html_playwright(USER_URL)
+    return extract_posts(html)
+
+def extract_post_image(ancestor):
+    import re
+    # Prefer <img> inside <a> with /media in href
+    for a in ancestor.find_all("a", href=True):
+        if "/media" in a["href"]:
+            img = a.find("img", src=True)
+            if img:
+                return img["src"]
+    # Otherwise, find all <img> tags not inside <a> with /@username in href
+    for img in ancestor.find_all("img", src=True):
+        parent_a = img.find_parent("a", href=True)
+        if parent_a and re.match(r"^/@[A-Za-z0-9_.]+$", parent_a["href"]):
+            continue  # skip profile image
+        return img["src"]
+    return None 

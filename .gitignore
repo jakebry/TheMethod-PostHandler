@@ -1,4 +1,13 @@
 __pycache__/
 *.pyc
+# Playwright browser cache
+playwright/.cache/
+# VSCode settings
+.vscode/
+# Python virtual environments
+.venv/
+venv/
+# Mac system files
 .DS_Store
-script_*.json
+# HTML debug output
+new_source_code.html
