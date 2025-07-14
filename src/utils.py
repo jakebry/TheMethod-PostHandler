@@ -24,4 +24,4 @@ def deduplicate_posts(posts: List[Dict]) -> List[Dict]:
     return unique_posts
 
 def sort_posts_newest_first(posts: List[Dict]) -> List[Dict]:
-    return sorted(posts, key=lambda x: x.get('datetime', ''), reverse=True)
+    return sorted(posts, key=lambda x: x.get('datetime') or '', reverse=True)

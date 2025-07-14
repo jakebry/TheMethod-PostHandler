@@ -11,13 +11,13 @@ A robust, industry-standard Python project for scraping public posts from Thread
 
 ## Project Structure
 ```
-threads_scraper/
+Threads Scraper/
   ├── src/
   │   ├── main.py                # Entry point
-  │   ├── scraper.py             # Scraper orchestration
-  │   ├── methods/               # Scraping methods by version
+  │   ├── methods/               # Scraping methods (e.g., method_1.py)
   │   ├── utils.py               # Utilities (JSON, deduplication, etc.)
-  │   └── config.py              # Configurations
+  │   ├── config.py              # Configurations
+  │   └── method_tracker.py      # Tracks method working periods
   ├── tests/                     # Unit tests
   ├── data/
   │   ├── posts.json             # Scraped posts
@@ -38,10 +38,15 @@ threads_scraper/
    ```
 3. Inspect `data/posts.json` for results.
 
+## How Method Tracking Works
+- The current scraping logic is in `src/methods/method_1.py` ("Method 1: Span hierarchy").
+- The system automatically logs when a method starts or stops working in `data/threads_rotation_history.json`.
+- If scraping fails (no posts parsed or an error), the method is marked as stopped.
+
 ## Adding New Scraping Methods
-- Add a new file in `src/methods/` (e.g., `method_YYYY_MM.py`)
-- Update `threads_rotation_history.json` with the new method and date range
-- Update `src/scraper.py` to use the new method
+- Add a new file in `src/methods/` (e.g., `method_2.py`).
+- Update `src/main.py` to import and use the new method.
+- The method tracker will automatically log the new method's working period.
 
 ## Testing
 Run all tests with:

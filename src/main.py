@@ -1,13 +1,20 @@
-from src.scraper import scrape_threads
+from src.methods.method_1 import scrape_threads
 from src.utils import load_json, save_json, deduplicate_posts, sort_posts_newest_first
 from src.config import POSTS_JSON_PATH
+from src.method_tracker import log_method_start, log_method_stop
 
 
 def main():
     try:
         new_posts = scrape_threads()
+        if new_posts and len(new_posts) > 0:
+            log_method_start()
+        else:
+            print("[ERROR] No posts parsed. Marking method as stopped.")
+            log_method_stop()
     except Exception as e:
         print(f"Error: {e}")
+        log_method_stop()
         return
 
     existing_posts = load_json(POSTS_JSON_PATH)
