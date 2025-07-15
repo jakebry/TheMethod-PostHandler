@@ -1,3 +1,4 @@
+# Works
 # Threads Scraper
 
 A robust, industry-standard Python project for scraping public posts from Threads user profiles (e.g., `j.p_morgan_trading`) without logging in. The scraper is designed to adapt to changes in Threads' HTML structure, version its scraping methods, and keep a history of which method works for which date range.
