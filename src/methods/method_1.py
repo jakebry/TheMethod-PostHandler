@@ -1,6 +1,8 @@
 from src.config import USER_URL, NEW_SOURCE_CODE_PATH
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
+from src.utils import deduplicate_posts
+import json
 import re
 
 def download_html_playwright(url: str) -> str:
@@ -25,21 +27,57 @@ def extract_profile_username(soup):
     return None
 
 def extract_posts(html: str):
+    """Extract posts from Threads HTML. The function first tries to parse the
+    `__NEXT_DATA__` JSON payload which contains clean post information. If that
+    fails it falls back to a best effort DOM scrape which tries to skip nested
+    replies."""
+
     soup = BeautifulSoup(html, "html.parser")
+
+    # Try JSON payload first
+    json_script = soup.find("script", id="__NEXT_DATA__", type="application/json")
+    if json_script and json_script.string:
+        try:
+            data = json.loads(json_script.string)
+            json_posts = data.get("posts") or data.get("props", {}).get("pageProps", {}).get("posts")
+            if isinstance(json_posts, list) and json_posts:
+                posts = []
+                for post in json_posts:
+                    # Skip replies if the JSON has a reference to a parent
+                    if any(key in post for key in ("parent_post_id", "replied_to_post_id", "thread_id")):
+                        if post.get("parent_post_id") or post.get("replied_to_post_id"):
+                            continue
+                    posts.append({
+                        "id": post.get("id"),
+                        "user": post.get("user"),
+                        "content": post.get("content"),
+                        "datetime": post.get("datetime"),
+                        "image": post.get("image"),
+                    })
+                return deduplicate_posts(posts)
+        except Exception as e:  # pragma: no cover - debug information only
+            print(f"[DEBUG] Failed to parse __NEXT_DATA__: {e}")
+
     profile_username = extract_profile_username(soup)
     print(f"[DEBUG] Profile username: {profile_username}")
+
     posts = []
-    # Stricter regex: /@username/post/<id> (no trailing /media)
     post_link_re = re.compile(r"/@[\w.]+/post/[A-Za-z0-9_-]+$")
     post_links = soup.find_all("a", href=post_link_re)
     print(f"[DEBUG] Found {len(post_links)} post permalinks.")
+    seen_links = set()
     date_re = re.compile(r"\d{2}/\d{2}/\d{2}")
+
     for link in post_links:
+        href = link.get("href")
+        if href in seen_links:
+            continue
+        seen_links.add(href)
+
         post = {}
-        # Datetime: <time> tag inside the link
         time_tag = link.find("time", datetime=True)
         post["datetime"] = time_tag["datetime"] if time_tag else None
-        # Walk up 10 parent levels to find a likely ancestor container
+
         ancestor = link
         for _ in range(10):
             if ancestor.parent:
@@ -47,31 +85,21 @@ def extract_posts(html: str):
             else:
                 break
         print(f"[DEBUG] Ancestor tag for permalink: <{ancestor.name}>")
-        # Username: first <a href="/@username"> in ancestor's subtree
+
         username = None
-        user_a = ancestor.find("a", href=re.compile(r"/@[\w.]+$"))
-        if user_a:
+        for user_a in ancestor.find_all("a", href=re.compile(r"/@[\w.]+$")):
             username_span = user_a.find("span")
-            if username_span:
-                username = username_span.get_text(strip=True)
-        # Fallback to profile username if not found
+            text = username_span.get_text(strip=True) if username_span else user_a.get_text(strip=True)
+            if text:
+                username = text
+                break
         if not username:
             username = profile_username
         print(f"[DEBUG] Username found: {username}")
         post["user"] = username
-        # Content: for each <span> in ancestor, not inside <a> or <time>, use span.get_text(strip=True)
+
         content = None
-        max_len = 0
-        def valid_text(text):
-            if not text:
-                return False
-            if text == username:
-                return False
-            if date_re.fullmatch(text):
-                return False
-            return True
         for span in ancestor.find_all("span"):
-            # Skip if inside <a> or <time>
             parent = span.parent
             skip = False
             while parent and parent != ancestor:
@@ -82,21 +110,22 @@ def extract_posts(html: str):
             if skip:
                 continue
             text = span.get_text(strip=True)
-            if valid_text(text) and len(text) > max_len:
+            if text and text != username and not date_re.fullmatch(text):
                 content = text
-                max_len = len(text)
+                break
         print(f"[DEBUG] Content found: {content}")
         post["content"] = content
-        # Image: use extract_post_image helper
+
         image_url = extract_post_image(ancestor)
         post["image"] = image_url
-        # Only keep posts with both username and content
+
         if post["user"] and post["content"]:
             posts.append(post)
         else:
             print(f"[DEBUG] Skipped post: user={post['user']} content={post['content']}")
+
     print(f"[DEBUG] Extracted {len(posts)} posts.")
-    return posts
+    return deduplicate_posts(posts)
 
 def scrape_threads():
     html = download_html_playwright(USER_URL)
