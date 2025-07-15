@@ -3,6 +3,9 @@ from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import re
 import json
+import logging
+
+logger = logging.getLogger(__name__)
 
 def download_html_playwright(url: str) -> str:
     with sync_playwright() as p:
@@ -28,7 +31,7 @@ def extract_profile_username(soup):
 def extract_posts(html: str):
     soup = BeautifulSoup(html, "html.parser")
     profile_username = extract_profile_username(soup)
-    print(f"[DEBUG] Profile username: {profile_username}")
+    logger.debug("Profile username: %s", profile_username)
 
     # Check for JSON data first (used in unit tests)
     script = soup.find("script", id="__NEXT_DATA__", type="application/json")
@@ -45,7 +48,7 @@ def extract_posts(html: str):
                 }
                 for p in data.get("posts", [])
             ]
-            print(f"[DEBUG] Extracted {len(posts)} posts from JSON data.")
+            logger.debug("Extracted %d posts from JSON data.", len(posts))
             return posts
         except Exception:
             pass
@@ -54,7 +57,7 @@ def extract_posts(html: str):
     # Stricter regex: /@username/post/<id> (no trailing /media)
     post_link_re = re.compile(r"/@[\w.]+/post/[A-Za-z0-9_-]+$")
     post_links = soup.find_all("a", href=post_link_re)
-    print(f"[DEBUG] Found {len(post_links)} post permalinks.")
+    logger.debug("Found %d post permalinks.", len(post_links))
     date_re = re.compile(r"\d{2}/\d{2}/\d{2}")
     for link in post_links:
         post = {}
@@ -74,7 +77,7 @@ def extract_posts(html: str):
                 ancestor = ancestor.parent
             else:
                 break
-        print(f"[DEBUG] Ancestor tag for permalink: <{ancestor.name}>")
+        logger.debug("Ancestor tag for permalink: <%s>", ancestor.name)
         # Username: first <a href="/@username"> in ancestor's subtree
         username = None
         user_a = ancestor.find("a", href=re.compile(r"/@[\w.]+$"))
@@ -91,7 +94,7 @@ def extract_posts(html: str):
         # Fallback to profile username if not found
         if not username:
             username = profile_username
-        print(f"[DEBUG] Username found: {username}")
+        logger.debug("Username found: %s", username)
         post["user"] = username
         # Content: for each <span> in ancestor, not inside <a> or <time>, use span.get_text(strip=True)
         content = None
@@ -119,7 +122,7 @@ def extract_posts(html: str):
             if valid_text(text) and len(text) > max_len:
                 content = text
                 max_len = len(text)
-        print(f"[DEBUG] Content found: {content}")
+        logger.debug("Content found: %s", content)
         post["content"] = content
         # Image: use extract_post_image helper
         image_url = extract_post_image(ancestor)
@@ -128,8 +131,8 @@ def extract_posts(html: str):
         if post["user"] and post["content"]:
             posts.append(post)
         else:
-            print(f"[DEBUG] Skipped post: user={post['user']} content={post['content']}")
-    print(f"[DEBUG] Extracted {len(posts)} posts.")
+            logger.debug("Skipped post: user=%s content=%s", post['user'], post['content'])
+    logger.debug("Extracted %d posts.", len(posts))
     return posts
 
 def scrape_threads():
