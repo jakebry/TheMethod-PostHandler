@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime
+from datetime import datetime, UTC
 
 HISTORY_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'threads_rotation_history.json')
 
@@ -21,7 +21,7 @@ def _save_history(history):
 
 def log_method_start():
     history = _load_history()
-    now = datetime.utcnow().isoformat()
+    now = datetime.now(UTC).isoformat()
     # Check if already working
     for entry in history:
         if entry['method'] == METHOD_NAME and entry['status'] == 'working' and entry['end'] is None:
@@ -37,7 +37,7 @@ def log_method_start():
 
 def log_method_stop():
     history = _load_history()
-    now = datetime.utcnow().isoformat()
+    now = datetime.now(UTC).isoformat()
     updated = False
     for entry in history:
         if entry['method'] == METHOD_NAME and entry['status'] == 'working' and entry['end'] is None:
