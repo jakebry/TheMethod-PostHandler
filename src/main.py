@@ -2,9 +2,15 @@ from src.methods.method_1 import scrape_threads
 from src.utils import load_json, save_json, deduplicate_posts, sort_posts_newest_first
 from src.config import POSTS_JSON_PATH
 from src.method_tracker import log_method_start, log_method_stop
+from src.console_anim import Spinner
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
 def main():
+    spinner = Spinner("Scraping threads")
+    spinner.start()
     try:
         new_posts = scrape_threads()
         if new_posts and len(new_posts) > 0:
@@ -16,6 +22,8 @@ def main():
         print(f"Error: {e}")
         log_method_stop()
         return
+    finally:
+        spinner.stop()
 
     existing_posts = load_json(POSTS_JSON_PATH)
     all_posts = new_posts + existing_posts
