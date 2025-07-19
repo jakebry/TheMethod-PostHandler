@@ -3,6 +3,7 @@ from src import method_tracker
 
 
 def test_log_method_start_and_stop(tmp_path, monkeypatch):
+    print("Testing: Method tracking and logging")
     history_file = tmp_path / "history.json"
     monkeypatch.setattr(method_tracker, "HISTORY_PATH", str(history_file))
 
