@@ -4,6 +4,7 @@ from src import main
 
 
 def test_main_logs_start_when_posts_returned():
+    print("Testing: Main logs start when posts are returned")
     with patch("src.main.load_json", return_value=[]), \
          patch("src.main.save_json"), \
          patch("src.main.deduplicate_posts", side_effect=lambda x: x), \
@@ -17,6 +18,7 @@ def test_main_logs_start_when_posts_returned():
 
 
 def test_main_logs_stop_when_no_posts():
+    print("Testing: Main logs stop when no posts found")
     with patch("src.main.load_json", return_value=[]), \
          patch("src.main.save_json"), \
          patch("src.main.deduplicate_posts", side_effect=lambda x: x), \
@@ -30,6 +32,7 @@ def test_main_logs_stop_when_no_posts():
 
 
 def test_main_logs_stop_on_error():
+    print("Testing: Main logs stop when scraping fails")
     with patch("src.main.load_json", return_value=[]), \
          patch("src.main.save_json"), \
          patch("src.main.deduplicate_posts", side_effect=lambda x: x), \

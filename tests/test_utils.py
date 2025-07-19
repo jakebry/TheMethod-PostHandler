@@ -4,6 +4,7 @@ import json
 from src.utils import load_json, save_json, deduplicate_posts, sort_posts_newest_first
 
 def test_load_and_save_json():
+    print("Testing: JSON file operations")
     data = [{"a": 1}]
     with tempfile.NamedTemporaryFile(delete=False) as tf:
         save_json(tf.name, data)
@@ -12,6 +13,7 @@ def test_load_and_save_json():
     os.remove(tf.name)
 
 def test_deduplicate_posts():
+    print("Testing: Post deduplication")
     posts = [
         {"id": 1, "content": "A"},
         {"id": 1, "content": "A"},
@@ -21,6 +23,7 @@ def test_deduplicate_posts():
     assert len(unique) == 2
 
 def test_sort_posts_newest_first():
+    print("Testing: Post sorting by date")
     posts = [
         {"datetime": "2024-06-01T12:00:00", "content": "A"},
         {"datetime": "2024-06-02T12:00:00", "content": "B"},

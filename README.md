@@ -54,6 +54,19 @@ Run all tests with:
 pytest
 ```
 
+For detailed test output with descriptions:
+```bash
+pytest -v -s
+```
+
+The test suite includes:
+- **Main function tests** (3 tests): Error handling and logging behavior
+- **Real scraping test** (1 test): Validates actual Threads scraping functionality  
+- **Method tracking test** (1 test): Tests the method logging system
+- **Utility function tests** (3 tests): JSON operations, deduplication, and sorting
+
+All tests verify the scraper handles various scenarios correctly and maintains data integrity.
+
 ---
 
 **Note:** If scraping fails, the HTML will be saved to `new_source_code.html` (created dynamically if needed) for inspection and method update.
