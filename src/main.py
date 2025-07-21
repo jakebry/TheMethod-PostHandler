@@ -1,6 +1,4 @@
-from src.methods.method_1 import scrape_threads
-from src.utils import load_json, save_json, deduplicate_posts, sort_posts_newest_first
-from src.config import POSTS_JSON_PATH
+from src.scraper import scrape_and_store_posts
 from src.method_tracker import log_method_start, log_method_stop
 from src.console_anim import Spinner
 import logging
@@ -9,15 +7,12 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
 def main():
-    spinner = Spinner("Scraping threads")
+    spinner = Spinner("Scraping threads and storing in Supabase")
     spinner.start()
     try:
-        new_posts = scrape_threads()
-        if new_posts and len(new_posts) > 0:
-            log_method_start()
-        else:
-            print("[ERROR] No posts parsed. Marking method as stopped.")
-            log_method_stop()
+        log_method_start()
+        scrape_and_store_posts()
+        log_method_stop()
     except Exception as e:
         print(f"Error: {e}")
         log_method_stop()
@@ -25,12 +20,7 @@ def main():
     finally:
         spinner.stop()
 
-    existing_posts = load_json(POSTS_JSON_PATH)
-    all_posts = new_posts + existing_posts
-    all_posts = deduplicate_posts(all_posts)
-    all_posts = sort_posts_newest_first(all_posts)
-    save_json(POSTS_JSON_PATH, all_posts)
-    print(f"Scraped {len(new_posts)} new posts. Total posts: {len(all_posts)}.")
+    print("Scraping process completed.")
 
 if __name__ == "__main__":
     main()
