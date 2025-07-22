@@ -1,7 +1,5 @@
-from src.methods.method_1 import scrape_threads
-from src.utils import load_json, save_json, deduplicate_posts, sort_posts_newest_first
-from src.config import POSTS_JSON_PATH
-from src.method_tracker import log_method_start, log_method_stop
+from src.scraper import scrape_and_store_posts
+from src.method_tracker import log_method_working, log_method_stopped
 from src.console_anim import Spinner
 import logging
 
@@ -9,28 +7,30 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
 def main():
-    spinner = Spinner("Scraping threads")
+    spinner = Spinner("Scraping threads and storing in Supabase")
     spinner.start()
     try:
-        new_posts = scrape_threads()
-        if new_posts and len(new_posts) > 0:
-            log_method_start()
+        # Attempt to scrape posts
+        method_working = scrape_and_store_posts()
+        
+        if method_working:
+            # Method is working - update the working status
+            log_method_working()
+            print("Method is working - successfully extracted posts.")
         else:
-            print("[ERROR] No posts parsed. Marking method as stopped.")
-            log_method_stop()
+            # Method failed - mark it as stopped
+            log_method_stopped()
+            print("Method stopped - no posts could be extracted.")
+            
     except Exception as e:
         print(f"Error: {e}")
-        log_method_stop()
+        # Method failed due to exception - mark it as stopped
+        log_method_stopped()
         return
     finally:
         spinner.stop()
 
-    existing_posts = load_json(POSTS_JSON_PATH)
-    all_posts = new_posts + existing_posts
-    all_posts = deduplicate_posts(all_posts)
-    all_posts = sort_posts_newest_first(all_posts)
-    save_json(POSTS_JSON_PATH, all_posts)
-    print(f"Scraped {len(new_posts)} new posts. Total posts: {len(all_posts)}.")
+    print("Scraping process completed.")
 
 if __name__ == "__main__":
     main()

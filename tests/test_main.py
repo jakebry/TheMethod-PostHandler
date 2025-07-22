@@ -3,43 +3,31 @@ from unittest.mock import patch
 from src import main
 
 
-def test_main_logs_start_when_posts_returned():
-    print("Testing: Main logs start when posts are returned")
-    with patch("src.main.load_json", return_value=[]), \
-         patch("src.main.save_json"), \
-         patch("src.main.deduplicate_posts", side_effect=lambda x: x), \
-         patch("src.main.sort_posts_newest_first", side_effect=lambda x: x), \
-         patch("src.main.scrape_threads", return_value=[{"id": "1", "user": "u", "datetime": "d", "content": "c"}]), \
-         patch("src.main.log_method_start") as log_start, \
-         patch("src.main.log_method_stop") as log_stop:
+def test_main_logs_working_when_posts_returned():
+    print("Testing: Main logs working when posts are returned")
+    with patch("src.main.scrape_and_store_posts", return_value=True), \
+         patch("src.main.log_method_working") as log_working, \
+         patch("src.main.log_method_stopped") as log_stopped:
         main.main()
-        log_start.assert_called_once()
-        log_stop.assert_not_called()
+        log_working.assert_called_once()
+        log_stopped.assert_not_called()
 
 
-def test_main_logs_stop_when_no_posts():
-    print("Testing: Main logs stop when no posts found")
-    with patch("src.main.load_json", return_value=[]), \
-         patch("src.main.save_json"), \
-         patch("src.main.deduplicate_posts", side_effect=lambda x: x), \
-         patch("src.main.sort_posts_newest_first", side_effect=lambda x: x), \
-         patch("src.main.scrape_threads", return_value=[]), \
-         patch("src.main.log_method_start") as log_start, \
-         patch("src.main.log_method_stop") as log_stop:
+def test_main_logs_stopped_when_no_posts():
+    print("Testing: Main logs stopped when no posts found")
+    with patch("src.main.scrape_and_store_posts", return_value=False), \
+         patch("src.main.log_method_working") as log_working, \
+         patch("src.main.log_method_stopped") as log_stopped:
         main.main()
-        log_stop.assert_called_once()
-        log_start.assert_not_called()
+        log_stopped.assert_called_once()
+        log_working.assert_not_called()
 
 
-def test_main_logs_stop_on_error():
-    print("Testing: Main logs stop when scraping fails")
-    with patch("src.main.load_json", return_value=[]), \
-         patch("src.main.save_json"), \
-         patch("src.main.deduplicate_posts", side_effect=lambda x: x), \
-         patch("src.main.sort_posts_newest_first", side_effect=lambda x: x), \
-         patch("src.main.scrape_threads", side_effect=Exception("boom")), \
-         patch("src.main.log_method_start") as log_start, \
-         patch("src.main.log_method_stop") as log_stop:
+def test_main_logs_stopped_on_error():
+    print("Testing: Main logs stopped when scraping fails")
+    with patch("src.main.scrape_and_store_posts", side_effect=Exception("boom")), \
+         patch("src.main.log_method_working") as log_working, \
+         patch("src.main.log_method_stopped") as log_stopped:
         main.main()
-        log_stop.assert_called_once()
-        log_start.assert_not_called()
+        log_stopped.assert_called_once()
+        log_working.assert_not_called()

@@ -75,6 +75,7 @@ playwright-report/
 
 # Workspace files
 The-Method-Local.code-workspace
+Frontend:Scraper.code-workspace
 
 # Data files
 /data/*.json

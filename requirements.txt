@@ -1,3 +1,4 @@
+supabase
+python-dotenv
 playwright
 beautifulsoup4
-pytest
