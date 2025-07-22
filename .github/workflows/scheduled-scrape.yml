@@ -10,12 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Run Scraper on Fly.io
-        run: flyctl machines run --rm -a threads-scraper registry.fly.io/threads-scraper:latest -- python -m src.main
+      - name: Start Persistent Machine
+        run: flyctl machines start 48ed090c0e9108 -a threads-scraper
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: Cleanup orphaned machines
-        run: |
-          flyctl machines list -a threads-scraper --json | jq -r '.[] | select(.state != "started" and .id != "48ed090c0e9108" and .id != "1857279cd3d928") | .id' | xargs -r -n1 flyctl machines remove -a threads-scraper
+      - name: Run Scraper on Persistent Machine
+        run: flyctl machines exec 48ed090c0e9108 -a threads-scraper -- "python -m src.main"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Suspend Persistent Machine
+        run: flyctl machines stop 48ed090c0e9108 -a threads-scraper
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }} 
