@@ -11,14 +11,14 @@ jobs:
     steps:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Start Machine
-        run: fly machines start 48ed090c0e9108 -a threads-scraper
+        run: flyctl machines start 48ed090c0e9108 -a threads-scraper
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Run Scraper on Machine
-        run: fly machines exec 48ed090c0e9108 -a threads-scraper -- "python -m src.main"
+        run: flyctl machines exec 48ed090c0e9108 -a threads-scraper -- "python -m src.main"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Suspend Machine
-        run: fly machines stop 48ed090c0e9108 -a threads-scraper
+        run: flyctl machines stop 48ed090c0e9108 -a threads-scraper
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }} 
