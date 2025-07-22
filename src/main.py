@@ -33,4 +33,7 @@ def main():
     print("Scraping process completed.")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("[INFO] Received SIGINT (KeyboardInterrupt), shutting down gracefully.")
