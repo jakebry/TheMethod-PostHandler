@@ -15,7 +15,7 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Run Scraper on Persistent Machine
-        run: flyctl machines exec 48ed090c0e9108 -a threads-scraper -- "python -m src.main"
+        run: flyctl machines exec 48ed090c0e9108 -a threads-scraper -- "cd /app && python -m src.main"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       - name: Suspend Persistent Machine
