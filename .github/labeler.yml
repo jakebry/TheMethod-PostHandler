@@ -1,0 +1,13 @@
+backend:
+  - 'src/**'
+  - 'data/**'
+  - 'requirements.txt'
+  - 'fly.toml'
+  - 'Dockerfile'
+
+docs:
+  - '*.md'
+  - 'README.md'
+
+tests:
+  - 'tests/**' 
