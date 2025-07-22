@@ -56,8 +56,8 @@ COPY . .
 RUN chown -R appuser:appuser /app
 USER appuser
 
-# (Optional) Install Playwright browsers if needed
-RUN python -m playwright install --with-deps || true
+# Install Playwright browsers as appuser (no --with-deps)
+RUN python -m playwright install
 
 # Entrypoint for the worker
 CMD ["python", "-m", "src.main"] 

@@ -11,6 +11,11 @@ primary_region = 'sea'
 [processes]
   worker = "python -m src.main"
 
+[[jobs]]
+  name = "scrape-every-5-min"
+  schedule = "*/5 * * * *"
+  command = "python -m src.main"
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
