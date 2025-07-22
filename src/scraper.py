@@ -44,6 +44,7 @@ def get_trusted_sources(supabase: Client):
 def scrape_and_store_posts():
     """
     Scrapes posts from Threads for trusted sources and stores them in Supabase.
+    Returns True if the method is working (successfully extracted posts), False otherwise.
     """
     supabase = init_supabase_client()
     
@@ -53,7 +54,7 @@ def scrape_and_store_posts():
 
     if not email or not password:
         logger.error("Scraper user email and password must be set in the .env file.")
-        return
+        return False
 
     try:
         logger.info(f"Authenticating as {email}...")
@@ -61,14 +62,16 @@ def scrape_and_store_posts():
         logger.info("Authentication successful.")
     except Exception as e:
         logger.error(f"Authentication failed: {e}")
-        return
+        return False
 
     trusted_sources = get_trusted_sources(supabase)
     
     if not trusted_sources:
         logger.info("No trusted sources found to scrape.")
-        return
+        return False
 
+    total_posts_extracted = 0
+    
     for account_handle in trusted_sources:
         logger.info(f"Scraping posts for: {account_handle}")
         try:
@@ -77,8 +80,11 @@ def scrape_and_store_posts():
             posts = extract_posts(html)
 
             if not posts:
-                logger.info(f"No new posts found for {account_handle}.")
+                logger.info(f"No posts extracted for {account_handle}.")
                 continue
+
+            total_posts_extracted += len(posts)
+            logger.info(f"Extracted {len(posts)} posts for {account_handle}.")
 
             for post in posts:
                 post_data = {
@@ -91,12 +97,6 @@ def scrape_and_store_posts():
 
                 # Insert or update post in Supabase
                 try:
-                    # Upsert based on a unique constraint (e.g., account_handle and content)
-                    # This example assumes a unique combination of account_handle and datetime,
-                    # you might need to adjust based on your actual table constraints.
-                    # As a simple approach, we check if a similar post exists.
-                    # A more robust solution might use a unique post ID from Threads if available.
-                    
                     # Check for existing post to avoid duplicates
                     existing_post_response = supabase.table("user_posts").select("id").eq("account_handle", account_handle).eq("content", post.get("content")).execute()
 
@@ -110,6 +110,9 @@ def scrape_and_store_posts():
 
         except Exception as e:
             logger.error(f"Failed to scrape or store posts for {account_handle}: {e}")
+
+    # Method is working if we extracted at least some posts
+    return total_posts_extracted > 0
 
 if __name__ == "__main__":
     scrape_and_store_posts() 

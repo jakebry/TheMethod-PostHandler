@@ -1,5 +1,5 @@
 from src.scraper import scrape_and_store_posts
-from src.method_tracker import log_method_start, log_method_stop
+from src.method_tracker import log_method_working, log_method_stopped
 from src.console_anim import Spinner
 import logging
 
@@ -10,12 +10,22 @@ def main():
     spinner = Spinner("Scraping threads and storing in Supabase")
     spinner.start()
     try:
-        log_method_start()
-        scrape_and_store_posts()
-        log_method_stop()
+        # Attempt to scrape posts
+        method_working = scrape_and_store_posts()
+        
+        if method_working:
+            # Method is working - update the working status
+            log_method_working()
+            print("Method is working - successfully extracted posts.")
+        else:
+            # Method failed - mark it as stopped
+            log_method_stopped()
+            print("Method stopped - no posts could be extracted.")
+            
     except Exception as e:
         print(f"Error: {e}")
-        log_method_stop()
+        # Method failed due to exception - mark it as stopped
+        log_method_stopped()
         return
     finally:
         spinner.stop()

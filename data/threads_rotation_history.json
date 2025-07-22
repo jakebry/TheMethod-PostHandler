@@ -1,68 +1,8 @@
 [
   {
     "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-14T07:45:02.334186",
-    "end": "2025-07-21T08:24:23.260312+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:25:45.522900+00:00",
-    "end": "2025-07-21T08:25:45.523757+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:26:21.754134+00:00",
-    "end": "2025-07-21T08:26:21.755230+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:26:59.244939+00:00",
-    "end": "2025-07-21T08:26:59.245888+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:27:12.557567+00:00",
-    "end": "2025-07-21T08:27:12.558571+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:27:34.036622+00:00",
-    "end": "2025-07-21T08:27:35.401652+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:29:56.212549+00:00",
-    "end": "2025-07-21T08:29:56.757942+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:30:36.178843+00:00",
-    "end": "2025-07-21T08:30:36.692288+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:33:47.931058+00:00",
-    "end": "2025-07-21T08:33:47.932119+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T08:38:46.713099+00:00",
-    "end": "2025-07-21T08:39:00.697668+00:00"
-  },
-  {
-    "method": "Method 1: Span hierarchy",
-    "status": "stopped",
-    "start": "2025-07-21T09:01:09.856451+00:00",
-    "end": "2025-07-21T09:01:23.006978+00:00"
+    "status": "working",
+    "start": "2025-07-22T05:58:44.453969+00:00",
+    "end": "2025-07-22T06:01:56.311298+00:00"
   }
 ]
