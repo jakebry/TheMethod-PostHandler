@@ -6,9 +6,6 @@
 app = 'threads-scraper'
 primary_region = 'sea'
 
-[build]
-  builder = 'paketobuildpacks/builder:base'
-
 [env]
 
 [processes]
