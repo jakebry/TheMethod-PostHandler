@@ -10,15 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Start Machine
-        run: flyctl machines start 48ed090c0e9108 -a threads-scraper
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: Run Scraper on Machine
-        run: flyctl machines exec 48ed090c0e9108 -a threads-scraper -- "python -m src.main"
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: Suspend Machine
-        run: flyctl machines stop 48ed090c0e9108 -a threads-scraper
+      - name: Run Scraper on Fly.io
+        run: flyctl machines run --rm -a threads-scraper "python -m src.main"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }} 
