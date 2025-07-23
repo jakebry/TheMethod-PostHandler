@@ -70,3 +70,10 @@ All tests verify the scraper handles various scenarios correctly and maintains d
 ---
 
 **Note:** If scraping fails, the HTML will be saved to `new_source_code.html` (created dynamically if needed) for inspection and method update.
+
+## Automated Fly.io Execution
+The `Scheduled Scrape` GitHub Actions workflow runs every five minutes. It
+launches an ephemeral Fly Machine using the latest Docker image and executes
+`python -m src.main`. The machine is removed automatically after the run.
+Ensure the `FLY_API_TOKEN` secret is configured in your repository so the
+workflow can authenticate with Fly.io.
