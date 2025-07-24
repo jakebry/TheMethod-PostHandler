@@ -72,8 +72,18 @@ All tests verify the scraper handles various scenarios correctly and maintains d
 **Note:** If scraping fails, the HTML will be saved to `new_source_code.html` (created dynamically if needed) for inspection and method update.
 
 ## Automated Fly.io Execution
-The `Scheduled Scrape` GitHub Actions workflow runs every five minutes. It
-launches an ephemeral Fly Machine using the latest Docker image and executes
-`python -m src.main`. The machine is removed automatically after the run.
-Ensure the `FLY_API_TOKEN` secret is configured in your repository so the
-workflow can authenticate with Fly.io.
+The scraping job is triggered by the `Scheduled Scrape` GitHub Actions workflow.
+Instead of creating a new Fly Machine each time, the workflow starts a single
+pre-provisioned machine, executes the scraper, then shuts it down. This behaviour
+is handled by `scripts/run_machine.sh`.
+
+Set the `SCRAPER_MACHINE_ID` secret in your repository to the ID of the machine
+you want to reuse. The workflow authenticates with Fly using `FLY_API_TOKEN` and
+invokes the script, which performs:
+
+1. `flyctl machine start` – boots the machine and waits for it to be ready.
+2. `flyctl ssh console` – runs `python -m src.main` inside the machine.
+3. `flyctl machine stop` – powers the machine off when finished.
+
+This approach keeps the Fly project tidy and ensures you only pay for compute
+while the scraper runs.

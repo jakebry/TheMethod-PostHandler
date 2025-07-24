@@ -9,8 +9,10 @@ jobs:
   run-scraper:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Run scraper on Fly.io
-        run: flyctl machines run --rm -a threads-scraper registry.fly.io/threads-scraper:latest -- python -m src.main
+        run: ./scripts/run_machine.sh
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          SCRAPER_MACHINE_ID: ${{ secrets.SCRAPER_MACHINE_ID }}
