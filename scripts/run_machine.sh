@@ -36,7 +36,7 @@ sleep 5
        RETRY=0
        while (( RETRY < MAX_RETRIES )); do
          set +e
-         flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "cd /app && python -m src.main"
+         flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python -m src.main"
          EXIT_CODE=$?
          set -e
          if [[ $EXIT_CODE -eq 0 ]]; then
