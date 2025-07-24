@@ -9,7 +9,7 @@ MACHINE_ID=${SCRAPER_MACHINE_ID:?SCRAPER_MACHINE_ID env var is required}
 CMD=${1:-"python -m src.main"}
 
 # Start the machine and wait until it's running
-flyctl machine start "$MACHINE_ID" -a "$APP" --wait
+flyctl machine start "$MACHINE_ID" -a "$APP"
 
 # Execute the command via SSH
 flyctl ssh console -a "$APP" -s "$MACHINE_ID" -C "$CMD"
