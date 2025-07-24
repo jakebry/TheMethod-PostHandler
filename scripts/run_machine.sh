@@ -8,8 +8,28 @@ APP=${FLY_APP:-threads-scraper}
 MACHINE_ID=${SCRAPER_MACHINE_ID:?SCRAPER_MACHINE_ID env var is required}
 CMD=${1:-"python -m src.main"}
 
-# Start the machine and wait until it's running
-flyctl machine start "$MACHINE_ID" -a "$APP"
+# Start the machine
+flyctl machine start "$SCRAPER_MACHINE_ID" -a threads-scraper
+
+# Smarter wait loop: poll until the machine is started (max 30 seconds)
+MAX_WAIT=30
+WAITED=0
+while true; do
+  STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+  if [[ "$STATUS" == "started" ]]; then
+    echo "Machine $SCRAPER_MACHINE_ID is started."
+    break
+  fi
+  if (( WAITED >= MAX_WAIT )); then
+    echo "Timed out waiting for machine $SCRAPER_MACHINE_ID to start."
+    exit 1
+  fi
+  sleep 2
+  WAITED=$((WAITED+2))
+done
+
+# Your next commands go here, e.g.:
+# flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python -m src.main"
 
 # Execute the command via SSH
 flyctl ssh console -a "$APP" -s "$MACHINE_ID" -C "$CMD"
