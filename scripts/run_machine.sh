@@ -2,7 +2,7 @@
 # Start an existing Fly.io machine, run a command, then stop the machine.
 # Requires FLY_API_TOKEN for authentication and SCRAPER_MACHINE_ID set to the Machine ID.
 
-set -euo pipefail
+set -e
 
 APP=${FLY_APP:-threads-scraper}
 MACHINE_ID=${SCRAPER_MACHINE_ID:?SCRAPER_MACHINE_ID env var is required}
@@ -36,7 +36,7 @@ MAX_RETRIES=3
 RETRY=0
 while (( RETRY < MAX_RETRIES )); do
   set +e
-  flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python -m src.main"
+  flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python /app/src/main.py"
   EXIT_CODE=$?
   set -e
   if [[ $EXIT_CODE -eq 0 ]]; then
@@ -54,5 +54,5 @@ while (( RETRY < MAX_RETRIES )); do
   fi
 done
 
-# Stop the machine and wait until it is fully stopped
-flyctl machine stop "$MACHINE_ID" -a "$APP" --wait
+# Stop the machine (no --wait flag)
+flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper
