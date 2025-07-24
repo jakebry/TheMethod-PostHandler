@@ -31,28 +31,28 @@ done
 echo "Waiting a few more seconds for DNS propagation..."
 sleep 5
 
-# Retry logic for exec
-MAX_RETRIES=3
-RETRY=0
-while (( RETRY < MAX_RETRIES )); do
-  set +e
-  flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python /app/src/main.py"
-  EXIT_CODE=$?
-  set -e
-  if [[ $EXIT_CODE -eq 0 ]]; then
-    echo "Exec succeeded."
-    break
-  else
-    echo "Exec failed (attempt $((RETRY+1))/$MAX_RETRIES)."
-    if (( RETRY == MAX_RETRIES - 1 )); then
-      echo "Giving up after $MAX_RETRIES attempts."
-      exit $EXIT_CODE
-    fi
-    echo "Retrying in 5 seconds..."
-    sleep 5
-    RETRY=$((RETRY+1))
-  fi
-done
+       # Retry logic for exec
+       MAX_RETRIES=3
+       RETRY=0
+       while (( RETRY < MAX_RETRIES )); do
+         set +e
+         flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "cd /app && python -m src.main"
+         EXIT_CODE=$?
+         set -e
+         if [[ $EXIT_CODE -eq 0 ]]; then
+           echo "Exec succeeded."
+           break
+         else
+           echo "Exec failed (attempt $((RETRY+1))/$MAX_RETRIES)."
+           if (( RETRY == MAX_RETRIES - 1 )); then
+             echo "Giving up after $MAX_RETRIES attempts."
+             exit $EXIT_CODE
+           fi
+           echo "Retrying in 5 seconds..."
+           sleep 5
+           RETRY=$((RETRY+1))
+         fi
+       done
 
 # Stop the machine (no --wait flag)
 flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper
