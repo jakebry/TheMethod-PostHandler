@@ -28,11 +28,31 @@ while true; do
   WAITED=$((WAITED+2))
 done
 
-# Your next commands go here, e.g.:
-# flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python -m src.main"
+echo "Waiting a few more seconds for DNS propagation..."
+sleep 5
 
-# Execute the command via SSH
-flyctl ssh console -a "$APP" -s "$MACHINE_ID" -C "$CMD"
+# Retry logic for exec
+MAX_RETRIES=3
+RETRY=0
+while (( RETRY < MAX_RETRIES )); do
+  set +e
+  flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "python -m src.main"
+  EXIT_CODE=$?
+  set -e
+  if [[ $EXIT_CODE -eq 0 ]]; then
+    echo "Exec succeeded."
+    break
+  else
+    echo "Exec failed (attempt $((RETRY+1))/$MAX_RETRIES)."
+    if (( RETRY == MAX_RETRIES - 1 )); then
+      echo "Giving up after $MAX_RETRIES attempts."
+      exit $EXIT_CODE
+    fi
+    echo "Retrying in 5 seconds..."
+    sleep 5
+    RETRY=$((RETRY+1))
+  fi
+done
 
 # Stop the machine and wait until it is fully stopped
 flyctl machine stop "$MACHINE_ID" -a "$APP" --wait
