@@ -35,5 +35,6 @@ def main():
 if __name__ == "__main__":
     try:
         main()
+        print("[END] Scraper finished")
     except KeyboardInterrupt:
         print("[INFO] Received SIGINT (KeyboardInterrupt), shutting down gracefully.")
