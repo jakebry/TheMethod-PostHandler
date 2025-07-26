@@ -48,18 +48,19 @@ def scrape_and_store_posts():
     """
     supabase = init_supabase_client()
     
-    # Authenticate as a service user
+    # Authenticate as admin service user
     email = os.getenv("SUPABASE_USER_EMAIL")
     password = os.getenv("SUPABASE_USER_PASSWORD")
 
     if not email or not password:
-        logger.error("Scraper user email and password must be set in the .env file.")
+        logger.error("Admin user email and password must be set in the .env file.")
         return False
 
     try:
-        logger.info(f"Authenticating as {email}...")
+        logger.info(f"Authenticating as admin user {email}...")
         supabase.auth.sign_in_with_password({"email": email, "password": password})
         logger.info("Authentication successful.")
+        
     except Exception as e:
         logger.error(f"Authentication failed: {e}")
         return False
@@ -101,8 +102,9 @@ def scrape_and_store_posts():
                     existing_post_response = supabase.table("user_posts").select("id").eq("account_handle", account_handle).eq("content", post.get("content")).execute()
 
                     if not existing_post_response.data:
+                        # Insert with image - admin user should have proper permissions
                         supabase.table("user_posts").insert(post_data).execute()
-                        logger.info(f"Inserted new post for {account_handle}.")
+                        logger.info(f"Inserted new post for {account_handle} with image.")
                     else:
                         logger.info(f"Post already exists for {account_handle}, skipping.")
                 except Exception as e:

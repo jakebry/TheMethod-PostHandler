@@ -1,8 +1,20 @@
 [
   {
     "method": "Method 1: Span hierarchy",
-    "status": "working",
+    "status": "stopped",
     "start": "2025-07-21 22:58:44 PDT",
-    "end": "2025-07-22 00:04:32 PDT"
+    "end": "2025-07-25 18:15:09 PDT"
+  },
+  {
+    "method": "Method 1: Span hierarchy",
+    "status": "stopped",
+    "start": "2025-07-25 18:17:10 PDT",
+    "end": "2025-07-25 18:18:00 PDT"
+  },
+  {
+    "method": "Method 1: Span hierarchy",
+    "status": "working",
+    "start": "2025-07-25 18:19:22 PDT",
+    "end": "2025-07-25 20:43:40 PDT"
   }
 ]
