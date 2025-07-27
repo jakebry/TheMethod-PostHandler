@@ -54,13 +54,17 @@ sleep 5
        # Check the logs for success/failure messages (last 20 lines only)
        echo "Checking machine logs for execution results..."
        LOGS=$(timeout 30 flyctl logs -a threads-scraper 2>/dev/null | tail -20 || echo "")
-       if echo "$LOGS" | grep -q "Method stopped - no posts could be extracted"; then
+       echo "Last 20 lines of logs:"
+       echo "$LOGS"
+       
+       # Check for success message first (prioritize success)
+       if echo "$LOGS" | grep -q "Method is working - successfully extracted posts"; then
+         echo "SUCCESS: Posts were successfully extracted"
+         EXIT_CODE=0
+       elif echo "$LOGS" | grep -q "Method stopped - no posts could be extracted"; then
          echo "ERROR: No posts could be extracted"
          echo "::error::No Posts could be extracted"
          EXIT_CODE=1
-       elif echo "$LOGS" | grep -q "Method is working - successfully extracted posts"; then
-         echo "SUCCESS: Posts were successfully extracted"
-         EXIT_CODE=0
        else
          echo "WARNING: Could not determine execution result from logs"
          echo "::warning::Could not determine execution result from logs"
