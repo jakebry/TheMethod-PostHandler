@@ -50,20 +50,6 @@ sleep 5
          sleep 5
          WAITED=$((WAITED+5))
        done
-         if [[ $EXIT_CODE -eq 0 ]]; then
-           echo "Exec succeeded."
-           break
-         else
-           echo "Exec failed (attempt $((RETRY+1))/$MAX_RETRIES), exit code: $EXIT_CODE."
-           if (( RETRY == MAX_RETRIES - 1 )); then
-             echo "Giving up after $MAX_RETRIES attempts."
-             break
-           fi
-           echo "Retrying in 5 seconds..."
-           sleep 5
-           RETRY=$((RETRY+1))
-         fi
-       done
 
 # Stop the machine (no --wait flag)
 flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper
