@@ -6,7 +6,7 @@ set -e
 
 APP=${FLY_APP:-threads-scraper}
 MACHINE_ID=${SCRAPER_MACHINE_ID:?SCRAPER_MACHINE_ID env var is required}
-CMD=${1:-"python3 -m src.main"}
+CMD=${1:-"python -m src.main"}
 
 # Start the machine
 flyctl machine start "$SCRAPER_MACHINE_ID" -a threads-scraper
@@ -36,7 +36,8 @@ sleep 5
        RETRY=0
        while (( RETRY < MAX_RETRIES )); do
          set +e
-         flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "cd /app && PYTHONPATH=/app $CMD"
+         # Try to run the command as appuser in the container
+         flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "su appuser -c 'cd /app && python -m src.main'"
          EXIT_CODE=$?
          set -e
          if [[ $EXIT_CODE -eq 0 ]]; then
