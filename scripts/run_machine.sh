@@ -31,15 +31,25 @@ done
 echo "Waiting a few more seconds for DNS propagation..."
 sleep 5
 
-       # Retry logic for exec
-       MAX_RETRIES=3
-       RETRY=0
-       while (( RETRY < MAX_RETRIES )); do
-         set +e
-         # Try to run the command as appuser in the container
-         flyctl machines exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- "su appuser -c 'cd /app && python -m src.main'"
-         EXIT_CODE=$?
-         set -e
+       # Wait for the machine to complete its natural execution
+       echo "Waiting for machine to complete execution..."
+       MAX_WAIT=120
+       WAITED=0
+       while true; do
+         STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+         if [[ "$STATUS" == "stopped" ]]; then
+           echo "Machine $SCRAPER_MACHINE_ID has completed execution."
+           EXIT_CODE=0
+           break
+         fi
+         if (( WAITED >= MAX_WAIT )); then
+           echo "Timed out waiting for machine $SCRAPER_MACHINE_ID to complete."
+           EXIT_CODE=1
+           break
+         fi
+         sleep 5
+         WAITED=$((WAITED+5))
+       done
          if [[ $EXIT_CODE -eq 0 ]]; then
            echo "Exec succeeded."
            break
