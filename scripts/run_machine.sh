@@ -33,7 +33,7 @@ sleep 5
 
        # Wait for the machine to complete its natural execution
        echo "Waiting for machine to complete execution..."
-       MAX_WAIT=120
+       MAX_WAIT=300
        WAITED=0
        while true; do
          STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
