@@ -50,7 +50,21 @@ sleep 5
          sleep 5
          WAITED=$((WAITED+5))
        done
+       
+       # Check the logs for failure message
+       echo "Checking machine logs for execution results..."
+       if flyctl logs -a threads-scraper | grep -q "Method stopped - no posts could be extracted"; then
+         echo "ERROR: No posts could be extracted"
+         echo "::error::No Posts could be extracted"
+         EXIT_CODE=1
+       else
+         echo "Machine execution completed successfully"
+         EXIT_CODE=0
+       fi
 
 # Stop the machine (no --wait flag)
 flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper
 echo "Machine $SCRAPER_MACHINE_ID has been successfully stopped."
+
+# Exit with the appropriate code
+exit $EXIT_CODE
