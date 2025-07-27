@@ -51,13 +51,14 @@ sleep 5
          WAITED=$((WAITED+5))
        done
        
-       # Check the logs for success/failure messages
+       # Check the logs for success/failure messages (last 20 lines only)
        echo "Checking machine logs for execution results..."
-       if flyctl logs -a threads-scraper | grep -q "Method stopped - no posts could be extracted"; then
+       LOGS=$(timeout 30 flyctl logs -a threads-scraper 2>/dev/null | tail -20 || echo "")
+       if echo "$LOGS" | grep -q "Method stopped - no posts could be extracted"; then
          echo "ERROR: No posts could be extracted"
          echo "::error::No Posts could be extracted"
          EXIT_CODE=1
-       elif flyctl logs -a threads-scraper | grep -q "Method is working - successfully extracted posts"; then
+       elif echo "$LOGS" | grep -q "Method is working - successfully extracted posts"; then
          echo "SUCCESS: Posts were successfully extracted"
          EXIT_CODE=0
        else
