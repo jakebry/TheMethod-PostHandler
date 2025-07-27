@@ -51,10 +51,11 @@ sleep 5
          WAITED=$((WAITED+5))
        done
        
-       # Check the logs for success/failure messages (last 20 lines only)
+       # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
-       LOGS=$(timeout 30 flyctl logs -a threads-scraper 2>/dev/null | tail -20 || echo "")
-       echo "Last 20 lines of logs:"
+       # Get logs from the last 30 minutes to ensure we get the most recent execution
+       LOGS=$(timeout 30 flyctl logs -a threads-scraper --since=30m 2>/dev/null || echo "")
+       echo "Recent logs (last 30 minutes):"
        echo "$LOGS"
        
        # Check for success message first (prioritize success)
