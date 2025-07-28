@@ -53,9 +53,9 @@ sleep 5
        
        # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
-       # Get logs from the last 30 minutes to ensure we get the most recent execution
-       LOGS=$(timeout 30 flyctl logs -a threads-scraper --since=30m 2>/dev/null || echo "")
-       echo "Recent logs (last 30 minutes):"
+       # Get all logs and take the last 50 lines to ensure we get the most recent execution
+       LOGS=$(timeout 30 flyctl logs -a threads-scraper 2>/dev/null | tail -50 || echo "")
+       echo "Recent logs (last 50 lines):"
        echo "$LOGS"
        
        # Check for success message first (prioritize success)
