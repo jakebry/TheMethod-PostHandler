@@ -168,13 +168,14 @@ class BrowserManager:
         }
         
         # Restore session data if available
-        if session_data:
-            if session_data.get("cookies"):
-                context_options["cookies"] = session_data["cookies"]
-            if session_data.get("storage_state"):
-                context_options["storage_state"] = session_data["storage_state"]
+        if session_data and session_data.get("storage_state"):
+            context_options["storage_state"] = session_data["storage_state"]
         
         self.context = self.browser.new_context(**context_options)
+        
+        # Set cookies after context creation if available
+        if session_data and session_data.get("cookies"):
+            self.context.add_cookies(session_data["cookies"])
         
         # Set additional properties to avoid detection
         self.context.add_init_script("""

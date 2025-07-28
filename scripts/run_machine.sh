@@ -51,6 +51,10 @@ sleep 5
          WAITED=$((WAITED+5))
        done
        
+       # Wait longer for logs to be available after machine completion
+       echo "Waiting for logs to be available..."
+       sleep 30
+       
        # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
        
