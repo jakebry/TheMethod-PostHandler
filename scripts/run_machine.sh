@@ -53,8 +53,22 @@ sleep 5
        
        # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
-       # Get all logs and take the last 50 lines to ensure we get the most recent execution
-       LOGS=$(timeout 30 flyctl logs -a threads-scraper 2>/dev/null | tail -50 || echo "")
+       
+       # Wait a bit for logs to be available and retry a few times
+       for i in {1..3}; do
+         echo "Attempt $i: Fetching logs..."
+         LOGS=$(timeout 30 flyctl logs -a threads-scraper 2>/dev/null | tail -50 || echo "")
+         
+         # Check if we have the expected log messages
+         if echo "$LOGS" | grep -q "Method is working - successfully extracted posts" || echo "$LOGS" | grep -q "Method stopped - no posts could be extracted"; then
+           echo "Found execution results in logs (attempt $i)"
+           break
+         else
+           echo "No execution results found in logs (attempt $i), waiting 10 seconds..."
+           sleep 10
+         fi
+       done
+       
        echo "Recent logs (last 50 lines):"
        echo "$LOGS"
        
