@@ -53,7 +53,7 @@ sleep 5
        
        # Wait longer for logs to be available (GitHub Actions needs more time)
        echo "Waiting for logs to be available..."
-       sleep 30
+       sleep 45
        
        # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
@@ -62,7 +62,20 @@ sleep 5
        LOGS=""
        for i in {1..8}; do
          echo "Attempt $i: Fetching logs..."
+         # Try different methods to get logs - more robust for GitHub Actions
          LOGS=$(fly logs -a threads-scraper -n 2>/dev/null | tail -100 || echo "")
+         
+         # If that fails, try without the -n flag
+         if [[ -z "$LOGS" ]]; then
+           echo "Trying alternative log method..."
+           LOGS=$(fly logs -a threads-scraper 2>/dev/null | tail -100 || echo "")
+         fi
+         
+         # Debug: Show what we're getting
+         echo "Log length: ${#LOGS} characters"
+         if [[ ${#LOGS} -gt 0 ]]; then
+           echo "Last 500 chars of logs: ${LOGS: -500}"
+         fi
          
          # Check if we have the expected log messages (more flexible patterns)
          if echo "$LOGS" | grep -q "Method is working" || echo "$LOGS" | grep -q "Method stopped"; then
