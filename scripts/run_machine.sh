@@ -51,7 +51,7 @@ sleep 5
          WAITED=$((WAITED+5))
        done
        
-       # Wait longer for logs to be available after machine completion
+       # Wait longer for logs to be available (GitHub Actions needs more time)
        echo "Waiting for logs to be available..."
        sleep 30
        
@@ -59,7 +59,8 @@ sleep 5
        echo "Checking machine logs for execution results..."
        
        # Wait longer for logs to be available and retry more times
-       for i in {1..5}; do
+       LOGS=""
+       for i in {1..8}; do
          echo "Attempt $i: Fetching logs..."
          LOGS=$(fly logs -a threads-scraper -n 2>/dev/null | tail -100 || echo "")
          
@@ -68,8 +69,8 @@ sleep 5
            echo "Found execution results in logs (attempt $i)"
            break
          else
-           echo "No execution results found in logs (attempt $i), waiting 15 seconds..."
-           sleep 15
+           echo "No execution results found in logs (attempt $i), waiting 20 seconds..."
+           sleep 20
          fi
        done
        
