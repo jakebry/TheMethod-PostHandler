@@ -1,22 +1,65 @@
 from src.config import USER_URL, NEW_SOURCE_CODE_PATH
-from playwright.sync_api import sync_playwright
+from src.browser_manager import get_browser_manager, cleanup_browser_manager
 from bs4 import BeautifulSoup
 import re
 import json
 import logging
+import hashlib
 
 logger = logging.getLogger(__name__)
 
-def download_html_playwright(url: str) -> str:
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(ignore_https_errors=True)
-        page = context.new_page()
-        page.goto(url, timeout=60000)
+def download_html_playwright(url: str, profile_name: str = "threads_scraper", session_name: str = None) -> str:
+    """
+    Download HTML using optimized browser manager with session persistence.
+    
+    Args:
+        url: The URL to scrape
+        profile_name: Browser profile name for persistence
+        session_name: Session name for cookie/storage restoration
+    
+    Returns:
+        HTML content as string
+    """
+    browser_manager = get_browser_manager()
+    
+    try:
+        # Create page with optimized settings
+        page = browser_manager.create_page(profile_name, session_name)
+        
+        # Add random delays to avoid detection
+        import random
+        import time
+        
+        # Navigate to the page
+        logger.info(f"Navigating to: {url}")
+        page.goto(url, timeout=60000, wait_until="networkidle")
+        
+        # Random delay to simulate human behavior
+        time.sleep(random.uniform(2, 5))
+        
+        # Scroll a bit to simulate human interaction
+        page.evaluate("window.scrollTo(0, Math.random() * 500)")
+        time.sleep(random.uniform(1, 3))
+        
+        # Wait for content to load
         page.wait_for_load_state('networkidle')
+        
+        # Get the HTML content
         html = page.content()
-        browser.close()
+        
+        # Save session for future use
+        if session_name:
+            browser_manager.save_current_session(session_name)
+        
+        logger.info(f"Successfully downloaded HTML from {url}")
         return html
+        
+    except Exception as e:
+        logger.error(f"Error downloading HTML from {url}: {e}")
+        raise
+    finally:
+        # Don't close the browser manager here - let it be reused
+        pass
 
 def extract_profile_username(soup):
     import re

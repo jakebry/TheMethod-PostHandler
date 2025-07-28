@@ -3,6 +3,7 @@ import logging
 from dotenv import load_dotenv
 from supabase import create_client, Client
 from src.methods.method_1 import download_html_playwright, extract_posts
+from src.browser_manager import cleanup_browser_manager
 
 # Load environment variables from .env file
 # Construct the path to the .env file relative to this script's location
@@ -73,45 +74,53 @@ def scrape_and_store_posts():
 
     total_posts_extracted = 0
     
-    for account_handle in trusted_sources:
-        logger.info(f"Scraping posts for: {account_handle}")
-        try:
-            user_url = f"https://www.threads.net/@{account_handle}"
-            html = download_html_playwright(user_url)
-            posts = extract_posts(html)
+    try:
+        for account_handle in trusted_sources:
+            logger.info(f"Scraping posts for: {account_handle}")
+            try:
+                user_url = f"https://www.threads.net/@{account_handle}"
+                
+                # Use session management for each account
+                session_name = f"threads_session_{account_handle}"
+                html = download_html_playwright(user_url, profile_name="threads_scraper", session_name=session_name)
+                posts = extract_posts(html)
 
-            if not posts:
-                logger.info(f"No posts extracted for {account_handle}.")
-                continue
+                if not posts:
+                    logger.info(f"No posts extracted for {account_handle}.")
+                    continue
 
-            total_posts_extracted += len(posts)
-            logger.info(f"Extracted {len(posts)} posts for {account_handle}.")
+                total_posts_extracted += len(posts)
+                logger.info(f"Extracted {len(posts)} posts for {account_handle}.")
 
-            for post in posts:
-                post_data = {
-                    "datetime": post.get("datetime"),
-                    "account_handle": account_handle,
-                    "platform": "Threads",
-                    "content": post.get("content"),
-                    "image": post.get("image"),
-                }
+                for post in posts:
+                    post_data = {
+                        "datetime": post.get("datetime"),
+                        "account_handle": account_handle,
+                        "platform": "Threads",
+                        "content": post.get("content"),
+                        "image": post.get("image"),
+                    }
 
-                # Insert or update post in Supabase
-                try:
-                    # Check for existing post to avoid duplicates
-                    existing_post_response = supabase.table("user_posts").select("id").eq("account_handle", account_handle).eq("content", post.get("content")).execute()
+                    # Insert or update post in Supabase
+                    try:
+                        # Check for existing post to avoid duplicates
+                        existing_post_response = supabase.table("user_posts").select("id").eq("account_handle", account_handle).eq("content", post.get("content")).execute()
 
-                    if not existing_post_response.data:
-                        # Insert with image - admin user should have proper permissions
-                        supabase.table("user_posts").insert(post_data).execute()
-                        logger.info(f"Inserted new post for {account_handle} with image.")
-                    else:
-                        logger.info(f"Post already exists for {account_handle}, skipping.")
-                except Exception as e:
-                    logger.error(f"Error saving post to Supabase for {account_handle}: {e}")
+                        if not existing_post_response.data:
+                            # Insert with image - admin user should have proper permissions
+                            supabase.table("user_posts").insert(post_data).execute()
+                            logger.info(f"Inserted new post for {account_handle} with image.")
+                        else:
+                            logger.info(f"Post already exists for {account_handle}, skipping.")
+                    except Exception as e:
+                        logger.error(f"Error saving post to Supabase for {account_handle}: {e}")
 
-        except Exception as e:
-            logger.error(f"Failed to scrape or store posts for {account_handle}: {e}")
+            except Exception as e:
+                logger.error(f"Failed to scrape or store posts for {account_handle}: {e}")
+
+    finally:
+        # Cleanup browser manager
+        cleanup_browser_manager()
 
     # Method is working if we extracted at least some posts
     return total_posts_extracted > 0

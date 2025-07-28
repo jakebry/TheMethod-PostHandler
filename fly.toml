@@ -7,6 +7,9 @@ app = 'threads-scraper'
 primary_region = 'sea'
 
 [env]
+  # Browser optimization flags
+  PLAYWRIGHT_BROWSERS_PATH = '/app/.cache/playwright'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
 
 [processes]
   worker = "python -m src.main"
@@ -20,3 +23,8 @@ primary_region = 'sea'
   memory = '2048mb'
   cpu_kind = 'performance'
   cpus = 1
+
+# Volume for browser profiles and cache
+[[mounts]]
+  source = "browser_cache"
+  destination = "/app/.cache"

@@ -5,7 +5,9 @@ FROM python:3.11-slim
 
 # Set environment variables for best practices
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    PLAYWRIGHT_BROWSERS_PATH=/app/.cache/playwright \
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=0
 
 # Create a non-root user for security
 RUN useradd -m appuser
@@ -52,12 +54,18 @@ RUN pip install --upgrade pip \
 # Copy project files
 COPY . .
 
+# Create cache directories
+RUN mkdir -p /app/.cache/playwright \
+    && mkdir -p /app/.cache/browser_profiles \
+    && mkdir -p /app/.cache/sessions
+
+# Install Playwright browsers and dependencies as root (before switching to appuser)
+RUN python -m playwright install chromium \
+    && python -m playwright install-deps chromium
+
 # Set permissions
 RUN chown -R appuser:appuser /app
 USER appuser
-
-# Install Playwright browsers as appuser (no --with-deps)
-RUN python -m playwright install
 
 # Entrypoint for the worker
 CMD ["python", "-m", "src.main"] 
