@@ -154,7 +154,6 @@ class BrowserManager:
         
         context_options = {
             "ignore_https_errors": True,
-            "user_data_dir": str(profile_path),
             "viewport": {"width": 1920, "height": 1080},
             "locale": "en-US",
             "timezone_id": "America/Los_Angeles",
@@ -205,8 +204,7 @@ class BrowserManager:
         
         self.browser = self.playwright.chromium.launch(
             headless=True,
-            args=self.get_optimized_browser_args(),
-            executable_path=os.getenv("PLAYWRIGHT_BROWSERS_PATH", None)
+            args=self.get_optimized_browser_args()
         )
         
         logger.info("Browser launched with optimized settings")
