@@ -1,112 +1,115 @@
-# Threads Scraper
+# Post Handler
 
-A high-performance Threads scraper optimized for Fly.io deployment with browser session persistence and anti-detection measures.
+A high-performance Threads scraper that extracts posts from trusted sources and stores them in Supabase. Built with Playwright, optimized for Fly.io deployment.
 
-## 🚀 Features
+## 🎯 What It Does
 
-- **Optimized Browser Performance**: 50-75% faster startup times
-- **Session Persistence**: Browser profiles and cookies persist between runs
-- **Anti-Detection Measures**: Advanced browser fingerprinting protection
-- **Performance Monitoring**: Built-in metrics and monitoring
-- **Fly.io Optimized**: Volume mounting and pre-built browser binaries
+- **Scrapes posts** from Threads accounts marked as "trusted sources" in Supabase
+- **Stores data** in structured format with metadata
+- **Handles detection** through browser fingerprinting protection
+- **Tracks method effectiveness** and rotates when methods fail
+- **Runs continuously** via scheduled jobs on Fly.io
 
-## 📊 Performance Optimizations
+## 🏗️ Architecture
 
-This scraper implements the recommended best practices for browser performance on Fly.io:
-
-- **Volume Mounting**: Persistent browser cache storage
-- **Pre-built Binaries**: Chromium browser pre-installed in Docker
-- **Session Management**: Automatic cookie and storage state restoration
-- **Optimized Flags**: 50+ performance and anti-detection browser flags
-- **Performance Monitoring**: Real-time metrics tracking
-
-See [PERFORMANCE_OPTIMIZATIONS.md](PERFORMANCE_OPTIMIZATIONS.md) for detailed documentation.
-
-## 🛠️ Machine ID Management
-
-When Fly.io machines are recreated (e.g., after deployments), the machine ID changes. To update the scheduled scraping:
-
-### Automatic Update
-```bash
-./scripts/update_machine_id.sh
+```
+Threads.net → Playwright → HTML Parsing → Post Extraction → Supabase Storage
 ```
 
-### Manual Update
-1. Get current machine ID: `fly status`
-2. Update `.github/workflows/scheduled-scrape.yml`
-3. Commit and push changes
+## 🔄 Workflow
 
-## 📋 Deployment
+1. **Initialize**: Load environment, connect to Supabase, fetch trusted sources
+2. **Scrape**: For each source, create browser session, extract posts, store data
+3. **Track**: Log method success/failure in `data/threads_rotation_history.json`
 
-### Quick Deploy
+## 🚀 Quick Start
+
+### Setup
+```bash
+git clone <repository>
+cd Threads-Scraper
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Environment
+Create `.env`:
+```bash
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_USER_EMAIL=admin@example.com
+SUPABASE_USER_PASSWORD=admin_password
+```
+
+### Deploy
 ```bash
 ./scripts/deploy.sh
 ```
 
-### Manual Setup
-```bash
-# Create volume
-fly volumes create browser_cache --size 1 --region sea
+## 📊 Data Structure
 
-# Deploy
-fly deploy
+```json
+{
+  "datetime": "2024-01-15T10:30:00Z",
+  "account_handle": "username",
+  "platform": "Threads",
+  "content": "Post content text...",
+  "image": "https://...",
+  "user": "username"
+}
 ```
+
+## 🤖 AI Development Guide
+
+### Key Components
+- **`src/main.py`**: Entry point orchestrating scraping process
+- **`src/scraper.py`**: Core scraping logic and Supabase integration
+- **`src/methods/method_1.py`**: Current HTML extraction method
+- **`src/method_tracker.py`**: Method effectiveness tracking
+- **`src/browser_manager.py`**: Playwright browser management
+
+### Adding New Methods
+1. Create `src/methods/method_N.py`
+2. Implement:
+   ```python
+   def download_html_playwright(url, profile_name, session_name)
+   def extract_posts(html)
+   ```
+3. Update method tracking in `src/method_tracker.py`
+
+### Database Schema
+- **trusted_sources**: `{account_handle, platform}`
+- **posts**: `{datetime, account_handle, platform, content, image, user}`
 
 ## 📈 Monitoring
 
-### Check Status
 ```bash
-./scripts/status.sh
-```
-
-### View Logs
-```bash
-fly logs
-```
-
-### Performance Metrics
-Look for "browser_launch" timing in logs to see optimization effectiveness.
-
-## 🔧 Configuration
-
-### Environment Variables
-- `FLY_API_TOKEN`: Fly.io API token for GitHub Actions
-- `SCRAPER_MACHINE_ID`: Current machine ID (auto-updated)
-
-### Volume Configuration
-- `browser_cache`: 1GB volume for browser profiles and cache
-
-## 📝 Usage
-
-The scraper runs automatically every 5 minutes via GitHub Actions, or manually:
-
-```bash
-# Start machine and run scraper
-./scripts/run_machine.sh
-
 # Check status
-fly status
+./scripts/status.sh
 
 # View logs
 fly logs
+
+# Run manually
+python -m src.main
 ```
 
-## 🎯 Expected Performance Gains
+## 🔧 Configuration
 
-- **Browser startup**: 50-75% faster (15-30s → 5-10s)
-- **Page loading**: 60-70% faster (10-20s → 3-8s)
-- **Memory usage**: 30-40% reduction
-- **Session restoration**: 1-2s vs cold start
+- **Browser settings**: `src/browser_manager.py`
+- **Scraping methods**: `src/methods/`
+- **Performance tuning**: See `PERFORMANCE_OPTIMIZATIONS.md`
 
-## 🛡️ Anti-Detection Features
+## 🛡️ Features
 
-- Browser fingerprinting protection
-- Session management with profile isolation
-- Human-like interaction patterns
-- Optimized HTTP headers and user agents
+- **Anti-detection**: Browser fingerprinting protection, session persistence
+- **Performance**: Volume mounting, pre-built binaries, optimized flags
+- **Method rotation**: Automatic tracking and history logging
+- **Scheduled**: Runs every 5 minutes via Fly.io jobs
 
 ## 📚 Documentation
 
-- [Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md) - Detailed optimization guide
-- [Fly.io Configuration](fly.toml) - Deployment configuration
-- [Docker Configuration](Dockerfile) - Container optimization
+- [Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md)
+- [Fly.io Configuration](fly.toml)
+- [Docker Configuration](Dockerfile)
