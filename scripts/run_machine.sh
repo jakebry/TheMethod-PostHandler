@@ -51,30 +51,31 @@ sleep 5
          WAITED=$((WAITED+5))
        done
        
-       # Wait longer for logs to be available (GitHub Actions needs more time)
-       echo "Waiting for logs to be available..."
-       sleep 45
+       # Give Fly a moment to flush logs, then start polling
+       echo "Waiting briefly for logs to propagate..."
+       sleep 10
        
        # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
        
-       # Wait longer for logs to be available and retry more times
-       LOGS=""
-       for i in {1..8}; do
-         echo "Attempt $i: Fetching logs..."
-         # Try different methods to get logs - more robust for GitHub Actions
-         LOGS=$(fly logs -a threads-scraper -n 2>/dev/null | tail -100 || echo "")
-         
-         # If that fails, try without the -n flag
-         if [[ -z "$LOGS" ]]; then
-           echo "Trying alternative log method..."
-           LOGS=$(fly logs -a threads-scraper 2>/dev/null | tail -100 || echo "")
-         fi
+       # Poll for logs until we see the result (retry for up to ~1 min)
+      LOGS=""
+      for i in {1..12}; do
+        echo "Attempt $i: Fetching logs..."
+        # Fetch logs scoped to this machine. Older flyctl versions may not
+        # support the --instance flag, so fall back to --machine if needed.
+        LOGS=$(flyctl logs -a threads-scraper --instance "$SCRAPER_MACHINE_ID" --no-tail 2>&1 || true)
+        if echo "$LOGS" | grep -qi "unknown flag"; then
+          echo "Instance flag unsupported, trying machine flag..."
+          LOGS=$(flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --no-tail 2>&1 || true)
+        fi
+        LOGS=$(echo "$LOGS" | tail -100)
          
          # Debug: Show what we're getting
          echo "Log length: ${#LOGS} characters"
          if [[ ${#LOGS} -gt 0 ]]; then
-           echo "Last 500 chars of logs: ${LOGS: -500}"
+           # Show only a very short snippet to avoid overflowing GitHub logs
+           echo "Last 25 chars of logs: ${LOGS: -25}"
          fi
          
          # Check if we have the expected log messages (more flexible patterns)
@@ -82,8 +83,8 @@ sleep 5
            echo "Found execution results in logs (attempt $i)"
            break
          else
-           echo "No execution results found in logs (attempt $i), waiting 20 seconds..."
-           sleep 20
+           echo "No execution results found in logs (attempt $i), waiting 5 seconds..."
+           sleep 5
          fi
        done
        
