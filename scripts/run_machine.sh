@@ -62,14 +62,14 @@ sleep 5
       LOGS=""
       for i in {1..8}; do
         echo "Attempt $i: Fetching logs..."
-        # Prefer machine scoped logs to ensure we get output even after stop
-        LOGS=$(flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --no-color --max 100 2>/dev/null || echo "")
-
-        # Fallback to app wide logs if machine logs fail
-        if [[ -z "$LOGS" ]]; then
-          echo "Trying alternative log method..."
-          LOGS=$(flyctl logs -a threads-scraper --instance "$SCRAPER_MACHINE_ID" --no-color --max 100 2>/dev/null || echo "")
+        # Fetch logs scoped to this machine. Older flyctl versions may not
+        # support the --instance flag, so fall back to --machine if needed.
+        LOGS=$(flyctl logs -a threads-scraper --instance "$SCRAPER_MACHINE_ID" --no-tail 2>&1 || true)
+        if echo "$LOGS" | grep -qi "unknown flag"; then
+          echo "Instance flag unsupported, trying machine flag..."
+          LOGS=$(flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --no-tail 2>&1 || true)
         fi
+        LOGS=$(echo "$LOGS" | tail -100)
          
          # Debug: Show what we're getting
          echo "Log length: ${#LOGS} characters"
