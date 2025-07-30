@@ -59,17 +59,17 @@ sleep 5
        echo "Checking machine logs for execution results..."
        
        # Wait longer for logs to be available and retry more times
-       LOGS=""
-       for i in {1..8}; do
-         echo "Attempt $i: Fetching logs..."
-         # Try different methods to get logs - more robust for GitHub Actions
-         LOGS=$(fly logs -a threads-scraper -n 2>/dev/null | tail -100 || echo "")
-         
-         # If that fails, try without the -n flag
-         if [[ -z "$LOGS" ]]; then
-           echo "Trying alternative log method..."
-           LOGS=$(fly logs -a threads-scraper 2>/dev/null | tail -100 || echo "")
-         fi
+      LOGS=""
+      for i in {1..8}; do
+        echo "Attempt $i: Fetching logs..."
+        # Prefer machine scoped logs to ensure we get output even after stop
+        LOGS=$(flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --no-color --max 100 2>/dev/null || echo "")
+
+        # Fallback to app wide logs if machine logs fail
+        if [[ -z "$LOGS" ]]; then
+          echo "Trying alternative log method..."
+          LOGS=$(flyctl logs -a threads-scraper --instance "$SCRAPER_MACHINE_ID" --no-color --max 100 2>/dev/null || echo "")
+        fi
          
          # Debug: Show what we're getting
          echo "Log length: ${#LOGS} characters"
