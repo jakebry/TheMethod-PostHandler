@@ -74,7 +74,8 @@ sleep 5
          # Debug: Show what we're getting
          echo "Log length: ${#LOGS} characters"
          if [[ ${#LOGS} -gt 0 ]]; then
-           echo "Last 500 chars of logs: ${LOGS: -500}"
+           # Show only a very short snippet to avoid overflowing GitHub logs
+           echo "Last 25 chars of logs: ${LOGS: -25}"
          fi
          
          # Check if we have the expected log messages (more flexible patterns)
