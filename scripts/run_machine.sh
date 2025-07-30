@@ -51,16 +51,16 @@ sleep 5
          WAITED=$((WAITED+5))
        done
        
-       # Wait longer for logs to be available (GitHub Actions needs more time)
-       echo "Waiting for logs to be available..."
-       sleep 45
+       # Give Fly a moment to flush logs, then start polling
+       echo "Waiting briefly for logs to propagate..."
+       sleep 10
        
        # Check the logs for success/failure messages (most recent logs)
        echo "Checking machine logs for execution results..."
        
-       # Wait longer for logs to be available and retry more times
+       # Poll for logs until we see the result (retry for up to ~1 min)
       LOGS=""
-      for i in {1..8}; do
+      for i in {1..12}; do
         echo "Attempt $i: Fetching logs..."
         # Fetch logs scoped to this machine. Older flyctl versions may not
         # support the --instance flag, so fall back to --machine if needed.
@@ -82,8 +82,8 @@ sleep 5
            echo "Found execution results in logs (attempt $i)"
            break
          else
-           echo "No execution results found in logs (attempt $i), waiting 20 seconds..."
-           sleep 20
+           echo "No execution results found in logs (attempt $i), waiting 5 seconds..."
+           sleep 5
          fi
        done
        
