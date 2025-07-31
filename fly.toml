@@ -21,8 +21,8 @@ primary_region = 'sea'
 
 [[vm]]
   memory = '2048mb'
-  cpu_kind = 'performance'
-  cpus = 1
+  cpu_kind = 'shared'
+  cpus = 2
 
 # Volume for browser profiles and cache
 [[mounts]]
