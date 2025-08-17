@@ -18,7 +18,9 @@ def _load_history():
     with open(HISTORY_PATH, 'r', encoding='utf-8') as f:
         try:
             return json.load(f)
-        except Exception:
+        except (ValueError, KeyError, TypeError, OSError) as e:
+            # Log the error for debugging but return empty list
+            print(f"Warning: Failed to load history file: {e}")
             return []
 
 def _save_history(history):

@@ -94,7 +94,8 @@ def extract_posts(html: str):
             ]
             logger.debug("Extracted %d posts from JSON data.", len(posts))
             return posts
-        except Exception:
+        except (ValueError, KeyError, TypeError) as e:
+            logger.debug("Failed to extract posts from JSON data: %s", e)
             pass
 
     posts = []
