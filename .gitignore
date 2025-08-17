@@ -69,6 +69,7 @@ Pipfile.lock
 
 # Playwright
 playwright-report/
+playwright/.cache/
 
 # MacOS
 .DS_Store
@@ -77,9 +78,11 @@ playwright-report/
 The-Method-Local.code-workspace
 Frontend:Scraper.code-workspace
 The-Method-Post-Handler.code-workspace
+.code-workspace
 
 # Data files
 /data/*.json
+!/data/.keep
 
 # Logs
 *.log
@@ -87,8 +90,21 @@ The-Method-Post-Handler.code-workspace
 # Ignore local environment variables
 .env
 .env.* 
+!.env.example
+!env.example
 # Node.js
 node_modules/
 
 # Python virtual environments
 venv/ 
+
+# OS/editor cruft
+.idea/
+Thumbs.db
+
+# Fly.io builds
+.fly/
+
+# Coverage
+coverage/
+*.coverage
