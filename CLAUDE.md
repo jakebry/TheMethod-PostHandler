@@ -78,13 +78,7 @@ The application uses a method rotation system where different scraping approache
 
 ## Environment Configuration
 
-Required environment variables in `.env`:
-```bash
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_USER_EMAIL=admin@example.com
-SUPABASE_USER_PASSWORD=admin_password
-```
+Create a local `.env` from `env.example` and never commit real secrets.
 
 ## Database Schema
 

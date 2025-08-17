@@ -16,5 +16,4 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           # Updated machine ID after optimization deployment
-          # Previous: SCRAPER_MACHINE_ID: ${{ secrets.SCRAPER_MACHINE_ID }}
-          SCRAPER_MACHINE_ID: "1857464c660258"
+          SCRAPER_MACHINE_ID: ${{ secrets.SCRAPER_MACHINE_ID }}
