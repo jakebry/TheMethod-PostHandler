@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
-# Use official Python image
-FROM python:3.11-slim
+# Use official Python image with specific Ubuntu version
+FROM python:3.11-slim-bullseye
 
 # Set environment variables for best practices
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -58,6 +58,15 @@ COPY . .
 RUN mkdir -p /app/.cache/playwright \
     && mkdir -p /app/.cache/browser_profiles \
     && mkdir -p /app/.cache/sessions
+
+# Alternative approach if you still get font errors:
+# Replace the install-deps line with:
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     fonts-liberation \
+#     fonts-ubuntu \
+#     fonts-unifont \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && python -m playwright install chromium
 
 # Install Playwright browsers and dependencies as root (before switching to appuser)
 RUN python -m playwright install chromium \
