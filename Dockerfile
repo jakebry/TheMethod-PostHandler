@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # Use official Python image with latest Debian Bookworm
 FROM python:3.11-slim-bookworm
 
@@ -15,35 +13,32 @@ RUN useradd -m appuser
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies (if needed for playwright, bs4, etc.)
+# Install minimal system dependencies for headless Chromium only
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        build-essential \
-        curl \
         ca-certificates \
-        libnss3 \
-        libatk-bridge2.0-0 \
-        libgtk-3-0 \
-        libxss1 \
-        libasound2 \
-        libgbm1 \
-        libxshmfence1 \
-        libxcomposite1 \
-        libxrandr2 \
-        libu2f-udev \
-        libdrm2 \
-        libxdamage1 \
-        libxfixes3 \
-        libxext6 \
-        libx11-xcb1 \
-        libx11-6 \
-        libxcb1 \
-        libexpat1 \
-        libuuid1 \
         fonts-liberation \
-        libappindicator3-1 \
-        lsb-release \
-        wget \
+        libasound2 \
+        libatk1.0-0 \
+        libatk-bridge2.0-0 \
+        libatspi2.0-0 \
+        libdbus-1-3 \
+        libdrm2 \
+        libgbm1 \
+        libglib2.0-0 \
+        libnspr4 \
+        libnss3 \
+        libx11-6 \
+        libx11-xcb1 \
+        libxcb1 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxext6 \
+        libxfixes3 \
+        libxkbcommon0 \
+        libxrandr2 \
+        libxss1 \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -68,9 +63,8 @@ RUN mkdir -p /app/.cache/playwright \
 #     && rm -rf /var/lib/apt/lists/* \
 #     && python -m playwright install chromium
 
-# Install Playwright browsers and dependencies as root (before switching to appuser)
-RUN python -m playwright install chromium \
-    && python -m playwright install-deps chromium
+# Install only headless Chromium browser (no GUI dependencies)
+RUN python -m playwright install chromium
 
 # Set permissions
 RUN chown -R appuser:appuser /app
