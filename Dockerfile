@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
-# Use official Python image with specific Ubuntu version
-FROM python:3.11-slim-bullseye
+# Use official Python image with latest Debian Bookworm
+FROM python:3.11-slim-bookworm
 
 # Set environment variables for best practices
 ENV PYTHONDONTWRITEBYTECODE=1 \
