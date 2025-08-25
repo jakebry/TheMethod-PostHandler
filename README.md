@@ -41,16 +41,34 @@ Create `.env` (use the example below and never commit real secrets):
 ```bash
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 SUPABASE_USER_EMAIL=admin@example.com
 SUPABASE_USER_PASSWORD=admin_password
 # Optional for local testing only; production uses DB trusted_sources
 THREADS_USER=example_user
 ```
 
+**Note**: The `SUPABASE_SERVICE_ROLE_KEY` is required for database trigger authentication. This key is automatically set in the database session before scraping begins to ensure proper authentication for edge function calls.
+
 ### Deploy
 ```bash
+# Set up Fly.io secrets (one-time setup)
+./scripts/setup_secrets.sh
+
+# Deploy the application
 ./scripts/deploy.sh
 ```
+
+### GitHub Actions Setup
+For automated deployment and scheduled scraping, ensure these secrets are set in your GitHub repository:
+
+1. Go to your repository → Settings → Secrets and variables → Actions
+2. Add the following secrets:
+   - `FLY_API_TOKEN`: Your Fly.io API token
+   - `SCRAPER_MACHINE_ID`: The machine ID for your Fly.io app
+   - `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key
+
+The GitHub Actions workflow will automatically run the scraper every 5 minutes and handle service role key authentication.
 
 ## 📊 Data Structure
 
@@ -70,6 +88,7 @@ THREADS_USER=example_user
 ### Key Components
 - **`src/main.py`**: Entry point orchestrating scraping process
 - **`src/scraper.py`**: Core scraping logic and Supabase integration
+- **`src/service_role_setup.py`**: Service role key initialization for database triggers
 - **`src/methods/method_1.py`**: Current HTML extraction method
 - **`src/method_tracker.py`**: Method effectiveness tracking
 - **`src/browser_manager.py`**: Playwright browser management
@@ -100,6 +119,9 @@ fly logs --follow
 
 # Run manually
 python -m src.main
+
+# Test service role setup (standalone)
+python3 scripts/setup_service_role.py
 ```
 
 ## ⚡ Performance Optimizations
@@ -230,6 +252,18 @@ fly logs --follow
 ```bash
 # Rebuild with fresh browser binaries
 fly deploy --no-cache
+```
+
+### Service Role Key Issues
+```bash
+# Check if secrets are set correctly
+flyctl secrets list
+
+# Re-set secrets if needed
+./scripts/setup_secrets.sh
+
+# Test service role setup locally
+python3 scripts/setup_service_role.py
 ```
 
 ## 📚 Best Practices

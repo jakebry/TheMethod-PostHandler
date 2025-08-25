@@ -15,7 +15,13 @@ class BrowserManager:
     """
     
     def __init__(self):
-        self.cache_dir = Path("/app/.cache")
+        # Use local cache directory for development, Docker cache for production
+        if os.path.exists("/app/.cache"):
+            self.cache_dir = Path("/app/.cache")
+        else:
+            # Local development - use current directory
+            self.cache_dir = Path(".cache")
+        
         self.profiles_dir = self.cache_dir / "browser_profiles"
         self.sessions_dir = self.cache_dir / "sessions"
         

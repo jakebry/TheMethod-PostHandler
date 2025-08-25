@@ -31,7 +31,22 @@ done
 echo "Waiting a few more seconds for DNS propagation..."
 sleep 5
 
-       # Wait for the machine to complete its natural execution
+# Run the command on the machine
+echo "Running command: $CMD"
+# Pass environment variables to the machine if they exist
+ENV_ARGS=""
+if [[ -n "$SUPABASE_SERVICE_ROLE_KEY" ]]; then
+  ENV_ARGS="$ENV_ARGS --env SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
+fi
+if [[ -n "$VITE_SUPABASE_URL" ]]; then
+  ENV_ARGS="$ENV_ARGS --env VITE_SUPABASE_URL=$VITE_SUPABASE_URL"
+fi
+if [[ -n "$VITE_SUPABASE_ANON_KEY" ]]; then
+  ENV_ARGS="$ENV_ARGS --env VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY"
+fi
+flyctl machine run "$CMD" "$SCRAPER_MACHINE_ID" -a threads-scraper $ENV_ARGS
+
+# Wait for the machine to complete its natural execution
        echo "Waiting for machine to complete execution..."
        MAX_WAIT=300
        WAITED=0

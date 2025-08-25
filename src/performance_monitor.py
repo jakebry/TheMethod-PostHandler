@@ -1,3 +1,4 @@
+import os
 import time
 import logging
 import json
@@ -12,7 +13,12 @@ class PerformanceMonitor:
     """
     
     def __init__(self):
-        self.cache_dir = Path("/app/.cache")
+        # Use local cache directory for development, Docker cache for production
+        if os.path.exists("/app/.cache"):
+            self.cache_dir = Path("/app/.cache")
+        else:
+            # Local development - use current directory
+            self.cache_dir = Path(".cache")
         self.metrics_file = self.cache_dir / "performance_metrics.json"
         self.metrics_file.parent.mkdir(parents=True, exist_ok=True)
         

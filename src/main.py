@@ -1,12 +1,19 @@
 from src.scraper import scrape_and_store_posts
 from src.method_tracker import log_method_working, log_method_stopped
 from src.console_anim import Spinner
+from src.service_role_setup import initialize_service_role
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 
 def main():
+    # Initialize service role key for database trigger authentication
+    print("Initializing service role key for database trigger...")
+    if not initialize_service_role():
+        print("❌ Failed to initialize service role key. Exiting.")
+        return
+    
     spinner = Spinner("Scraping threads and storing in Supabase")
     spinner.start()
     try:
