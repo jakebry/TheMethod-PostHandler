@@ -50,6 +50,19 @@ THREADS_USER=example_user
 
 **Note**: The `SUPABASE_SERVICE_ROLE_KEY` is required for database trigger authentication. This key is automatically set in the database session before scraping begins to ensure proper authentication for edge function calls.
 
+### Service Role Setup
+The bot automatically handles service role key initialization at startup. You can also test this manually:
+
+```bash
+# Test service role setup and trigger function verification
+python -m src.service_role_setup
+```
+
+This will:
+- Set the service role key in the database session
+- Verify the trigger function can call edge functions
+- Provide clear feedback about the setup status
+
 ### Deploy
 ```bash
 # Set up Fly.io secrets (one-time setup)
