@@ -89,11 +89,11 @@ if [[ -n "$VITE_SUPABASE_ANON_KEY" ]]; then
   ENV_CMD="$ENV_CMD VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY"
 fi
 
-# Execute the command with environment variables
+# Execute the command with environment variables via a remote shell to handle spaces/flags
 if [[ -n "$ENV_CMD" ]]; then
-  flyctl machine exec "$SCRAPER_MACHINE_ID" "$ENV_CMD $CMD" -a threads-scraper
+  flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- sh -lc "cd /app && env $ENV_CMD $CMD"
 else
-  flyctl machine exec "$SCRAPER_MACHINE_ID" "$CMD" -a threads-scraper
+  flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper -- sh -lc "cd /app && $CMD"
 fi
 
 # Wait for the machine to complete its natural execution
