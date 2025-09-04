@@ -11,11 +11,12 @@ primary_region = 'sea'
   PLAYWRIGHT_BROWSERS_PATH = '/app/.cache/playwright'
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
 
-# Configure machine to auto-suspend when not in use
+# Configure for single machine usage (not auto-scaling)
+# This prevents fly.io from trying to create new machines
 [experimental]
-  # Allow machine to be suspended when not in use
-  auto_stop_machines = true
-  auto_start_machines = true
+  # Disable auto-scaling to use existing machine
+  auto_stop_machines = false
+  auto_start_machines = false
   min_machines_running = 0
 
 [[vm]]
