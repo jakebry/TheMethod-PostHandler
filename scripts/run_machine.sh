@@ -10,6 +10,9 @@ CMD=${1:-"python -m src.main"}
 # Window (in seconds) after machine start to consider logs relevant for this run
 LOG_WINDOW_SECONDS=${LOG_WINDOW_SECONDS:-120}
 
+# Warm-up wait after a machine starts (seconds)
+INIT_WAIT_SECONDS=${INIT_WAIT_SECONDS:-15}
+
 # Convert RFC3339/ISO8601 timestamp to epoch seconds (GNU date on Linux, BSD date on macOS)
 to_epoch() {
   TS_RAW="$1"
@@ -88,7 +91,7 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   done
   
   echo "Waiting for machine to fully initialize..."
-  sleep 15
+  sleep "$INIT_WAIT_SECONDS"
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."

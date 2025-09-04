@@ -11,15 +11,14 @@ primary_region = 'sea'
   # Let Playwright manage its own browser cache location per user
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
 
-# Configure as a worker process (not a web service)
-# This prevents fly.io from trying to create web service machines
-[processes]
-  worker = "python -m src.main"
+# No default process; machine idles until we exec the scraper command
 
 [[vm]]
   memory = '2048mb'
   cpu_kind = 'shared'
   cpus = 2
+  auto_stop = true
+  auto_start = true
 
 # Volume for browser profiles and cache
 [[mounts]]

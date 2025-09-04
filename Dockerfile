@@ -87,5 +87,5 @@ RUN find /app/.cache -name "*chrome*" -type f 2>/dev/null || echo "No chrome exe
 # Test that Playwright can launch a browser as appuser
 RUN python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); browser = p.chromium.launch(headless=True); browser.close(); p.stop(); print('✅ Playwright browser test successful')"
 
-# Default entrypoint - will be overridden by fly.toml for exec commands
-CMD ["python", "-m", "src.main"] 
+# Keep machine idle and ready for exec; scraper is invoked via run_machine.sh
+CMD ["/bin/sleep", "infinity"]
