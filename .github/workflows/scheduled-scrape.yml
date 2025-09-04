@@ -13,6 +13,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Validate required secrets
+        run: |
+          if [ -z "${{ secrets.VITE_SUPABASE_URL }}" ]; then
+            echo "❌ VITE_SUPABASE_URL secret is not configured"
+            exit 1
+          fi
+          if [ -z "${{ secrets.VITE_SUPABASE_ANON_KEY }}" ]; then
+            echo "❌ VITE_SUPABASE_ANON_KEY secret is not configured"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" ]; then
+            echo "❌ SUPABASE_SERVICE_ROLE_KEY secret is not configured"
+            exit 1
+          fi
+          if [ -z "${{ secrets.FLY_API_TOKEN }}" ]; then
+            echo "❌ FLY_API_TOKEN secret is not configured"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SCRAPER_MACHINE_ID }}" ]; then
+            echo "❌ SCRAPER_MACHINE_ID secret is not configured"
+            exit 1
+          fi
+          echo "✅ All required secrets are configured"
       - name: Run scraper on Fly.io
         run: ./scripts/run_machine.sh
         env:
@@ -20,6 +43,7 @@ jobs:
           # Updated machine ID after optimization deployment
           SCRAPER_MACHINE_ID: ${{ secrets.SCRAPER_MACHINE_ID }}
           # Supabase configuration for database access
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          # These secrets are validated at runtime in GitHub Actions
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }} # github-actions-lint: ignore
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }} # github-actions-lint: ignore
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

@@ -49,29 +49,54 @@ filter_logs_by_window() {
   printf "%s" "$FILTERED"
 }
 
-# Start the machine
-flyctl machine start "$SCRAPER_MACHINE_ID" -a threads-scraper
+# Check current machine status and start if needed
+echo "Checking machine $SCRAPER_MACHINE_ID status..."
+STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+echo "Current machine status: $STATUS"
 
-# Smarter wait loop: poll until the machine is started (max 30 seconds)
-MAX_WAIT=30
-WAITED=0
-while true; do
-  STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
-  if [[ "$STATUS" == "started" ]]; then
-    echo "Machine $SCRAPER_MACHINE_ID is started."
-    SCRAPE_START_EPOCH=$(date -u +%s)
-    break
-  fi
-  if (( WAITED >= MAX_WAIT )); then
-    echo "Timed out waiting for machine $SCRAPER_MACHINE_ID to start."
-    exit 1
-  fi
-  sleep 2
-  WAITED=$((WAITED+2))
-done
-
-echo "Waiting a few more seconds for DNS propagation..."
-sleep 5
+if [[ "$STATUS" == "started" ]]; then
+  echo "Machine $SCRAPER_MACHINE_ID is already running."
+  SCRAPE_START_EPOCH=$(date -u +%s)
+elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
+  echo "Starting machine $SCRAPER_MACHINE_ID..."
+  flyctl machine start "$SCRAPER_MACHINE_ID" -a threads-scraper
+  
+  # Wait for machine to start (max 60 seconds)
+  MAX_WAIT=60
+  WAITED=0
+  while true; do
+    STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+    if [[ "$STATUS" == "started" ]]; then
+      echo "Machine $SCRAPER_MACHINE_ID is started."
+      SCRAPE_START_EPOCH=$(date -u +%s)
+      break
+    fi
+    if [[ "$STATUS" == "failed" ]]; then
+      echo "Machine $SCRAPER_MACHINE_ID failed to start. Status: $STATUS"
+      echo "Checking machine logs for errors..."
+      flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+      exit 1
+    fi
+    if (( WAITED >= MAX_WAIT )); then
+      echo "Timed out waiting for machine $SCRAPER_MACHINE_ID to start."
+      echo "Current status: $STATUS"
+      echo "Checking machine logs for errors..."
+      flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+      exit 1
+    fi
+    echo "Waiting for machine to start... (status: $STATUS, waited: ${WAITED}s)"
+    sleep 3
+    WAITED=$((WAITED+3))
+  done
+  
+  echo "Waiting for machine to fully initialize..."
+  sleep 10
+else
+  echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
+  echo "Checking machine logs for errors..."
+  flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+  exit 1
+fi
 # Define end of relevant log window relative to machine start
 SCRAPE_END_EPOCH=$((SCRAPE_START_EPOCH + LOG_WINDOW_SECONDS))
 
@@ -96,8 +121,28 @@ else
   REMOTE_CMD="sh -lc 'cd /app && $CMD'"
 fi
 
+# Verify machine is still running before executing command
+STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+if [[ "$STATUS" != "started" ]]; then
+  echo "Machine $SCRAPER_MACHINE_ID is not running (status: $STATUS). Cannot execute command."
+  echo "Checking machine logs for errors..."
+  flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+  exit 1
+fi
+
 # Execute the command in the machine
-flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "$REMOTE_CMD"
+echo "Executing command on machine..."
+if ! flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "$REMOTE_CMD"; then
+  echo "Command execution failed. Checking machine status..."
+  STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+  echo "Machine status after command failure: $STATUS"
+  echo "Checking recent logs for errors..."
+  flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+  EXIT_CODE=1
+else
+  echo "Command executed successfully."
+  EXIT_CODE=0
+fi
 
 # Wait for the machine to complete its natural execution
        echo "Waiting for machine to complete execution..."

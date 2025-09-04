@@ -1,0 +1,19 @@
+# Cursor Rules for TheMethod-PostHandler
+# This file configures Cursor's behavior for this project
+
+# Ignore GitHub Actions validation warnings locally
+# These warnings only apply to GitHub Actions runtime, not local development
+ignore:
+  - "Context access might be invalid"
+  - "secrets.*"
+  - "VITE_SUPABASE_URL"
+  - "VITE_SUPABASE_ANON_KEY"
+  - "SUPABASE_SERVICE_ROLE_KEY"
+  - "FLY_API_TOKEN"
+  - "SCRAPER_MACHINE_ID"
+
+# GitHub Actions files should only be validated in GitHub environment
+# Local validation of GitHub Actions syntax is not needed
+github-actions:
+  local-validation: false
+  ignore-secrets: true

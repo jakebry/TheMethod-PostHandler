@@ -11,13 +11,12 @@ primary_region = 'sea'
   PLAYWRIGHT_BROWSERS_PATH = '/app/.cache/playwright'
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
 
-[processes]
-  worker = "python -m src.main"
-
-[[jobs]]
-  name = "scrape-every-5-min"
-  schedule = "*/5 * * * *"
-  command = "python -m src.main"
+# Configure machine to auto-suspend when not in use
+[experimental]
+  # Allow machine to be suspended when not in use
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
 
 [[vm]]
   memory = '2048mb'
