@@ -4,7 +4,9 @@ FROM python:3.12-slim
 # Set environment variables for best practices
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=0
+    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=0 \
+    HOME=/home/appuser \
+    XDG_CACHE_HOME=/home/appuser/.cache
 
 # Create a non-root user for security
 RUN useradd -m appuser
