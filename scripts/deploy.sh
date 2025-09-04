@@ -23,9 +23,37 @@ else
     echo "✅ Volume already exists!"
 fi
 
-# Build and deploy
-echo "🔨 Building and deploying application..."
-fly deploy
+# Check if we have existing machines and their status
+echo "🔍 Checking for existing machines..."
+EXISTING_MACHINES=$(fly machines list --json | jq -r '.[].id' | wc -l)
+
+if [ "$EXISTING_MACHINES" -gt 0 ]; then
+    echo "✅ Found $EXISTING_MACHINES existing machine(s)"
+    
+    # Check if any machines are stopped
+    STOPPED_MACHINES=$(fly machines list --json | jq -r '.[] | select(.state == "stopped") | .id' | wc -l)
+    
+    if [ "$STOPPED_MACHINES" -gt 0 ]; then
+        echo "⚠️  Found $STOPPED_MACHINES stopped machine(s)"
+        echo "🔄 Starting stopped machines before deployment..."
+        
+        # Start all stopped machines
+        fly machines list --json | jq -r '.[] | select(.state == "stopped") | .id' | while read -r machine_id; do
+            echo "🚀 Starting machine: $machine_id"
+            fly machine start "$machine_id"
+        done
+        
+        # Wait a moment for machines to start
+        sleep 5
+    fi
+    
+    echo "🔄 Deploying to existing machines..."
+    # Use --ha=false to prevent creating new machines
+    fly deploy --ha=false
+else
+    echo "🆕 No existing machines found, creating new deployment..."
+    fly deploy
+fi
 
 echo "✅ Deployment completed!"
 echo ""

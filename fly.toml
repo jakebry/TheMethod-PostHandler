@@ -11,13 +11,10 @@ primary_region = 'sea'
   PLAYWRIGHT_BROWSERS_PATH = '/app/.cache/playwright'
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
 
-# Configure for single machine usage (not auto-scaling)
-# This prevents fly.io from trying to create new machines
-[experimental]
-  # Disable auto-scaling to use existing machine
-  auto_stop_machines = false
-  auto_start_machines = false
-  min_machines_running = 0
+# Configure as a worker process (not a web service)
+# This prevents fly.io from trying to create web service machines
+[processes]
+  worker = "python -m src.main"
 
 [[vm]]
   memory = '2048mb'

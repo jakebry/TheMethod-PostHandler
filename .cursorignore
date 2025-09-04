@@ -1,5 +1,3 @@
 # Cursor ignore file - exclude files from local linting
 # GitHub Actions workflows should only be validated in GitHub environment
 
-.github/workflows/*.yml
-.github/workflows/*.yaml
