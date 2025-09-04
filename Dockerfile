@@ -1,22 +1,4 @@
-# Multi-stage build for better security and smaller final image
-# Stage 1: Build dependencies
-FROM python:3.12-slim as builder
-
-# Install build dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        build-essential \
-        gcc \
-        g++ \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
-COPY requirements.txt ./
-RUN pip install --upgrade pip setuptools wheel \
-    && pip install --no-cache-dir --user -r requirements.txt
-
-# Stage 2: Runtime image
+# Use single-stage build for simplicity and reliability
 FROM python:3.12-slim
 
 # Set environment variables for best practices
@@ -61,11 +43,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get autoremove -y
 
-# Copy installed packages from builder stage
-COPY --from=builder /root/.local /root/.local
-
-# Make sure scripts in .local are usable
-ENV PATH=/root/.local/bin:$PATH
+# Install Python dependencies with security updates
+COPY requirements.txt ./
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install --no-cache-dir --upgrade -r requirements.txt \
+    && pip list
 
 # Copy project files
 COPY . .
@@ -86,6 +68,9 @@ RUN mkdir -p /app/.cache/playwright \
 
 # Install Playwright and Chromium browser
 RUN python -m playwright install chromium
+
+# Test that all required packages are available
+RUN python -c "import dotenv; import supabase; import playwright; import bs4; import requests; print('✅ All packages imported successfully')"
 
 # Set permissions
 RUN chown -R appuser:appuser /app
