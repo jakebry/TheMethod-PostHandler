@@ -4,7 +4,6 @@ FROM python:3.12-slim
 # Set environment variables for best practices
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PLAYWRIGHT_BROWSERS_PATH=/app/.cache/playwright \
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=0
 
 # Create a non-root user for security
@@ -56,9 +55,8 @@ RUN pip install --upgrade pip setuptools wheel \
 # Copy project files
 COPY . .
 
-# Create cache directories
-RUN mkdir -p /app/.cache/playwright \
-    && mkdir -p /app/.cache/browser_profiles \
+# Create cache directories for our own data (not browsers)
+RUN mkdir -p /app/.cache/browser_profiles \
     && mkdir -p /app/.cache/sessions
 
 # Alternative approach if you still get font errors:
@@ -77,7 +75,7 @@ RUN python -c "import dotenv; import supabase; import playwright; import bs4; im
 RUN chown -R appuser:appuser /app
 USER appuser
 
-# Install Playwright browsers as appuser (this ensures they're in the right location)
+# Install Playwright browsers as appuser (into default user cache, not the mounted volume)
 RUN python -m playwright install chromium
 
 # Debug: Show where browsers are installed

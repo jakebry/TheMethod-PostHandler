@@ -8,7 +8,7 @@ primary_region = 'sea'
 
 [env]
   # Browser optimization flags
-  PLAYWRIGHT_BROWSERS_PATH = '/app/.cache/playwright'
+  # Let Playwright manage its own browser cache location per user
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
 
 # Configure as a worker process (not a web service)
