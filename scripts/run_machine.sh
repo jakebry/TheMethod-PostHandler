@@ -73,15 +73,13 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
     fi
     if [[ "$STATUS" == "failed" ]]; then
       echo "Machine $SCRAPER_MACHINE_ID failed to start. Status: $STATUS"
-      echo "Checking machine logs for errors..."
-      flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+      echo "Start failure; refer to GitHub Actions exec output for logs."
       exit 1
     fi
     if (( WAITED >= MAX_WAIT )); then
       echo "Timed out waiting for machine $SCRAPER_MACHINE_ID to start."
       echo "Current status: $STATUS"
-      echo "Checking machine logs for errors..."
-      flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+      echo "Timeout during start; refer to GitHub Actions exec output for logs."
       exit 1
     fi
     echo "Waiting for machine to start... (status: $STATUS, waited: ${WAITED}s)"
@@ -90,7 +88,7 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   done
   
   echo "Waiting for machine to fully initialize..."
-  sleep 10
+  sleep 15
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."
@@ -128,23 +126,36 @@ fi
 STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
 if [[ "$STATUS" != "started" ]]; then
   echo "Machine $SCRAPER_MACHINE_ID is not running (status: $STATUS). Cannot execute command."
-  echo "Checking machine logs for errors..."
-  flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+  echo "Not executing; refer to GitHub Actions exec output for logs."
   exit 1
 fi
 
-# Execute the command in the machine
+# Execute the command on the machine with retries to handle transient exec readiness issues
+MAX_EXEC_RETRIES=${MAX_EXEC_RETRIES:-5}
+EXEC_RETRY_SLEEP=${EXEC_RETRY_SLEEP:-5}
+ATTEMPT=1
+EXEC_OK=false
 echo "Executing command on machine..."
-if ! flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "$REMOTE_CMD"; then
-  echo "Command execution failed. Checking machine status..."
+while [[ $ATTEMPT -le $MAX_EXEC_RETRIES ]]; do
+  echo "Exec attempt $ATTEMPT/$MAX_EXEC_RETRIES..."
+  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "$REMOTE_CMD"; then
+    EXEC_OK=true
+    break
+  fi
+  echo "Exec attempt $ATTEMPT failed. Checking machine status and retrying shortly..."
   STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
-  echo "Machine status after command failure: $STATUS"
-  echo "Checking recent logs for errors..."
-  flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
-  EXIT_CODE=1
-else
+  echo "Machine status: $STATUS"
+  # Only retry on transient errors
+  sleep "$EXEC_RETRY_SLEEP"
+  ATTEMPT=$((ATTEMPT+1))
+done
+
+if [[ "$EXEC_OK" == "true" ]]; then
   echo "Command executed successfully."
   EXIT_CODE=0
+else
+  echo "Command execution failed after $MAX_EXEC_RETRIES attempts."
+  EXIT_CODE=1
 fi
 
        # We already printed the exec output above; don't re-poll Fly logs.
