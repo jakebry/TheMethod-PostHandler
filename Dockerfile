@@ -50,7 +50,7 @@ RUN apt-get update \
 # Install Python dependencies with security updates
 COPY requirements.txt ./
 RUN pip install --upgrade pip setuptools wheel \
-    && pip install --no-cache-dir --upgrade -r requirements.txt \
+    && pip install --no-cache-dir --upgrade --root-user-action=ignore -r requirements.txt \
     && pip list
 
 # Copy project files
@@ -70,18 +70,22 @@ RUN mkdir -p /app/.cache/playwright \
 #     && rm -rf /var/lib/apt/lists/* \
 #     && python -m playwright install chromium
 
-# Install Playwright and Chromium browser (dependencies already installed above)
-RUN python -m playwright install chromium
-
 # Test that all required packages are available
 RUN python -c "import dotenv; import supabase; import playwright; import bs4; import requests; print('✅ All packages imported successfully')"
-
-# Test that Playwright can launch a browser
-RUN python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); browser = p.chromium.launch(headless=True); browser.close(); p.stop(); print('✅ Playwright browser test successful')"
 
 # Set permissions
 RUN chown -R appuser:appuser /app
 USER appuser
+
+# Install Playwright browsers as appuser (this ensures they're in the right location)
+RUN python -m playwright install chromium
+
+# Debug: Show where browsers are installed
+RUN find /app/.cache -name "*chromium*" -type d 2>/dev/null || echo "No chromium directories found"
+RUN find /app/.cache -name "*chrome*" -type f 2>/dev/null || echo "No chrome executables found"
+
+# Test that Playwright can launch a browser as appuser
+RUN python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); browser = p.chromium.launch(headless=True); browser.close(); p.stop(); print('✅ Playwright browser test successful')"
 
 # Default entrypoint - will be overridden by fly.toml for exec commands
 CMD ["python", "-m", "src.main"] 
