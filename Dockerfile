@@ -14,6 +14,7 @@ RUN useradd -m appuser
 WORKDIR /app
 
 # Install system dependencies and apply security updates
+# Include Playwright's required dependencies
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends \
@@ -39,6 +40,9 @@ RUN apt-get update \
         libxkbcommon0 \
         libxrandr2 \
         libxss1 \
+        libcups2 \
+        libcairo2 \
+        libpango-1.0-0 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get autoremove -y
@@ -66,11 +70,14 @@ RUN mkdir -p /app/.cache/playwright \
 #     && rm -rf /var/lib/apt/lists/* \
 #     && python -m playwright install chromium
 
-# Install Playwright and Chromium browser
+# Install Playwright and Chromium browser (dependencies already installed above)
 RUN python -m playwright install chromium
 
 # Test that all required packages are available
 RUN python -c "import dotenv; import supabase; import playwright; import bs4; import requests; print('✅ All packages imported successfully')"
+
+# Test that Playwright can launch a browser
+RUN python -c "from playwright.sync_api import sync_playwright; p = sync_playwright().start(); browser = p.chromium.launch(headless=True); browser.close(); p.stop(); print('✅ Playwright browser test successful')"
 
 # Set permissions
 RUN chown -R appuser:appuser /app
