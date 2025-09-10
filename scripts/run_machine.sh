@@ -101,6 +101,30 @@ fi
 # Define end of relevant log window relative to machine start
 SCRAPE_END_EPOCH=$((SCRAPE_START_EPOCH + LOG_WINDOW_SECONDS))
 
+# Proactively wait for exec readiness without changing exec timeouts
+echo "Checking exec readiness..."
+READY=false
+READY_ATTEMPTS=0
+MAX_READY_ATTEMPTS=${MAX_READY_ATTEMPTS:-20}
+READY_SLEEP_SECONDS=${READY_SLEEP_SECONDS:-2}
+while [[ $READY_ATTEMPTS -lt $MAX_READY_ATTEMPTS ]]; do
+  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "sh -lc 'echo ready'" >/dev/null 2>&1; then
+    READY=true
+    echo "Exec is ready."
+    break
+  fi
+  READY_ATTEMPTS=$((READY_ATTEMPTS+1))
+  echo "Waiting for exec readiness... attempt $READY_ATTEMPTS/$MAX_READY_ATTEMPTS"
+  sleep "$READY_SLEEP_SECONDS"
+done
+
+if [[ "$READY" != "true" ]]; then
+  echo "Machine did not become exec-ready in time. Aborting."
+  # Stop the machine before exiting
+  flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper || true
+  exit 1
+fi
+
 # Run the command on the machine
 echo "Running command: $CMD"
 # Set environment variables in the command if they exist
