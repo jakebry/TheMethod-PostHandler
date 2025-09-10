@@ -15,6 +15,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --image-label latest
+      - name: Build image (no release)
+        run: flyctl deploy --remote-only --image-label latest --build-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Update existing machine to latest image
+        run: |
+          set -e
+          APP="threads-scraper"
+          MID="${{ secrets.SCRAPER_MACHINE_ID }}"
+          echo "Stopping machine $MID (if running)..."
+          flyctl machine stop "$MID" -a "$APP" || true
+          echo "Updating machine $MID to latest image..."
+          flyctl machine update "$MID" -a "$APP" -i "registry.fly.io/threads-scraper:latest" --yes
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

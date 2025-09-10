@@ -24,3 +24,7 @@ primary_region = 'sea'
 [[mounts]]
   source = "browser_cache"
   destination = "/app/.cache"
+
+# Keep process group aligned with existing machine to avoid creating new group during deploy
+[processes]
+  app = "sleep infinity"
