@@ -142,38 +142,47 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
     # Fetch logs since launch time for this machine
     SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" --no-tail 2>/dev/null || true)
-    # Completion markers within this start window
-    if printf "%s" "$SNAPSHOT" | grep -q "\[END\] Scraper finished"; then
+    
+    # Narrow to only lines after the most recent [START] marker in this snapshot
+    START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep "\[START\] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
+    if [[ -n "$START_LINE_NUM" ]]; then
+      FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
+    else
+      FILTERED="$SNAPSHOT"
+    fi
+    
+    # Completion markers within this filtered window
+    if printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "Scraping process completed."; then
+    if printf "%s" "$FILTERED" | grep -q "Scraping process completed."; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "Main child exited normally with code: 0"; then
+    if printf "%s" "$FILTERED" | grep -q "Main child exited normally with code: 0"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "Method is working - successfully extracted posts."; then
+    if printf "%s" "$FILTERED" | grep -q "Method is working - successfully extracted posts."; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "\[DONE\] Scraping threads and storing in Supabase"; then
+    if printf "%s" "$FILTERED" | grep -q "\[DONE\] Scraping threads and storing in Supabase"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "machine exited with exit code 0, not restarting"; then
+    if printf "%s" "$FILTERED" | grep -q "machine exited with exit code 0, not restarting"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -Ei "error|traceback|exception" >/dev/null; then
+    if printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
       # Heuristic: error seen
       COMPLETE=true
       SUCCESS=false
