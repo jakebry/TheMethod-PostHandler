@@ -159,7 +159,8 @@ fi
 
 # Start live logs in background so GitHub Actions shows real-time output
 echo "Starting live logs..."
-flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --follow &
+# Older flyctl streams by default; --follow may not exist. Do not pass it.
+flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
 LOGS_PID=$!
 
 # Ensure we stop logs and the machine on exit
@@ -174,13 +175,20 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "Executing command on machine..."
+echo "Executing command on machine (exec)..."
 if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD"; then
   echo "Command executed successfully."
   EXIT_CODE=0
 else
-  echo "Command execution failed."
-  EXIT_CODE=1
+  echo "Exec failed; attempting SSH console fallback..."
+  # SSH fallback is often more resilient and streams output
+  if flyctl ssh console -a "$APP" --select "$SCRAPER_MACHINE_ID" -C "$REMOTE_CMD"; then
+    echo "SSH console executed command successfully."
+    EXIT_CODE=0
+  else
+    echo "SSH console fallback also failed."
+    EXIT_CODE=1
+  fi
 fi
 
 # Exit with the appropriate code (trap will stop machine)
