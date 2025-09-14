@@ -96,7 +96,7 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
   TMP_LOG=$(mktemp)
   echo "Starting live logs..."
-  (flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" | tee -a "$TMP_LOG") &
+  (flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" | tee -a "$TMP_LOG") &
   LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
   if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
