@@ -54,7 +54,7 @@ filter_logs_by_window() {
 
 # Check current machine status and start if needed
 echo "Checking machine $SCRAPER_MACHINE_ID status..."
-STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
 echo "Current machine status: $STATUS"
 
 if [[ "$STATUS" == "started" ]]; then
@@ -62,13 +62,13 @@ if [[ "$STATUS" == "started" ]]; then
   SCRAPE_START_EPOCH=$(date -u +%s)
 elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   echo "Starting machine $SCRAPER_MACHINE_ID..."
-  flyctl machine start "$SCRAPER_MACHINE_ID" -a threads-scraper
+  flyctl machine start "$SCRAPER_MACHINE_ID" -a "$APP"
   
   # Wait for machine to start (max 60 seconds)
   MAX_WAIT=60
   WAITED=0
   while true; do
-    STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+    STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
     if [[ "$STATUS" == "started" ]]; then
       echo "Machine $SCRAPER_MACHINE_ID is started."
       SCRAPE_START_EPOCH=$(date -u +%s)
@@ -95,7 +95,7 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."
-  flyctl logs -a threads-scraper --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+  flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
   exit 1
 fi
 # Define end of relevant log window relative to machine start
@@ -108,7 +108,7 @@ READY_ATTEMPTS=0
 MAX_READY_ATTEMPTS=${MAX_READY_ATTEMPTS:-20}
 READY_SLEEP_SECONDS=${READY_SLEEP_SECONDS:-2}
 while [[ $READY_ATTEMPTS -lt $MAX_READY_ATTEMPTS ]]; do
-  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "sh -lc 'echo ready'" >/dev/null 2>&1; then
+  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'echo ready'" >/dev/null 2>&1; then
     READY=true
     echo "Exec is ready."
     break
@@ -121,7 +121,7 @@ done
 if [[ "$READY" != "true" ]]; then
   echo "Machine did not become exec-ready in time. Aborting."
   # Stop the machine before exiting
-  flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper || true
+  flyctl machine stop "$SCRAPER_MACHINE_ID" -a "$APP" || true
   exit 1
 fi
 
@@ -150,47 +150,38 @@ else
 fi
 
 # Verify machine is still running before executing command
-STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
 if [[ "$STATUS" != "started" ]]; then
   echo "Machine $SCRAPER_MACHINE_ID is not running (status: $STATUS). Cannot execute command."
   echo "Not executing; refer to GitHub Actions exec output for logs."
   exit 1
 fi
 
-# Execute the command on the machine with retries to handle transient exec readiness issues
-MAX_EXEC_RETRIES=${MAX_EXEC_RETRIES:-5}
-EXEC_RETRY_SLEEP=${EXEC_RETRY_SLEEP:-5}
-ATTEMPT=1
-EXEC_OK=false
-echo "Executing command on machine..."
-while [[ $ATTEMPT -le $MAX_EXEC_RETRIES ]]; do
-  echo "Exec attempt $ATTEMPT/$MAX_EXEC_RETRIES..."
-  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a threads-scraper "$REMOTE_CMD"; then
-    EXEC_OK=true
-    break
-  fi
-  echo "Exec attempt $ATTEMPT failed. Checking machine status and retrying shortly..."
-  STATUS=$(flyctl machines list -a threads-scraper --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
-  echo "Machine status: $STATUS"
-  # Only retry on transient errors
-  sleep "$EXEC_RETRY_SLEEP"
-  ATTEMPT=$((ATTEMPT+1))
-done
+# Start live logs in background so GitHub Actions shows real-time output
+echo "Starting live logs..."
+flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --follow &
+LOGS_PID=$!
 
-if [[ "$EXEC_OK" == "true" ]]; then
+# Ensure we stop logs and the machine on exit
+cleanup() {
+  if [[ -n "$LOGS_PID" ]]; then
+    kill "$LOGS_PID" 2>/dev/null || true
+    wait "$LOGS_PID" 2>/dev/null || true
+  fi
+  # Stop the machine (no --wait flag)
+  flyctl machine stop "$SCRAPER_MACHINE_ID" -a "$APP" || true
+  echo "Machine $SCRAPER_MACHINE_ID has been successfully stopped."
+}
+trap cleanup EXIT
+
+echo "Executing command on machine..."
+if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD"; then
   echo "Command executed successfully."
   EXIT_CODE=0
 else
-  echo "Command execution failed after $MAX_EXEC_RETRIES attempts."
+  echo "Command execution failed."
   EXIT_CODE=1
 fi
 
-       # We already printed the exec output above; don't re-poll Fly logs.
-       echo "No additional log polling needed; using exec output for result."
-
-# Stop the machine (no --wait flag)
-flyctl machine stop "$SCRAPER_MACHINE_ID" -a threads-scraper
-echo "Machine $SCRAPER_MACHINE_ID has been successfully stopped."
-
-# Exit with the appropriate code
+# Exit with the appropriate code (trap will stop machine)
 exit $EXIT_CODE
