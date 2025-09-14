@@ -161,12 +161,6 @@ if [[ "$STATUS" != "started" ]]; then
   exit 1
 fi
 
-# Start live logs in background so GitHub Actions shows real-time output
-echo "Starting live logs..."
-# Older flyctl streams by default; --follow may not exist. Do not pass it.
-flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
-LOGS_PID=$!
-
 # Ensure we stop logs and the machine on exit
 cleanup() {
   if [[ -n "$LOGS_PID" ]]; then
@@ -180,13 +174,22 @@ cleanup() {
 trap cleanup EXIT
 
 echo "Launching scraper in background via exec..."
+# Record precise launch time so we can filter logs to this run only
+LAUNCH_EPOCH=$(date -u +%s)
 if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
   echo "Background process started; streaming logs until completion..."
+  # Start live logs after launch to avoid replaying earlier runs
+  echo "Starting live logs..."
+  flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
+  LOGS_PID=$!
   EXIT_CODE=0
 else
   echo "Background launch via exec did not confirm start; attempting SSH console fallback..."
   if flyctl ssh console -a "$APP" --select "$SCRAPER_MACHINE_ID" -C "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
     echo "Background process started via SSH; streaming logs until completion..."
+    echo "Starting live logs..."
+    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
+    LOGS_PID=$!
     EXIT_CODE=0
   else
     echo "Failed to launch background process."
@@ -203,24 +206,26 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   WAITED=0
   echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
-    # Fetch recent logs snapshot and check for success markers
-    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -200 || true)
-    if printf "%s" "$SNAPSHOT" | grep -q "\[END\] Scraper finished"; then
+    # Fetch recent logs snapshot and filter to this run window
+    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -400 || true)
+    NOW_EPOCH=$(date -u +%s)
+    FILTERED=$(filter_logs_by_window "$SNAPSHOT" "$LAUNCH_EPOCH" "$NOW_EPOCH")
+    if printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "Scraping process completed."; then
+    if printf "%s" "$FILTERED" | grep -q "Scraping process completed."; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -q "Main child exited normally with code: 0"; then
+    if printf "%s" "$FILTERED" | grep -q "Main child exited normally with code: 0"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$SNAPSHOT" | grep -qi "(ERROR|Traceback|Exception)"; then
+    if printf "%s" "$FILTERED" | grep -qi "(ERROR|Traceback|Exception)"; then
       # Heuristic: error seen
       COMPLETE=true
       SUCCESS=false
