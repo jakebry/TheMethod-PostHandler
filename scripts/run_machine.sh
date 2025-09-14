@@ -107,65 +107,6 @@ fi
 # Define end of relevant log window relative to machine start
 SCRAPE_END_EPOCH=$((SCRAPE_START_EPOCH + LOG_WINDOW_SECONDS))
 
-# Proactively wait for exec readiness without changing exec timeouts
-echo "Checking exec readiness..."
-READY=false
-READY_ATTEMPTS=0
-MAX_READY_ATTEMPTS=${MAX_READY_ATTEMPTS:-40}
-READY_SLEEP_SECONDS=${READY_SLEEP_SECONDS:-2}
-while [[ $READY_ATTEMPTS -lt $MAX_READY_ATTEMPTS ]]; do
-  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'echo ready'" >/dev/null 2>&1; then
-    READY=true
-    echo "Exec is ready."
-    break
-  fi
-  READY_ATTEMPTS=$((READY_ATTEMPTS+1))
-  echo "Waiting for exec readiness... attempt $READY_ATTEMPTS/$MAX_READY_ATTEMPTS"
-  sleep "$READY_SLEEP_SECONDS"
-done
-
-if [[ "$READY" != "true" ]]; then
-  echo "Machine did not report exec-ready in time. Proceeding to background launch attempts anyway."
-fi
-
-# Run the command on the machine
-echo "Running command: $CMD"
-# Set environment variables in the command if they exist
-ENV_CMD=""
-if [[ -n "$SUPABASE_SERVICE_ROLE_KEY" ]]; then
-  ENV_CMD="$ENV_CMD SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY"
-fi
-# App/runtime env
-if [[ -n "$VITE_SUPABASE_URL" ]]; then
-  ENV_CMD="$ENV_CMD VITE_SUPABASE_URL=$VITE_SUPABASE_URL"
-fi
-if [[ -n "$VITE_SUPABASE_ANON_KEY" ]]; then
-  ENV_CMD="$ENV_CMD VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY"
-fi
-# Ensure Playwright uses appuser cache rather than root or mounted volume
-ENV_CMD="$ENV_CMD HOME=/home/appuser XDG_CACHE_HOME=/home/appuser/.cache METHOD_HISTORY_DIR=/app/.cache/method_history"
-
-# Build a single command string to pass to flyctl (avoid multiple args)
-if [[ -n "$ENV_CMD" ]]; then
-  REMOTE_CMD="sh -lc 'cd /app && env $ENV_CMD $CMD'"
-else
-  REMOTE_CMD="sh -lc 'cd /app && $CMD'"
-fi
-
-# For reliability in CI, run the scraper in the background and stream logs until it finishes.
-# Tag this run with a unique RUN_ID so we can filter logs precisely.
-RUN_ID="RUN_$(date -u +%Y%m%dT%H%M%SZ)_$RANDOM"
-# Run in background subshell without nohup; stream to init stdout
-REMOTE_CMD_BG="sh -lc 'cd /app && echo $RUN_ID:START && ( $CMD; EC=$?; echo $RUN_ID:EXIT:$EC ) >/proc/1/fd/1 2>&1 & echo BACKGROUND_STARTED'"
-
-# Verify machine is still running before executing command
-STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
-if [[ "$STATUS" != "started" ]]; then
-  echo "Machine $SCRAPER_MACHINE_ID is not running (status: $STATUS). Cannot execute command."
-  echo "Not executing; refer to GitHub Actions exec output for logs."
-  exit 1
-fi
-
 # Ensure we stop logs and the machine on exit
 cleanup() {
   if [[ -n "$LOGS_PID" ]]; then
@@ -178,46 +119,16 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "Launching scraper in background via exec..."
+# We don't exec any command; the machine's configured process will run on start.
 # Record precise launch time so we can filter logs to this run only
 LAUNCH_EPOCH=$(date -u +%s)
-
-# Retry background launch a few times, re-checking machine status and exec readiness
-MAX_LAUNCH_RETRIES=${MAX_LAUNCH_RETRIES:-8}
-LAUNCH_SLEEP=${LAUNCH_SLEEP:-5}
-ATTEMPT=1
-BG_STARTED=false
-while [[ $ATTEMPT -le $MAX_LAUNCH_RETRIES ]]; do
-  echo "Launch attempt $ATTEMPT/$MAX_LAUNCH_RETRIES..."
-  STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
-  if [[ "$STATUS" != "started" ]]; then
-    echo "Machine not in started state (status: $STATUS). Starting..."
-    flyctl machine start "$SCRAPER_MACHINE_ID" -a "$APP" || true
-    sleep "$LAUNCH_SLEEP"
-  fi
-  # Re-check lightweight exec readiness
-  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'echo ready'" >/dev/null 2>&1; then
-    if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
-      BG_STARTED=true
-      break
-    fi
-  fi
-  echo "Launch attempt $ATTEMPT failed; retrying shortly..."
-  sleep "$LAUNCH_SLEEP"
-  ATTEMPT=$((ATTEMPT+1))
-done
-
-if [[ "$BG_STARTED" == "true" ]]; then
-  echo "Background process started; streaming logs until completion..."
-  # Start live logs after launch to avoid replaying earlier runs
+# Start/ensure live logs are streaming now (may already be started earlier)
+if [[ -z "$LOGS_PID" ]]; then
   echo "Starting live logs..."
   flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
   LOGS_PID=$!
-  EXIT_CODE=0
-else
-  echo "Failed to launch background process after $MAX_LAUNCH_RETRIES attempts."
-  EXIT_CODE=1
 fi
+EXIT_CODE=0
 
 # If background launch succeeded, wait for completion markers in logs (bounded)
 if [[ $EXIT_CODE -eq 0 ]]; then
@@ -232,19 +143,7 @@ if [[ $EXIT_CODE -eq 0 ]]; then
     SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -800 || true)
     NOW_EPOCH=$(date -u +%s)
     FILTERED=$(filter_logs_by_window "$SNAPSHOT" "$LAUNCH_EPOCH" "$NOW_EPOCH")
-    # Look for our explicit RUN_ID exit marker first
-    if printf "%s" "$FILTERED" | grep -q "$RUN_ID:EXIT:"; then
-      COMPLETE=true
-      EXIT_LINE=$(printf "%s" "$FILTERED" | grep "$RUN_ID:EXIT:" | tail -1)
-      EXIT_CODE=$(printf "%s" "$EXIT_LINE" | awk -F: '{print $3}')
-      if [[ "$EXIT_CODE" == "0" ]]; then
-        SUCCESS=true
-      else
-        SUCCESS=false
-      fi
-      break
-    fi
-    # Fallback markers (same-run only)
+    # Completion markers within this start window
     if printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
       COMPLETE=true
       SUCCESS=true

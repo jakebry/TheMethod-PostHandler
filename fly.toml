@@ -10,6 +10,8 @@ primary_region = 'sea'
   # Browser optimization flags
   # Let Playwright manage its own browser cache location per user
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = '0'
+  # Writable location for method history file used by src/method_tracker.py
+  METHOD_HISTORY_DIR = '/app/.cache/method_history'
 
 # No default process; machine idles until we exec the scraper command
 
