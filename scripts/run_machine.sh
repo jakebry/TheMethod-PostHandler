@@ -109,8 +109,7 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
           if (seen_time && index($0, "[START] Scraping threads and storing in Supabase")>0) { started=1 }
           if (started) { print; fflush() }
         }
-      '
-    | tee -a "$TMP_LOG"
+      ' | tee -a "$TMP_LOG"
   ) &
   LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
