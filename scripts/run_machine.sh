@@ -92,6 +92,12 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   
   echo "Waiting for machine to fully initialize..."
   sleep "$INIT_WAIT_SECONDS"
+  # Start live logs early to keep the machine active and show output while we wait
+  if [[ -z "$LOGS_PID" ]]; then
+    echo "Starting live logs..."
+    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
+    LOGS_PID=$!
+  fi
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."
@@ -119,10 +125,7 @@ while [[ $READY_ATTEMPTS -lt $MAX_READY_ATTEMPTS ]]; do
 done
 
 if [[ "$READY" != "true" ]]; then
-  echo "Machine did not become exec-ready in time. Aborting."
-  # Stop the machine before exiting
-  flyctl machine stop "$SCRAPER_MACHINE_ID" -a "$APP" || true
-  exit 1
+  echo "Machine did not report exec-ready in time. Proceeding to background launch attempts anyway."
 fi
 
 # Run the command on the machine
@@ -152,7 +155,8 @@ fi
 # For reliability in CI, run the scraper in the background and stream logs until it finishes.
 # Tag this run with a unique RUN_ID so we can filter logs precisely.
 RUN_ID="RUN_$(date -u +%Y%m%dT%H%M%SZ)_$RANDOM"
-REMOTE_CMD_BG="sh -lc 'cd /app && echo $RUN_ID:START && (nohup $CMD >> /proc/1/fd/1 2>&1; EC=$?; echo $RUN_ID:EXIT:$EC) & echo BACKGROUND_STARTED'"
+# Run in background subshell without nohup; stream to init stdout
+REMOTE_CMD_BG="sh -lc 'cd /app && echo $RUN_ID:START && ( $CMD; EC=$?; echo $RUN_ID:EXIT:$EC ) >/proc/1/fd/1 2>&1 & echo BACKGROUND_STARTED'"
 
 # Verify machine is still running before executing command
 STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
