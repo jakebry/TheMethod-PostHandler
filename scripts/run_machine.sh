@@ -96,7 +96,7 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
   TMP_LOG=$(mktemp)
   echo "Starting live logs..."
-  (flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" | tee -a "$TMP_LOG") &
+  (flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" | awk '/\[START\] Scraping threads and storing in Supabase/{started=1} started{print; fflush()}' | tee -a "$TMP_LOG") &
   LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
   if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
@@ -207,6 +207,12 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   done
 
   if [[ "$COMPLETE" == "true" ]]; then
+    # Stop live logs proactively before shutdown to avoid printing future runs
+    if [[ -n "$LOGS_PID" ]]; then
+      kill "$LOGS_PID" 2>/dev/null || true
+      wait "$LOGS_PID" 2>/dev/null || true
+      LOGS_PID=""
+    fi
     if [[ "$SUCCESS" == "true" ]]; then
       echo "Detected successful completion in logs."
       EXIT_CODE=0
