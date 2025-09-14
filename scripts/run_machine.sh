@@ -177,7 +177,33 @@ trap cleanup EXIT
 echo "Launching scraper in background via exec..."
 # Record precise launch time so we can filter logs to this run only
 LAUNCH_EPOCH=$(date -u +%s)
-if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
+
+# Retry background launch a few times, re-checking machine status and exec readiness
+MAX_LAUNCH_RETRIES=${MAX_LAUNCH_RETRIES:-5}
+LAUNCH_SLEEP=${LAUNCH_SLEEP:-5}
+ATTEMPT=1
+BG_STARTED=false
+while [[ $ATTEMPT -le $MAX_LAUNCH_RETRIES ]]; do
+  echo "Launch attempt $ATTEMPT/$MAX_LAUNCH_RETRIES..."
+  STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+  if [[ "$STATUS" != "started" ]]; then
+    echo "Machine not in started state (status: $STATUS). Starting..."
+    flyctl machine start "$SCRAPER_MACHINE_ID" -a "$APP" || true
+    sleep "$LAUNCH_SLEEP"
+  fi
+  # Re-check lightweight exec readiness
+  if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'echo ready'" >/dev/null 2>&1; then
+    if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
+      BG_STARTED=true
+      break
+    fi
+  fi
+  echo "Launch attempt $ATTEMPT failed; retrying shortly..."
+  sleep "$LAUNCH_SLEEP"
+  ATTEMPT=$((ATTEMPT+1))
+done
+
+if [[ "$BG_STARTED" == "true" ]]; then
   echo "Background process started; streaming logs until completion..."
   # Start live logs after launch to avoid replaying earlier runs
   echo "Starting live logs..."
@@ -185,17 +211,8 @@ if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD_BG" | grep -
   LOGS_PID=$!
   EXIT_CODE=0
 else
-  echo "Background launch via exec did not confirm start; attempting SSH console fallback..."
-  if flyctl ssh console -a "$APP" --select "$SCRAPER_MACHINE_ID" -C "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
-    echo "Background process started via SSH; streaming logs until completion..."
-    echo "Starting live logs..."
-    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
-    LOGS_PID=$!
-    EXIT_CODE=0
-  else
-    echo "Failed to launch background process."
-    EXIT_CODE=1
-  fi
+  echo "Failed to launch background process after $MAX_LAUNCH_RETRIES attempts."
+  EXIT_CODE=1
 fi
 
 # If background launch succeeded, wait for completion markers in logs (bounded)
