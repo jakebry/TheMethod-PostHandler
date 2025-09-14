@@ -92,12 +92,12 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   
   echo "Waiting for machine to fully initialize..."
   sleep "$INIT_WAIT_SECONDS"
-  # Start live logs early to keep the machine active and show output while we wait
-  if [[ -z "$LOGS_PID" ]]; then
-    echo "Starting live logs..."
-    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
-    LOGS_PID=$!
-  fi
+  # Record launch timestamp and start live logs streaming to a file and stdout
+  LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+  TMP_LOG=$(mktemp)
+  echo "Starting live logs..."
+  (flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" | tee -a "$TMP_LOG") &
+  LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
   if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
     AUTO_STOP_DISABLED=true
@@ -119,6 +119,9 @@ cleanup() {
     kill "$LOGS_PID" 2>/dev/null || true
     wait "$LOGS_PID" 2>/dev/null || true
   fi
+  if [[ -n "$TMP_LOG" && -f "$TMP_LOG" ]]; then
+    rm -f "$TMP_LOG" || true
+  fi
   # Re-enable auto-stop if we disabled it
   if [[ "$AUTO_STOP_DISABLED" == "true" ]]; then
     flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=true >/dev/null 2>&1 || true
@@ -132,13 +135,6 @@ trap cleanup EXIT
 # We don't exec any command; the machine's configured process will run on start.
 # Record precise launch time so we can filter logs to this run only
 LAUNCH_EPOCH=$(date -u +%s)
-LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-# Start/ensure live logs are streaming now (may already be started earlier)
-if [[ -z "$LOGS_PID" ]]; then
-  echo "Starting live logs..."
-  flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
-  LOGS_PID=$!
-fi
 EXIT_CODE=0
 
 # If background launch succeeded, wait for completion markers in logs (bounded)
@@ -151,8 +147,8 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   KEPTALIVE=false
   echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
-    # Fetch logs since launch time for this machine
-    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" --no-tail 2>/dev/null || true)
+    # Read the latest portion of the live log stream file
+    SNAPSHOT=$(tail -n 4000 "$TMP_LOG" 2>/dev/null || true)
     
     # Narrow to only lines after the most recent [START] marker in this snapshot
     START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "[START] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
