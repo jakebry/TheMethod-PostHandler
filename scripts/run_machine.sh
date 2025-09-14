@@ -150,8 +150,9 @@ else
 fi
 
 # For reliability in CI, run the scraper in the background and stream logs until it finishes.
-# This avoids long-lived exec sessions that can time out.
-REMOTE_CMD_BG="sh -lc 'cd /app && (nohup $CMD >> /proc/1/fd/1 2>&1 &) && echo BACKGROUND_STARTED'"
+# Tag this run with a unique RUN_ID so we can filter logs precisely.
+RUN_ID="RUN_$(date -u +%Y%m%dT%H%M%SZ)_$RANDOM"
+REMOTE_CMD_BG="sh -lc 'cd /app && echo $RUN_ID:START && (nohup $CMD >> /proc/1/fd/1 2>&1; EC=$?; echo $RUN_ID:EXIT:$EC) & echo BACKGROUND_STARTED'"
 
 # Verify machine is still running before executing command
 STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
@@ -207,9 +208,22 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
     # Fetch recent logs snapshot and filter to this run window
-    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -400 || true)
+    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -800 || true)
     NOW_EPOCH=$(date -u +%s)
     FILTERED=$(filter_logs_by_window "$SNAPSHOT" "$LAUNCH_EPOCH" "$NOW_EPOCH")
+    # Look for our explicit RUN_ID exit marker first
+    if printf "%s" "$FILTERED" | grep -q "$RUN_ID:EXIT:"; then
+      COMPLETE=true
+      EXIT_LINE=$(printf "%s" "$FILTERED" | grep "$RUN_ID:EXIT:" | tail -1)
+      EXIT_CODE=$(printf "%s" "$EXIT_LINE" | awk -F: '{print $3}')
+      if [[ "$EXIT_CODE" == "0" ]]; then
+        SUCCESS=true
+      else
+        SUCCESS=false
+      fi
+      break
+    fi
+    # Fallback markers (same-run only)
     if printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
       COMPLETE=true
       SUCCESS=true
@@ -225,7 +239,7 @@ if [[ $EXIT_CODE -eq 0 ]]; then
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -qi "(ERROR|Traceback|Exception)"; then
+    if printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
       # Heuristic: error seen
       COMPLETE=true
       SUCCESS=false

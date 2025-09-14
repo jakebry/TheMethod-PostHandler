@@ -3,7 +3,11 @@ import os
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-HISTORY_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'threads_rotation_history.json')
+# Store history in a writable cache directory inside the app (mounted volume)
+# Can be overridden via env METHOD_HISTORY_DIR if needed
+HISTORY_DIR = os.environ.get("METHOD_HISTORY_DIR", "/app/.cache/method_history")
+os.makedirs(HISTORY_DIR, exist_ok=True)
+HISTORY_PATH = os.path.join(HISTORY_DIR, "threads_rotation_history.json")
 
 METHOD_NAME = "Method 1: Span hierarchy"
 
