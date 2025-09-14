@@ -122,6 +122,7 @@ trap cleanup EXIT
 # We don't exec any command; the machine's configured process will run on start.
 # Record precise launch time so we can filter logs to this run only
 LAUNCH_EPOCH=$(date -u +%s)
+LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 # Start/ensure live logs are streaming now (may already be started earlier)
 if [[ -z "$LOGS_PID" ]]; then
   echo "Starting live logs..."
@@ -139,42 +140,40 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   WAITED=0
   echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
-    # Fetch recent logs snapshot and filter to this run window
-    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -800 || true)
-    NOW_EPOCH=$(date -u +%s)
-    FILTERED=$(filter_logs_by_window "$SNAPSHOT" "$LAUNCH_EPOCH" "$NOW_EPOCH")
+    # Fetch logs since launch time for this machine
+    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" --no-tail 2>/dev/null || true)
     # Completion markers within this start window
-    if printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
+    if printf "%s" "$SNAPSHOT" | grep -q "\[END\] Scraper finished"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -q "Scraping process completed."; then
+    if printf "%s" "$SNAPSHOT" | grep -q "Scraping process completed."; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -q "Main child exited normally with code: 0"; then
+    if printf "%s" "$SNAPSHOT" | grep -q "Main child exited normally with code: 0"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -q "Method is working - successfully extracted posts."; then
+    if printf "%s" "$SNAPSHOT" | grep -q "Method is working - successfully extracted posts."; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -q "\[DONE\] Scraping threads and storing in Supabase"; then
+    if printf "%s" "$SNAPSHOT" | grep -q "\[DONE\] Scraping threads and storing in Supabase"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -q "machine exited with exit code 0, not restarting"; then
+    if printf "%s" "$SNAPSHOT" | grep -q "machine exited with exit code 0, not restarting"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
+    if printf "%s" "$SNAPSHOT" | grep -Ei "error|traceback|exception" >/dev/null; then
       # Heuristic: error seen
       COMPLETE=true
       SUCCESS=false
