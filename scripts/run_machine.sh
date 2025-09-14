@@ -96,7 +96,22 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
   TMP_LOG=$(mktemp)
   echo "Starting live logs..."
-  (flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" | awk '/\[START\] Scraping threads and storing in Supabase/{started=1} started{print; fflush()}' | tee -a "$TMP_LOG") &
+  (
+    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" \
+    | awk -v launch="$LAUNCH_ISO" '
+        function stripFrac(s){ sub(/\.[0-9]+Z$/, "Z", s); return s }
+        BEGIN{seen_time=0; started=0}
+        {
+          if (match($0, /^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z)/, a)) {
+            ts = stripFrac(a[1]);
+            if (ts >= launch) { seen_time=1 }
+          }
+          if (seen_time && index($0, "[START] Scraping threads and storing in Supabase")>0) { started=1 }
+          if (started) { print; fflush() }
+        }
+      '
+    | tee -a "$TMP_LOG"
+  ) &
   LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
   if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
