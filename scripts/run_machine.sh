@@ -159,6 +159,21 @@ if [[ $EXIT_CODE -eq 0 ]]; then
       SUCCESS=true
       break
     fi
+    if printf "%s" "$FILTERED" | grep -q "Method is working - successfully extracted posts."; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    if printf "%s" "$FILTERED" | grep -q "\[DONE\] Scraping threads and storing in Supabase"; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    if printf "%s" "$FILTERED" | grep -q "machine exited with exit code 0, not restarting"; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
     if printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
       # Heuristic: error seen
       COMPLETE=true
