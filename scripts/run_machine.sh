@@ -98,6 +98,12 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
     flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" &
     LOGS_PID=$!
   fi
+  # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
+  if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
+    AUTO_STOP_DISABLED=true
+  else
+    AUTO_STOP_DISABLED=false
+  fi
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."
@@ -112,6 +118,10 @@ cleanup() {
   if [[ -n "$LOGS_PID" ]]; then
     kill "$LOGS_PID" 2>/dev/null || true
     wait "$LOGS_PID" 2>/dev/null || true
+  fi
+  # Re-enable auto-stop if we disabled it
+  if [[ "$AUTO_STOP_DISABLED" == "true" ]]; then
+    flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=true >/dev/null 2>&1 || true
   fi
   # Stop the machine (no --wait flag)
   flyctl machine stop "$SCRAPER_MACHINE_ID" -a "$APP" || true
@@ -138,17 +148,25 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   WAIT_TIMEOUT_SECONDS=${WAIT_TIMEOUT_SECONDS:-1800} # 30 minutes
   SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
   WAITED=0
+  KEPTALIVE=false
   echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
     # Fetch logs since launch time for this machine
     SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" --no-tail 2>/dev/null || true)
     
     # Narrow to only lines after the most recent [START] marker in this snapshot
-    START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep "\[START\] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
+    START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "[START] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
     if [[ -n "$START_LINE_NUM" ]]; then
       FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
     else
       FILTERED="$SNAPSHOT"
+    fi
+    
+    # After we observe a START for this run, attempt a best-effort keepalive to prevent auto-stop
+    if [[ -n "$START_LINE_NUM" && "$KEPTALIVE" == "false" ]]; then
+      if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'nohup sleep 300 >/dev/null 2>&1 & echo KEPTALIVE'" >/dev/null 2>&1; then
+        KEPTALIVE=true
+      fi
     fi
     
     # Completion markers within this filtered window
