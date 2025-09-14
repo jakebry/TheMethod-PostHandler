@@ -149,6 +149,10 @@ else
   REMOTE_CMD="sh -lc 'cd /app && $CMD'"
 fi
 
+# For reliability in CI, run the scraper in the background and stream logs until it finishes.
+# This avoids long-lived exec sessions that can time out.
+REMOTE_CMD_BG="sh -lc 'cd /app && (nohup $CMD >> /proc/1/fd/1 2>&1 &) && echo BACKGROUND_STARTED'"
+
 # Verify machine is still running before executing command
 STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
 if [[ "$STATUS" != "started" ]]; then
@@ -175,18 +179,67 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "Executing command on machine (exec)..."
-if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD"; then
-  echo "Command executed successfully."
+echo "Launching scraper in background via exec..."
+if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
+  echo "Background process started; streaming logs until completion..."
   EXIT_CODE=0
 else
-  echo "Exec failed; attempting SSH console fallback..."
-  # SSH fallback is often more resilient and streams output
-  if flyctl ssh console -a "$APP" --select "$SCRAPER_MACHINE_ID" -C "$REMOTE_CMD"; then
-    echo "SSH console executed command successfully."
+  echo "Background launch via exec did not confirm start; attempting SSH console fallback..."
+  if flyctl ssh console -a "$APP" --select "$SCRAPER_MACHINE_ID" -C "$REMOTE_CMD_BG" | grep -q "BACKGROUND_STARTED"; then
+    echo "Background process started via SSH; streaming logs until completion..."
     EXIT_CODE=0
   else
-    echo "SSH console fallback also failed."
+    echo "Failed to launch background process."
+    EXIT_CODE=1
+  fi
+fi
+
+# If background launch succeeded, wait for completion markers in logs (bounded)
+if [[ $EXIT_CODE -eq 0 ]]; then
+  COMPLETE=false
+  SUCCESS=false
+  WAIT_TIMEOUT_SECONDS=${WAIT_TIMEOUT_SECONDS:-1800} # 30 minutes
+  SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
+  WAITED=0
+  echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
+  while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
+    # Fetch recent logs snapshot and check for success markers
+    SNAPSHOT=$(flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail 2>/dev/null | tail -200 || true)
+    if printf "%s" "$SNAPSHOT" | grep -q "\[END\] Scraper finished"; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    if printf "%s" "$SNAPSHOT" | grep -q "Scraping process completed."; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    if printf "%s" "$SNAPSHOT" | grep -q "Main child exited normally with code: 0"; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    if printf "%s" "$SNAPSHOT" | grep -qi "(ERROR|Traceback|Exception)"; then
+      # Heuristic: error seen
+      COMPLETE=true
+      SUCCESS=false
+      break
+    fi
+    sleep "$SLEEP_INTERVAL"
+    WAITED=$((WAITED+SLEEP_INTERVAL))
+  done
+
+  if [[ "$COMPLETE" == "true" ]]; then
+    if [[ "$SUCCESS" == "true" ]]; then
+      echo "Detected successful completion in logs."
+      EXIT_CODE=0
+    else
+      echo "Detected error completion in logs."
+      EXIT_CODE=1
+    fi
+  else
+    echo "Timed out waiting for completion markers."
     EXIT_CODE=1
   fi
 fi
