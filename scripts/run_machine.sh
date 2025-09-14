@@ -11,7 +11,7 @@ CMD=${1:-"python -m src.main"}
 LOG_WINDOW_SECONDS=${LOG_WINDOW_SECONDS:-120}
 
 # Warm-up wait after a machine starts (seconds)
-INIT_WAIT_SECONDS=${INIT_WAIT_SECONDS:-15}
+INIT_WAIT_SECONDS=${INIT_WAIT_SECONDS:-30}
 
 # Convert RFC3339/ISO8601 timestamp to epoch seconds (GNU date on Linux, BSD date on macOS)
 to_epoch() {
@@ -105,7 +105,7 @@ SCRAPE_END_EPOCH=$((SCRAPE_START_EPOCH + LOG_WINDOW_SECONDS))
 echo "Checking exec readiness..."
 READY=false
 READY_ATTEMPTS=0
-MAX_READY_ATTEMPTS=${MAX_READY_ATTEMPTS:-20}
+MAX_READY_ATTEMPTS=${MAX_READY_ATTEMPTS:-40}
 READY_SLEEP_SECONDS=${READY_SLEEP_SECONDS:-2}
 while [[ $READY_ATTEMPTS -lt $MAX_READY_ATTEMPTS ]]; do
   if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'echo ready'" >/dev/null 2>&1; then
@@ -140,7 +140,7 @@ if [[ -n "$VITE_SUPABASE_ANON_KEY" ]]; then
   ENV_CMD="$ENV_CMD VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY"
 fi
 # Ensure Playwright uses appuser cache rather than root or mounted volume
-ENV_CMD="$ENV_CMD HOME=/home/appuser XDG_CACHE_HOME=/home/appuser/.cache"
+ENV_CMD="$ENV_CMD HOME=/home/appuser XDG_CACHE_HOME=/home/appuser/.cache METHOD_HISTORY_DIR=/app/.cache/method_history"
 
 # Build a single command string to pass to flyctl (avoid multiple args)
 if [[ -n "$ENV_CMD" ]]; then
@@ -179,7 +179,7 @@ echo "Launching scraper in background via exec..."
 LAUNCH_EPOCH=$(date -u +%s)
 
 # Retry background launch a few times, re-checking machine status and exec readiness
-MAX_LAUNCH_RETRIES=${MAX_LAUNCH_RETRIES:-5}
+MAX_LAUNCH_RETRIES=${MAX_LAUNCH_RETRIES:-8}
 LAUNCH_SLEEP=${LAUNCH_SLEEP:-5}
 ATTEMPT=1
 BG_STARTED=false
