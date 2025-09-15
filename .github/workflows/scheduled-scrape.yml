@@ -8,6 +8,9 @@ on:
 jobs:
   run-scraper:
     runs-on: ubuntu-latest
+    concurrency:
+      group: scraper-schedule
+      cancel-in-progress: true
     permissions:
       contents: read
     steps:

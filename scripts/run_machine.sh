@@ -58,9 +58,27 @@ STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCR
 echo "Current machine status: $STATUS"
 
 if [[ "$STATUS" == "started" ]]; then
-  echo "Machine $SCRAPER_MACHINE_ID is already running."
-  SCRAPE_START_EPOCH=$(date -u +%s)
-elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
+  echo "Machine $SCRAPER_MACHINE_ID is already running; stopping for a clean start."
+  flyctl machine stop "$SCRAPER_MACHINE_ID" -a "$APP" || true
+  MAX_WAIT=60
+  WAITED=0
+  while true; do
+    STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+    if [[ "$STATUS" == "stopped" || "$STATUS" == "suspended" ]]; then
+      echo "Machine $SCRAPER_MACHINE_ID stopped."
+      break
+    fi
+    if (( WAITED >= MAX_WAIT )); then
+      echo "Timed out waiting for machine $SCRAPER_MACHINE_ID to stop."
+      exit 1
+    fi
+    echo "Waiting for machine to stop... (status: $STATUS, waited: ${WAITED}s)"
+    sleep 3
+    WAITED=$((WAITED+3))
+  done
+fi
+
+if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   echo "Starting machine $SCRAPER_MACHINE_ID..."
   flyctl machine start "$SCRAPER_MACHINE_ID" -a "$APP"
   
@@ -90,28 +108,18 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
     WAITED=$((WAITED+3))
   done
   
-  echo "Waiting for machine to fully initialize..."
-  sleep "$INIT_WAIT_SECONDS"
-  # Record launch timestamp and start live logs streaming to a file and stdout
-  LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-  TMP_LOG=$(mktemp)
-  echo "Starting live logs..."
-  (
-    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" \
-    | awk -v launch="$LAUNCH_ISO" '
-        function stripFrac(s){ sub(/\.[0-9]+Z$/, "Z", s); return s }
-        BEGIN{seen_time=0; started=0}
-        {
-          if (match($0, /^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z)/, a)) {
-            ts = stripFrac(a[1]);
-            if (ts >= launch) { seen_time=1 }
-          }
-          if (seen_time && index($0, "[START] Scraping threads and storing in Supabase")>0) { started=1 }
-          if (started) { print; fflush() }
-        }
-      ' | tee -a "$TMP_LOG"
-  ) &
-  LOGS_PID=$!
+    echo "Waiting for machine to fully initialize..."
+    sleep "$INIT_WAIT_SECONDS"
+    # Record launch timestamp and start live logs streaming to a file and stdout
+    LAUNCH_ISO=$(date -u -d "@$(($SCRAPE_START_EPOCH-5))" +%Y-%m-%dT%H:%M:%SZ)
+    TMP_LOG=$(mktemp)
+    echo "Starting live logs..."
+    (
+      flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" \
+      | awk '/\[START\] Scraping threads and storing in Supabase/ {started=1} started {print; fflush()}' \
+      | tee -a "$TMP_LOG"
+    ) &
+    LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
   if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
     AUTO_STOP_DISABLED=true
