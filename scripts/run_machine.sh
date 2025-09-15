@@ -58,9 +58,17 @@ STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCR
 echo "Current machine status: $STATUS"
 
 if [[ "$STATUS" == "started" ]]; then
-  echo "Machine $SCRAPER_MACHINE_ID is already running."
-  SCRAPE_START_EPOCH=$(date -u +%s)
-elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
+  echo "Machine is already running; stopping it to start fresh."
+  flyctl machine stop "$SCRAPER_MACHINE_ID" -a "$APP" || true
+  # wait until stopped
+  for i in {1..20}; do
+    STATUS=$(flyctl machines list -a "$APP" --json | jq -r ".[] | select(.id==\"$SCRAPER_MACHINE_ID\") | .state")
+    [[ "$STATUS" == "stopped" ]] && break
+    sleep 2
+  done
+fi
+
+if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   echo "Starting machine $SCRAPER_MACHINE_ID..."
   flyctl machine start "$SCRAPER_MACHINE_ID" -a "$APP"
   
@@ -100,14 +108,15 @@ elif [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
     flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" \
     | awk -v launch="$LAUNCH_ISO" '
         function stripFrac(s){ sub(/\.[0-9]+Z$/, "Z", s); return s }
-        BEGIN{seen_time=0; started=0}
+        BEGIN{seen_time=0; booted=0}
         {
           if (match($0, /^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z)/, a)) {
             ts = stripFrac(a[1]);
             if (ts >= launch) { seen_time=1 }
           }
-          if (seen_time && index($0, "[START] Scraping threads and storing in Supabase")>0) { started=1 }
-          if (started) { print; fflush() }
+          # Consider the VM "current" only after we see the boot marker for this session
+          if (seen_time && index($0, "Running Firecracker v")>0) { booted=1 }
+          if (booted) { print; fflush() }
         }
       ' | tee -a "$TMP_LOG"
   ) &
@@ -151,7 +160,7 @@ trap cleanup EXIT
 LAUNCH_EPOCH=$(date -u +%s)
 EXIT_CODE=0
 
-# If background launch succeeded, wait for completion markers in logs (bounded)
+# Wait for completion markers in logs (bounded)
 if [[ $EXIT_CODE -eq 0 ]]; then
   COMPLETE=false
   SUCCESS=false
@@ -164,16 +173,16 @@ if [[ $EXIT_CODE -eq 0 ]]; then
     # Read the latest portion of the live log stream file
     SNAPSHOT=$(tail -n 4000 "$TMP_LOG" 2>/dev/null || true)
     
-    # Narrow to only lines after the most recent [START] marker in this snapshot
-    START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "[START] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
-    if [[ -n "$START_LINE_NUM" ]]; then
-      FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
+    # Narrow to only lines after the most recent boot marker
+    BOOT_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "Running Firecracker v" | tail -1 | awk '{print $1}' || true)
+    if [[ -n "$BOOT_LINE_NUM" ]]; then
+      FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$BOOT_LINE_NUM)
     else
       FILTERED="$SNAPSHOT"
     fi
     
-    # After we observe a START for this run, attempt a best-effort keepalive to prevent auto-stop
-    if [[ -n "$START_LINE_NUM" && "$KEPTALIVE" == "false" ]]; then
+    # After we observe a boot marker, attempt a best-effort keepalive to prevent auto-stop
+    if [[ -n "$BOOT_LINE_NUM" && "$KEPTALIVE" == "false" ]]; then
       if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'nohup sleep 300 >/dev/null 2>&1 & echo KEPTALIVE'" >/dev/null 2>&1; then
         KEPTALIVE=true
       fi
