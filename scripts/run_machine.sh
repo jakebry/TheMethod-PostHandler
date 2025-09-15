@@ -6,51 +6,9 @@ set -e
 
 APP=${FLY_APP:-threads-scraper}
 MACHINE_ID=${SCRAPER_MACHINE_ID:?SCRAPER_MACHINE_ID env var is required}
-CMD=${1:-"python -m src.main"}
-# Window (in seconds) after machine start to consider logs relevant for this run
-LOG_WINDOW_SECONDS=${LOG_WINDOW_SECONDS:-120}
 
 # Warm-up wait after a machine starts (seconds)
 INIT_WAIT_SECONDS=${INIT_WAIT_SECONDS:-30}
-
-# Convert RFC3339/ISO8601 timestamp to epoch seconds (GNU date on Linux, BSD date on macOS)
-to_epoch() {
-  TS_RAW="$1"
-  # Normalize by removing fractional seconds if present (e.g., 2025-01-01T00:00:00.123Z -> 2025-01-01T00:00:00Z)
-  TS_NANO_STRIPPED=$(printf "%s" "$TS_RAW" | sed -E 's/([0-9]{2}:[0-9]{2}:[0-9]{2})(\.[0-9]+)?Z/\1Z/')
-  # Prefer GNU date (Linux, GitHub Actions)
-  if date -u -d "$TS_NANO_STRIPPED" +%s >/dev/null 2>&1; then
-    date -u -d "$TS_NANO_STRIPPED" +%s
-    return
-  fi
-  # Fallback for BSD date (macOS)
-  if command -v gdate >/dev/null 2>&1; then
-    gdate -u -d "$TS_NANO_STRIPPED" +%s
-    return
-  fi
-  # BSD date requires explicit format. Ensure "Z" is treated as UTC.
-  TS_BSD=$(printf "%s" "$TS_NANO_STRIPPED" | sed -E 's/Z$/ +0000/')
-  date -u -j -f "%Y-%m-%dT%H:%M:%S %z" "$TS_BSD" +%s 2>/dev/null || true
-}
-
-# Filter logs to only those whose timestamps fall within [start_epoch, end_epoch]
-filter_logs_by_window() {
-  LOG_INPUT="$1"
-  START_EPOCH="$2"
-  END_EPOCH="$3"
-  FILTERED=""
-  while IFS= read -r line; do
-    # Extract leading ISO8601 timestamp. Example: 2025-01-01T00:00:00Z ...
-    ts=$(printf "%s" "$line" | sed -nE 's/^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z).*/\1/p')
-    if [ -n "$ts" ]; then
-      epoch=$(to_epoch "$ts")
-      if [ -n "$epoch" ] && [ "$epoch" -ge "$START_EPOCH" ] && [ "$epoch" -le "$END_EPOCH" ]; then
-        FILTERED+="$line"$'\n'
-      fi
-    fi
-  done <<< "$LOG_INPUT"
-  printf "%s" "$FILTERED"
-}
 
 # Check current machine status and start if needed
 echo "Checking machine $SCRAPER_MACHINE_ID status..."
@@ -115,9 +73,19 @@ if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
     TMP_LOG=$(mktemp)
     echo "Starting live logs..."
     (
-      flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since "$LAUNCH_ISO" \
-      | awk '/\[START\] Scraping threads and storing in Supabase/ {started=1} started {print; fflush()}' \
-      | tee -a "$TMP_LOG"
+      flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" \
+      | awk -v launch="$LAUNCH_ISO" '
+          function stripFrac(s){ sub(/\.[0-9]+Z$/, "Z", s); return s }
+          BEGIN{seen_time=0; started=0}
+          {
+            if (match($0, /^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z)/, a)) {
+              ts = stripFrac(a[1]);
+              if (ts >= launch) { seen_time=1 }
+            }
+            if (seen_time && index($0, "[START] Scraping threads and storing in Supabase")>0) { started=1 }
+            if (started) { print; fflush() }
+          }
+        ' | tee -a "$TMP_LOG"
     ) &
     LOGS_PID=$!
   # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
@@ -129,12 +97,9 @@ if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."
-  flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --since 5m --no-tail | tail -50
+  flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" --no-tail | tail -50
   exit 1
 fi
-# Define end of relevant log window relative to machine start
-SCRAPE_END_EPOCH=$((SCRAPE_START_EPOCH + LOG_WINDOW_SECONDS))
-
 # Ensure we stop logs and the machine on exit
 cleanup() {
   if [[ -n "$LOGS_PID" ]]; then
@@ -155,8 +120,6 @@ cleanup() {
 trap cleanup EXIT
 
 # We don't exec any command; the machine's configured process will run on start.
-# Record precise launch time so we can filter logs to this run only
-LAUNCH_EPOCH=$(date -u +%s)
 EXIT_CODE=0
 
 # If background launch succeeded, wait for completion markers in logs (bounded)
