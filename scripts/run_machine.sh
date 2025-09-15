@@ -102,20 +102,7 @@ if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   LAUNCH_ISO=$(date -u +%Y-%m-%dT%H:%M:%SZ)
   TMP_LOG=$(mktemp)
   echo "Starting live logs..."
-  (
-    flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" \
-    | awk -v launch="$LAUNCH_ISO" '
-        function stripFrac(s){ sub(/\.[0-9]+Z$/, "Z", s); return s }
-        BEGIN{seen_time=0}
-        {
-          if (match($0, /^([0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?Z)/, a)) {
-            ts = stripFrac(a[1]);
-            if (ts >= launch) { seen_time=1 }
-          }
-          if (seen_time) { print; fflush() }
-        }
-      ' | tee -a "$TMP_LOG"
-  ) &
+  ( flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" | tee -a "$TMP_LOG" ) &
   LOGS_PID=$!
 
   echo "Waiting for machine to fully initialize..."
@@ -173,16 +160,22 @@ if [[ $EXIT_CODE -eq 0 ]]; then
     # Read the latest portion of the live log stream file
     SNAPSHOT=$(tail -n 4000 "$TMP_LOG" 2>/dev/null || true)
     
-    # Narrow to only lines after the most recent [START] marker or boot
+    # Narrow to only lines after the most recent boot or START marker
     START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "[START] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
     if [[ -n "$START_LINE_NUM" ]]; then
       FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
     else
-      FILTERED="$SNAPSHOT"
+      # fallback: slice at the most recent boot marker if present
+      BOOT_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "Running Firecracker v" | tail -1 | awk '{print $1}' || true)
+      if [[ -n "$BOOT_LINE_NUM" ]]; then
+        FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$BOOT_LINE_NUM)
+      else
+        FILTERED="$SNAPSHOT"
+      fi
     fi
     
     # After we observe activity, attempt a best-effort keepalive to prevent auto-stop
-    if [[ -n "$START_LINE_NUM" && "$KEPTALIVE" == "false" ]]; then
+    if [[ ( -n "$START_LINE_NUM" || -n "$BOOT_LINE_NUM" ) && "$KEPTALIVE" == "false" ]]; then
       if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'nohup sleep 300 >/dev/null 2>&1 & echo KEPTALIVE'" >/dev/null 2>&1; then
         KEPTALIVE=true
       fi
