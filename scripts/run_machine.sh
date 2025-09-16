@@ -80,6 +80,12 @@ if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
     if [[ "$STATUS" == "started" ]]; then
       echo "Machine $SCRAPER_MACHINE_ID is started."
       SCRAPE_START_EPOCH=$(date -u +%s)
+      # Disable auto-stop as early as possible to prevent early signals
+      if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
+        AUTO_STOP_DISABLED=true
+      else
+        AUTO_STOP_DISABLED=false
+      fi
       break
     fi
     if [[ "$STATUS" == "failed" ]]; then
@@ -104,16 +110,9 @@ if [[ "$STATUS" == "stopped" ]] || [[ "$STATUS" == "suspended" ]]; then
   echo "Starting live logs..."
   ( flyctl logs -a "$APP" --machine "$SCRAPER_MACHINE_ID" | tee -a "$TMP_LOG" ) &
   LOGS_PID=$!
-
+  
   echo "Waiting for machine to fully initialize..."
   sleep "$INIT_WAIT_SECONDS"
-
-  # Best-effort: disable auto-stop during run to avoid flapping off mid-logs
-  if flyctl machine update "$SCRAPER_MACHINE_ID" -a "$APP" --auto-stop=false >/dev/null 2>&1; then
-    AUTO_STOP_DISABLED=true
-  else
-    AUTO_STOP_DISABLED=false
-  fi
 else
   echo "Machine $SCRAPER_MACHINE_ID is in unexpected state: $STATUS"
   echo "Checking machine logs for errors..."
@@ -217,8 +216,8 @@ if [[ $EXIT_CODE -eq 0 ]]; then
     if [[ -z "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "Main child exited with signal"; then
       COMPLETE=true
       SUCCESS=false
-      break
-    fi
+    break
+  fi
 
     sleep "$SLEEP_INTERVAL"
     WAITED=$((WAITED+SLEEP_INTERVAL))
@@ -233,14 +232,14 @@ if [[ $EXIT_CODE -eq 0 ]]; then
     fi
     if [[ "$SUCCESS" == "true" ]]; then
       echo "Detected successful completion in logs."
-      EXIT_CODE=0
-    else
+  EXIT_CODE=0
+else
       echo "Detected error completion in logs."
       EXIT_CODE=1
     fi
   else
     echo "Timed out waiting for completion markers."
-    EXIT_CODE=1
+  EXIT_CODE=1
   fi
 fi
 
