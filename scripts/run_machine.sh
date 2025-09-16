@@ -154,70 +154,48 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   WAIT_TIMEOUT_SECONDS=${WAIT_TIMEOUT_SECONDS:-1800} # 30 minutes
   SLEEP_INTERVAL=${SLEEP_INTERVAL:-5}
   WAITED=0
-  KEPTALIVE=false
+  CURRENT_SEQ=""
   echo "Waiting for completion markers in logs (timeout: ${WAIT_TIMEOUT_SECONDS}s)..."
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
     # Read the latest portion of the live log stream file
     SNAPSHOT=$(tail -n 4000 "$TMP_LOG" 2>/dev/null || true)
     
-    # Narrow to only lines after the most recent boot or START marker
-    START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "[START] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
-    if [[ -n "$START_LINE_NUM" ]]; then
-      FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
-    else
-      # fallback: slice at the most recent boot marker if present
-      BOOT_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "Running Firecracker v" | tail -1 | awk '{print $1}' || true)
-      if [[ -n "$BOOT_LINE_NUM" ]]; then
-        FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$BOOT_LINE_NUM)
+    # If we don't yet know the current run sequence, try to detect it from the most recent START marker
+    if [[ -z "$CURRENT_SEQ" ]]; then
+      CURRENT_SEQ=$(printf "%s" "$SNAPSHOT" | grep -E "\\[RUNSEQ [0-9]+\\] START" | tail -1 | sed -E 's/.*\[RUNSEQ ([0-9]+)\] START.*/\1/' || true)
+    fi
+    
+    # Slice to only lines for the current run sequence (from its START)
+    if [[ -n "$CURRENT_SEQ" ]]; then
+      START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -E "\[RUNSEQ $CURRENT_SEQ\] START" | tail -1 | awk '{print $1}' || true)
+      if [[ -n "$START_LINE_NUM" ]]; then
+        FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM | grep -E "\[RUNSEQ $CURRENT_SEQ\]|")
       else
-        FILTERED="$SNAPSHOT"
+        FILTERED=""
       fi
+    else
+      # Fallback: no sequence yet, use snapshot (likely early boot)
+      FILTERED="$SNAPSHOT"
     fi
     
-    # After we observe activity, attempt a best-effort keepalive to prevent auto-stop
-    if [[ ( -n "$START_LINE_NUM" || -n "$BOOT_LINE_NUM" ) && "$KEPTALIVE" == "false" ]]; then
-      if flyctl machine exec "$SCRAPER_MACHINE_ID" -a "$APP" "sh -lc 'nohup sleep 300 >/dev/null 2>&1 & echo KEPTALIVE'" >/dev/null 2>&1; then
-        KEPTALIVE=true
-      fi
-    fi
-    
-    # Completion markers within this filtered window
-    if printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
+    # Completion markers strictly for this run sequence
+    if [[ -n "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "\[RUNSEQ $CURRENT_SEQ\] END"; then
       COMPLETE=true
       SUCCESS=true
       break
     fi
-    if printf "%s" "$FILTERED" | grep -q "Scraping process completed."; then
-      COMPLETE=true
-      SUCCESS=true
-      break
-    fi
-    if printf "%s" "$FILTERED" | grep -q "Main child exited normally with code: 0"; then
-      COMPLETE=true
-      SUCCESS=true
-      break
-    fi
-    if printf "%s" "$FILTERED" | grep -q "Method is working - successfully extracted posts."; then
-      COMPLETE=true
-      SUCCESS=true
-      break
-    fi
-    if printf "%s" "$FILTERED" | grep -q "\[DONE\] Scraping threads and storing in Supabase"; then
-      COMPLETE=true
-      SUCCESS=true
-      break
-    fi
-    if printf "%s" "$FILTERED" | grep -q "machine exited with exit code 0, not restarting"; then
-      COMPLETE=true
-      SUCCESS=true
-      break
-    fi
-    if printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
-      # Heuristic: error seen
+    if [[ -n "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "\[RUNSEQ $CURRENT_SEQ\] ERROR:"; then
       COMPLETE=true
       SUCCESS=false
       break
     fi
+    # Generic fatal heuristics (only if we don't yet have a sequence)
+    if [[ -z "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
+      COMPLETE=true
+      SUCCESS=false
+      break
+    fi
+
     sleep "$SLEEP_INTERVAL"
     WAITED=$((WAITED+SLEEP_INTERVAL))
   done
