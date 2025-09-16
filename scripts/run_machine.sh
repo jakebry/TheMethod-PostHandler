@@ -159,26 +159,39 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   while [[ $WAITED -lt $WAIT_TIMEOUT_SECONDS ]]; do
     # Read the latest portion of the live log stream file
     SNAPSHOT=$(tail -n 4000 "$TMP_LOG" 2>/dev/null || true)
-    
-    # If we don't yet know the current run sequence, try to detect it from the most recent START marker
+
+    # Determine current sequence from the most recent RUNSEQ START; otherwise use legacy [START]
     if [[ -z "$CURRENT_SEQ" ]]; then
-      CURRENT_SEQ=$(printf "%s" "$SNAPSHOT" | grep -E "\\[RUNSEQ [0-9]+\\] START" | tail -1 | sed -E 's/.*\[RUNSEQ ([0-9]+)\] START.*/\1/' || true)
+      CURRENT_SEQ=$(printf "%s" "$SNAPSHOT" | grep -E "\[RUNSEQ [0-9]+\] START" | tail -1 | sed -E 's/.*\[RUNSEQ ([0-9]+)\] START.*/\1/' || true)
     fi
-    
-    # Slice to only lines for the current run sequence (from its START)
+
+    # Slice to the most recent start marker (RUNSEQ or legacy START)
+    START_LINE_NUM=""
+    FILTERED=""
     if [[ -n "$CURRENT_SEQ" ]]; then
       START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -E "\[RUNSEQ $CURRENT_SEQ\] START" | tail -1 | awk '{print $1}' || true)
       if [[ -n "$START_LINE_NUM" ]]; then
-        FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM | grep -E "\[RUNSEQ $CURRENT_SEQ\]|")
+        FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
+      fi
+    fi
+    if [[ -z "$FILTERED" ]]; then
+      # Fallback to legacy START anchor if RUNSEQ markers aren't present yet
+      START_LINE_NUM=$(printf "%s" "$SNAPSHOT" | nl -ba | grep -F "[START] Scraping threads and storing in Supabase" | tail -1 | awk '{print $1}' || true)
+      if [[ -n "$START_LINE_NUM" ]]; then
+        FILTERED=$(printf "%s" "$SNAPSHOT" | tail -n +$START_LINE_NUM)
       else
         FILTERED=""
       fi
-    else
-      # Fallback: no sequence yet, use snapshot (likely early boot)
-      FILTERED="$SNAPSHOT"
     fi
-    
-    # Completion markers strictly for this run sequence
+
+    # If we still don't have a slice, continue waiting
+    if [[ -z "$FILTERED" ]]; then
+      sleep "$SLEEP_INTERVAL"
+      WAITED=$((WAITED+SLEEP_INTERVAL))
+      continue
+    fi
+
+    # Completion markers scoped to the current run slice
     if [[ -n "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "\[RUNSEQ $CURRENT_SEQ\] END"; then
       COMPLETE=true
       SUCCESS=true
@@ -189,8 +202,19 @@ if [[ $EXIT_CODE -eq 0 ]]; then
       SUCCESS=false
       break
     fi
-    # Generic fatal heuristics (only if we don't yet have a sequence)
-    if [[ -z "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -Ei "error|traceback|exception" >/dev/null; then
+    # Legacy success markers (no RUNSEQ yet)
+    if [[ -z "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "\[END\] Scraper finished"; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    if [[ -z "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "Main child exited normally with code: 0"; then
+      COMPLETE=true
+      SUCCESS=true
+      break
+    fi
+    # Legacy failure only when explicit child exit signal/code appears in the slice
+    if [[ -z "$CURRENT_SEQ" ]] && printf "%s" "$FILTERED" | grep -q "Main child exited with signal"; then
       COMPLETE=true
       SUCCESS=false
       break
